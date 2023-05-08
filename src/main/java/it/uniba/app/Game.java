@@ -4,7 +4,7 @@ public class Game {
     Board board;
     int turno = 0;
     int gameTime;
-    bool end = false;
+    boolean end = false;
     String difficult;
     // methods
     

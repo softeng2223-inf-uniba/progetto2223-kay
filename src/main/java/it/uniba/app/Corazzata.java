@@ -1,12 +1,6 @@
-import java.util.Arrays;
-
-public class Corazzata {
+public class Corazzata extends Ship {
     
     Corazzata() {
-        this.nameShip = "Corazzata";
-        this.size = 4;
-        this.nrShips = 2;
-        this.shipsPositioned = 0;
-        this.hits = Arrays.fill(hits, "false");
+        super("Corazzata", 4, 2, 0, null);
     }
 }

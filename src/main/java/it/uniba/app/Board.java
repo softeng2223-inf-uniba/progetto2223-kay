@@ -3,16 +3,10 @@ public class Board {
     Object boardGame[][];
     Object boardShots[][];
     // methods
-    void generateBoard() {
-        
-    }
+    // void generateBoard()
 
-    void showBoardGame() {
+    // void showBoardGame()
 
-    }
-
-    char convertIntToChar() {
-
-    }
+    // char convertIntToChar()
     
 }

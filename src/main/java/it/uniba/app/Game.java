@@ -1,3 +1,4 @@
+package it.uniba.app;
 public class Game {
 
     Player player;

@@ -6,6 +6,7 @@ public class Board {
     private char boardShots[][];
     private int boardSize;
     Board(){
+        boardSize = 10;
         this.boardGame = new char[boardSize][boardSize];
         this.boardShots = new char[boardSize][boardSize];
         for(int i = 0; i < boardSize; i++){

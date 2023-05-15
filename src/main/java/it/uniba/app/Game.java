@@ -15,21 +15,22 @@ public class Game {
     
     Game(Player player,Board board,String difficult)
     {
-        this.player=player;
-        this.board=board;
-        this.turno=0;
-        this.timer=new Timer();
-        this.end=false;
-        this.difficult=difficult;
+        this.player = player;
+        this.board = board;
+        this.turno = 0;
+        this.timer = new Timer();
+        this.end = false;
+        this.difficult = difficult;
     }
+
     Game(Player player,Board  board, int turno, Timer timer, boolean end, String difficult)
     {
-        this.player=player;
-        this.board=board;
-        this.turno=turno;
-        this.timer=timer;
-        this.end=end;
-        this.difficult=difficult;        
+        this.player = player;
+        this.board = board;
+        this.turno = turno;
+        this.timer = timer;
+        this.end = end;
+        this.difficult = difficult;        
     }
 
     public Player getPlayer(){
@@ -40,6 +41,7 @@ public class Game {
     {
         return this.board;
     }
+
     public int getTurno()
     {
         return this.turno;
@@ -88,17 +90,17 @@ public class Game {
     public void ShipPlacement()
     {
         //Ckecka se ci sono altre partite in corso
-        Board campoDiGioco=new Board();
+        Board campoDiGioco = new Board();
         //Genera le navi sul campo di gioco
-        Ship corazzata=new Corazzata();
-        Ship incrociatore=new Incrociatore();
-        Ship portaerei= new Portaerei();
-        Ship Cacciatorpediniere=new Cacciatorpediniere();
+        Ship corazzata = new Corazzata();
+        Ship incrociatore = new Incrociatore();
+        Ship portaerei = new Portaerei();
+        Ship cacciatorpediniere = new Cacciatorpediniere();
         //Posiziona le navi sul campo di gioco
-        campoDiGioco.generateShipsOnBoard(corazzata);
-        campoDiGioco.generateShipsOnBoard(incrociatore);
-        campoDiGioco.generateShipsOnBoard(portaerei);
-        campoDiGioco.generateShipsOnBoard(Cacciatorpediniere);
+        campoDiGioco.generateShipsOnBoard(corazzata); // 2 navi da 4
+        campoDiGioco.generateShipsOnBoard(incrociatore); // 3 navi da 3
+        campoDiGioco.generateShipsOnBoard(portaerei); // 1 nave da 5
+        campoDiGioco.generateShipsOnBoard(cacciatorpediniere); // 4 navi da 2
 
         System.out.println("[!] Le navi sono state posizionate sul campo di gioco");
         //Mostra il campo di gioco
@@ -107,7 +109,7 @@ public class Game {
 
     public static void main(String[] args) {
 
-        Game game=new Game(new Player(),new Board(),"facile");
+        Game game = new Game(new Player(), new Board(), "facile");
 
         game.ShipPlacement();
     }

@@ -5,7 +5,8 @@ public class Board {
     private char boardGame[][];
     private char boardShots[][];
     private int boardSize;
-    Board(){
+
+    Board() {
         boardSize = 10;
         this.boardGame = new char[boardSize][boardSize];
         this.boardShots = new char[boardSize][boardSize];
@@ -16,16 +17,29 @@ public class Board {
             }
         }
     }
+
+    public char[][] getBoard() {
+        return this.boardGame;
+    }
+
+    /*
+     * Funzione principale che posiziona le navi (30 slot) sulla boardGame
+     */
     public void generateShipsOnBoard(Ship ship){
-        while(ship.getShipsPositioned() < ship.getNrShips()){
+        while(ship.getShipsPositioned() < ship.getNrShips()) {
             int x = (int) (Math.random() * boardSize);
             int y = (int) (Math.random() * boardSize);
             boolean horizontal = Math.random() < 0.5;
+            System.out.println(x);
+            System.out.println(y);
+            System.out.println(horizontal);
             
             if (canPlaceShip(x, y, horizontal, ship)) {
                 placeShip(x, y, horizontal, ship);
                 ship.setShipPositioned();
-            }
+                this.showBoardGame();
+                System.out.println("\n");
+            } // bisogna entrare per forza nel if senno ripetere 
         }
     }
 
@@ -34,34 +48,35 @@ public class Board {
             if (x + ship.getSize() > boardSize) {
                 return false;
             }
-            else{
-                for (int i = x; i < x + ship.getSize(); i++) {
+            else {
+                for (int i = y; i < y + ship.getSize(); i++) {
                     if (boardGame[x][i] != 'v') {
                         return false;
                     }
                 }
             }
-
         } 
         else {
             if (y + ship.getSize() > boardSize) {
                 return false;
             }
-            for (int i = y; i < y + ship.getSize(); i++) {
+            for (int i = x; i < x + ship.getSize(); i++) {
                 if (boardGame[i][y] != 'v') {
                     return false;
                 }
             }
         }
+
         return true;
     }
 
     private void placeShip(int x, int y, boolean horizontal, Ship ship) {
+
         int index = 0;
         char column;
         if (horizontal) {
             for (int i = y; i < y + ship.getSize(); i++) {
-                boardGame[x][i] = 'n';
+                boardGame[x][i] = '1';
                 column = convertIntToChar(i);
                 ship.setCurrentPosition(column + Integer.toString(x), index);
                 index++;
@@ -70,25 +85,24 @@ public class Board {
         else {
             column = convertIntToChar(y);
             for (int i = x; i < x + ship.getSize(); i++) {
-                boardGame[i][y] = 'n';
+                boardGame[i][y] = '1';
                 ship.setCurrentPosition(column + Integer.toString(i), index);
                 index++;
             }
         }
     }
 
-    public void showBoardGame(){
+    public void showBoardGame() {
         System.out.println("  0 1 2 3 4 5 6 7 8 9");
-        for(int i=0;i<boardSize;i++)
-        {
+        for(int i = 0; i < boardSize; i++) {
             System.out.print(i+" ");
-            for(int j=0;j<boardSize;j++)
-            {
+            for(int j = 0; j < boardSize; j++) {
                 System.out.print(boardGame[i][j]+" ");
             }
             System.out.println();
         }
     }
+
     // void showBoardShots()
     
     public char convertIntToChar(int val){

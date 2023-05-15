@@ -43,11 +43,12 @@ public abstract class Ship {
     public boolean[] getHits() {
         return this.hits;
     }
+    
     public void setCurrentPosition(String position, int i) {
         this.currentPosition[i] = position;
     }
+
     public void setShipPositioned() {
         this.shipsPositioned++;
     }
-    
 }

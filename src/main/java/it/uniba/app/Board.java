@@ -18,34 +18,25 @@ public class Board {
         }
     }
 
-    public char[][] getBoard() {
-        return this.boardGame;
-    }
-
     /*
      * Funzione principale che posiziona le navi (30 slot) sulla boardGame
      */
-    public void generateShipsOnBoard(Ship ship){
+    public void generateShipsOnBoard(Ship ship) {
         while(ship.getShipsPositioned() < ship.getNrShips()) {
             int x = (int) (Math.random() * boardSize);
             int y = (int) (Math.random() * boardSize);
             boolean horizontal = Math.random() < 0.5;
-            System.out.println(x);
-            System.out.println(y);
-            System.out.println(horizontal);
             
             if (canPlaceShip(x, y, horizontal, ship)) {
                 placeShip(x, y, horizontal, ship);
                 ship.setShipPositioned();
-                this.showBoardGame();
-                System.out.println("\n");
-            } // bisogna entrare per forza nel if senno ripetere 
+            }
         }
     }
 
     private boolean canPlaceShip(int x, int y, boolean horizontal, Ship ship) {
         if (horizontal) {
-            if (x + ship.getSize() > boardSize) {
+            if (y + ship.getSize() > boardSize) {
                 return false;
             }
             else {
@@ -57,7 +48,7 @@ public class Board {
             }
         } 
         else {
-            if (y + ship.getSize() > boardSize) {
+            if (x + ship.getSize() > boardSize) {
                 return false;
             }
             for (int i = x; i < x + ship.getSize(); i++) {
@@ -106,8 +97,31 @@ public class Board {
     // void showBoardShots()
     
     public char convertIntToChar(int val){
-        // Metodo ancora non realizzato poiché lo switch non funziona correttamente, da fare quando ci sono gli altri.
-        return 'A';
+
+        switch (val) {
+            case 0:
+                return 'A';
+            case 1:
+                return 'B';
+            case 2:
+                return 'C';
+            case 3:
+                return 'D';
+            case 4:
+                return 'E';
+            case 5:
+                return 'F';
+            case 6:
+                return 'G';
+            case 7:
+                return 'H';
+            case 8:
+                return 'I';
+            case 9:
+                return 'L';
+            default: 
+                return 'M';
+        }
     }   
     
 }

@@ -44,7 +44,9 @@ public class GameMenu {
                 set.modDifficulty(3);
                 System.out.println("OK, " + set.printDifficulty());
                 break;
-            //case "/mostralivello":
+            case "/mostralivello":
+                System.out.println(set.printDifficulty());
+                System.out.println("Tentativi fallibili: " + set.getFailableShots());
             case "/gioca": // in questo case andrà avviata la partita e stampato il menu in game
                 //String difficult = "facile";
                 //difficult = selectDifficulty();

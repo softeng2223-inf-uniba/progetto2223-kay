@@ -3,10 +3,14 @@ package it.uniba.app;
  * Classe che contiene le impostazioni di gioco.
  */
 public class Settings {
+    private static final int CASE1 = 1;
+    private static final int CASE2 = 2;
+    private static final int CASE3 = 3;
     private final static int INITDIFF = 1;
     private final static int INITTIME = 5;
     private int difficulty;
     private int timeMax;
+    private int failableShots;
 
 /**
  * Costruttore della classe Settings, per inizializzare ad uno stato iniziale le impostazioni
@@ -14,6 +18,19 @@ public class Settings {
     Settings() {
         difficulty = INITDIFF;
         timeMax = INITTIME;
+        switch (this.difficulty) {
+            case CASE1:
+                this.failableShots = 50;
+                break;
+            case CASE2:
+                this.failableShots = 30;
+                break;
+            case CASE3:
+                this.failableShots = 10;
+                break;
+            default:
+                System.out.println("Errore inaspettato, riavvia il gioco");
+        }
     }
 
 /**
@@ -74,5 +91,12 @@ public class Settings {
  */
     public String printTimeMax() {
         return "Tempo massimo a disposizione: " + timeMax;
+    }
+
+/**
+* Metodo che restituisce la variabile failableShots.
+*/
+    public int getFailableShots() {
+        return this.failableShots;
     }
 }

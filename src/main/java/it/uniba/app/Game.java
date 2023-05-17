@@ -10,9 +10,11 @@ public class Game {
     private Timer timer;
     private boolean end;
     private int difficulty;
-    private int failableShots; //scala in base alla difficoltà, per ogni attacco fallito decrementa, se arriva a 0 abbiamo perso
-    
-    Game(Player player, Board board, Settings set) {
+    private int failableShots;
+    /*
+    *scala in base alla difficoltà, per ogni attacco fallito decrementa, se arriva a 0 abbiamo perso
+    */
+    Game(final Player player, final Board board, final Settings set) {
         this.player = player;
         this.board = board;
         this.turno = 0;
@@ -34,7 +36,7 @@ public class Game {
         }
     }
 
-    Game(Player player, Board  board, int turno, Timer timer, boolean end, Settings set) {
+    Game(final Player player, final Board board, final int turno, final Timer timer, final boolean end, final Settings set) {
         this.player = player;
         this.board = board;
         this.turno = turno;
@@ -53,7 +55,8 @@ public class Game {
                 break;
             default:
                 System.out.println("Errore inaspettato, riavvia il gioco");
-        }      
+                break;
+        }
     }
 
     public Player getPlayer() {
@@ -101,10 +104,7 @@ public class Game {
 
             }
         }, secondi*1000);
-        
-        
-    }
- */
+    } */
     public void ShipPlacement() {
         //Ckecka se ci sono altre partite in corso
         //Genera le navi sul campo di gioco
@@ -123,7 +123,7 @@ public class Game {
 
 
 
-    public static void main(String[] args) {
+    public static void main(final String[] args) {
 
         Game game = new Game(new Player(), new Board(), new Settings());
 

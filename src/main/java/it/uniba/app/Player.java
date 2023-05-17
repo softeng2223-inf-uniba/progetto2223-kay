@@ -1,6 +1,6 @@
 package it.uniba.app;
 public class Player {
-    String name;
+    private String name;
     //int failed_shots;
-    int shots;
+    private int shots;
 }

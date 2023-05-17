@@ -5,9 +5,6 @@ import java.util.Timer;
  * Classe che rappresenta il gioco.
  */
 public class Game {
-    private static final int CASE1 = 1;
-    private static final int CASE2 = 2;
-    private static final int CASE3 = 3;
     private Player player;
     private Board board;
     private int turno;
@@ -29,19 +26,7 @@ public class Game {
         this.timer = new Timer();
         this.end = false;
         this.difficulty = set.getDifficulty();
-        switch (this.difficulty) {
-            case CASE1:
-                this.failableShots = 50;
-                break;
-            case CASE2:
-                this.failableShots = 30;
-                break;
-            case CASE3:
-                this.failableShots = 10;
-                break;
-            default:
-                System.out.println("Errore inaspettato, riavvia il gioco");
-        }
+        this.failableShots = set.getFailableShots();
     }
 /**
  * Costruttore della classe Game, per continuare una partita salvata in precedenza.
@@ -53,20 +38,7 @@ public class Game {
         this.timer = timer;
         this.end = end;
         this.difficulty = set.getDifficulty();
-        switch (this.difficulty) {
-            case CASE1:
-                this.failableShots = 50;
-                break;
-            case CASE2:
-                this.failableShots = 30;
-                break;
-            case CASE3:
-                this.failableShots = 10;
-                break;
-            default:
-                System.out.println("Errore inaspettato, riavvia il gioco");
-                break;
-        }
+        this.failableShots = set.getFailableShots();
     }
 /**
  * Metodo che restituisce il giocatore.

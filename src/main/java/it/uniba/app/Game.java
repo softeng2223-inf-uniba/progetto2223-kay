@@ -15,6 +15,10 @@ public class Game {
     private boolean end;
     private int difficulty;
     //private int failableShots;
+    private Ship cacciatorpediniere;
+    private Ship incrociatore;
+    private Ship corazzata;
+    private Ship portaerei;
 /**
  * Costruttore della classe Game, per iniare una nuova partita da zero.
  * scala in base alla difficoltà, per ogni attacco fallito decrementa, se arriva a 0 abbiamo perso.
@@ -101,6 +105,30 @@ public class Game {
     public int getDifficulty() {
         return difficulty;
     }
+/**
+ * metodo che restituisce la corazzata
+ */
+    public Ship getCorazzata() {
+        return corazzata;
+    }
+/**
+ * metodo che restituisce l'incrociatore
+ */
+    public Ship getIncrociatore() {
+        return incrociatore;
+    }
+/**
+ * metodo che restituisce la portaerei
+ */
+    public Ship getPortaerei() {
+        return portaerei;
+    }
+/**
+ * metodo che restituisce il cacciatorpediniere
+ */
+    public Ship getCacciatorpediniere() {
+        return cacciatorpediniere;
+    }
 /*
     public void TimeSelection(int scelta,Timer timer)
     {
@@ -130,16 +158,16 @@ public class Game {
     public void shipPlacement() {
         //Ckecka se ci sono altre partite in corso
         //Genera le navi sul campo di gioco
-        Ship corazzata = new Corazzata();
-        Ship incrociatore = new Incrociatore();
-        Ship portaerei = new Portaerei();
-        Ship cacciatorpediniere = new Cacciatorpediniere();
+        this.cacciatorpediniere = new Cacciatorpediniere();
+        this.incrociatore = new Incrociatore();
+        this.corazzata = new Corazzata();
+        this.portaerei = new Portaerei();
         //Posiziona le navi sul campo di gioco
-        this.board.generateShipsOnBoard(corazzata); // 2 navi da 4
-        this.board.generateShipsOnBoard(incrociatore); // 3 navi da 3
-        this.board.generateShipsOnBoard(portaerei); // 1 nave da 5
         this.board.generateShipsOnBoard(cacciatorpediniere); // 4 navi da 2
-
+        this.board.generateShipsOnBoard(incrociatore); // 3 navi da 3
+        this.board.generateShipsOnBoard(corazzata); // 2 navi da 4
+        this.board.generateShipsOnBoard(portaerei); // 1 nave da 5
+        
         System.out.println("[!] Le navi sono state posizionate sul campo di gioco");
     }
 }

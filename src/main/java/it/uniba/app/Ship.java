@@ -9,7 +9,7 @@ public abstract class Ship {
     private int nrShips;
     private int shipsPositioned; //numero di navi posizionate di quella specifica istanza
     private String[] currentPosition; // contiene le coordinate della nave, esempio: [A1, A2, A3, A4, A5]
-    private boolean[] hits; // array che è lungo quanto è lunga la nave, e che contiene true se la nave è stata colpita in quella posizione, false altrimenti
+    private boolean[] hits; 
 /**
  * Costruttore della classe Ship.
  */

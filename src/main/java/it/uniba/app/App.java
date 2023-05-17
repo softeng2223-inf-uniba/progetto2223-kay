@@ -20,6 +20,8 @@ public final class App {
      * @param args command line arguments
      */
     public static void main(final String[] args) {
-        System.out.println(new App().getGreeting());
+        //System.out.println(new App().getGreeting());
+        Settings sett = new Settings();
+        GameMenu.printMenuPreGame(sett);
     }
 }

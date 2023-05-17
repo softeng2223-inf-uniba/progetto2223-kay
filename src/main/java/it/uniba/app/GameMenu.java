@@ -22,19 +22,6 @@ public class GameMenu {
         String command = scanner.nextLine();
         processCommandInGame(command, game);
     }
-/**
- * menu che viene stampato al comando /help
- */
-    public static void displayHelp(){
-        System.out.println("Benvenuto nella battaglia navale programmata dal gruppo Kay anno accademico 2022/23, lo scopo è quello di vincere la partita abbattendo tutte le navi avversarie prima che vengano affondate le tue...");
-        System.out.println("Qui sotto troverai tutte le funzioni utilizzabili per questo gioco:");
-        System.out.println("/gioca");
-        System.out.println("esci");
-        System.out.println("mostra livello");
-        System.out.println("mostra navi");
-        System.out.println("svela griglia");
-        System.out.println("esegui un comando per iniziare");
-    } 
     
 /**
  * processa i comandi che vengono inseriti prima che la partita venga avviata.
@@ -74,11 +61,13 @@ public class GameMenu {
                 displayHelp();
                 printMenuInGame(game);
                 break;
+            case "/mostranavi":
+                showShips(game);
+                printMenuInGame(game);
             case "/svelagriglia":
                 game.getBoard().showBoardGame();
+                printMenuInGame(game);
                 break;
-            //case "/mostranavi":
-                //showShips();
             case "/esci":
                 System.exit(0);
                 break;
@@ -88,6 +77,41 @@ public class GameMenu {
         }
 
     }
+/**
+ * metodo visualizza, per ogni tipo di nave, la dimensione in quadrati e il numero di esemplari da affondare.
+ */
+    public static void showShips(Game game) {
+        System.out.println("Il nome della quarta nave è: " + game.getCacciatorpediniere().getNameShip());
+        System.out.println("Occupa " + game.getCacciatorpediniere().getSize() + " quadrati");
+        System.out.println("Ce ne sono " + game.getCacciatorpediniere().getNrShips() + " disponibili");
+        System.out.println("Ne sono posizionate " + game.getCacciatorpediniere().getShipsPositioned() + " nella griglia");
+        System.out.println("Il nome della seconda nave è: " + game.getIncrociatore().getNameShip());
+        System.out.println("Occupa " + game.getIncrociatore().getSize() + " quadrati");
+        System.out.println("Ce ne sono " + game.getIncrociatore().getNrShips() + " disponibili");
+        System.out.println("Ne sono posizionate " + game.getIncrociatore().getShipsPositioned() + " nella griglia");
+        System.out.println("Il nome della prima nave è: " + game.getCorazzata().getNameShip());
+        System.out.println("Occupa " + game.getCorazzata().getSize() + " quadrati");
+        System.out.println("Ce ne sono " + game.getCorazzata().getNrShips() + " disponibili");
+        System.out.println("Ne sono posizionate " + game.getCorazzata().getShipsPositioned() + " nella griglia");
+        System.out.println("Il nome della terza nave è: " + game.getPortaerei().getNameShip());
+        System.out.println("Occupa " + game.getPortaerei().getSize() + " quadrati");
+        System.out.println("Ce ne sono " + game.getPortaerei().getNrShips() + " disponibili");
+        System.out.println("Ne sono posizionate " + game.getPortaerei().getShipsPositioned() + " nella griglia");
+    }
+
+/**
+ * menu che viene stampato al comando /help
+ */
+    public static void displayHelp() {
+        System.out.println("Benvenuto nella battaglia navale programmata dal gruppo Kay anno accademico 2022/23, lo scopo è quello di vincere la partita abbattendo tutte le navi avversarie");
+        System.out.println("Qui sotto troverai tutte le funzioni utilizzabili per questo gioco:");
+        System.out.println("gioca -> /gioca");
+        System.out.println("esci -> /esci");
+        System.out.println("mostra la difficoltà -> /mostralivello");
+        System.out.println("mostra navi -> /mostranavi");
+        System.out.println("svela griglia -> /svelagriglia");
+        System.out.println("esegui un comando per iniziare: ");
+    } 
 /**
  * metodo main.
  */

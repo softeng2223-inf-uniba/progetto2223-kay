@@ -1,54 +1,67 @@
 package it.uniba.app;
-
+/**
+ * Classe che gestisce la board di TempoGioco.
+ */
 public class Board {
-
-    private char boardGame[][];
-    private char boardShots[][];
-    private int boardSize;
-
+    private static final int CASE0 = 0;
+    private static final int CASE1 = 1;
+    private static final int CASE2 = 2;
+    private static final int CASE3 = 3;
+    private static final int CASE4 = 4;
+    private static final int CASE5 = 5;
+    private static final int CASE6 = 6;
+    private static final int CASE7 = 7;
+    private static final int CASE8 = 8;
+    private static final int CASE9 = 9;
+    private static final int BOARDSIZE = 10;
+    private static final double BOOLRAND = 0.5;
+    private char[ ][ ] boardGame;
+    private char[ ][ ] boardShots;
+/**
+ * Costruttore della classe Board.
+ * Inizializza la boardGame e la boardShots.
+ */
     Board() {
-        boardSize = 10;
-        this.boardGame = new char[boardSize][boardSize];
-        this.boardShots = new char[boardSize][boardSize];
-        for(int i = 0; i < boardSize; i++){
-            for(int j = 0; j < boardSize; j++) {
+        this.boardGame = new char[BOARDSIZE][BOARDSIZE];
+        this.boardShots = new char[BOARDSIZE][BOARDSIZE];
+        for (int i = 0; i < BOARDSIZE; i++) {
+            for (int j = 0; j < BOARDSIZE; j++) {
                 this.boardGame[i][j] = 'v';
                 this.boardShots[i][j] = 'v';
             }
         }
     }
+/**
+ * Metodo che genera la boardGame.
+ */
+    public void generateShipsOnBoard(final Ship ship) {
+        while (ship.getShipsPositioned() < ship.getNrShips()) {
+            int x = (int) (Math.random() * BOARDSIZE);
+            int y = (int) (Math.random() * BOARDSIZE);
+            boolean horizontal = Math.random() < BOOLRAND;
 
-    /*
-     * Funzione principale che posiziona le navi (30 slot) sulla boardGame
-     */
-    public void generateShipsOnBoard(Ship ship) {
-        while(ship.getShipsPositioned() < ship.getNrShips()) {
-            int x = (int) (Math.random() * boardSize);
-            int y = (int) (Math.random() * boardSize);
-            boolean horizontal = Math.random() < 0.5;
-            
             if (canPlaceShip(x, y, horizontal, ship)) {
                 placeShip(x, y, horizontal, ship);
                 ship.setShipPositioned();
             }
         }
     }
-
-    private boolean canPlaceShip(int x, int y, boolean horizontal, Ship ship) {
+/**
+ * Metodo che returna un booleano che indica se è possibile posizionere la nave in x,y.
+ */
+    private boolean canPlaceShip(final int x, final int y, final boolean horizontal, final Ship ship) {
         if (horizontal) {
-            if (y + ship.getSize() > boardSize) {
+            if (y + ship.getSize() > BOARDSIZE) {
                 return false;
-            }
-            else {
-                for (int i = y; i < y + ship.getSize(); i++) {
-                    if (boardGame[x][i] != 'v') {
-                        return false;
+            } else {
+                    for (int i = y; i < y + ship.getSize(); i++) {
+                     if (boardGame[x][i] != 'v') {
+                         return false;
                     }
                 }
             }
-        } 
-        else {
-            if (x + ship.getSize() > boardSize) {
+        } else {
+            if (x + ship.getSize() > BOARDSIZE) {
                 return false;
             }
             for (int i = x; i < x + ship.getSize(); i++) {
@@ -60,8 +73,10 @@ public class Board {
 
         return true;
     }
-
-    private void placeShip(int x, int y, boolean horizontal, Ship ship) {
+/**
+ *  Metodo che posiziona la nave in x,y.
+ */
+    private void placeShip(final int x, final int y, final boolean horizontal, final Ship ship) {
 
         int index = 0;
         char column;
@@ -72,56 +87,45 @@ public class Board {
                 ship.setCurrentPosition(column + Integer.toString(x), index);
                 index++;
             }
-        } 
-        else {
-            column = convertIntToChar(y);
-            for (int i = x; i < x + ship.getSize(); i++) {
+        } else {
+                column = convertIntToChar(y);
+                for (int i = x; i < x + ship.getSize(); i++) {
                 boardGame[i][y] = '1';
                 ship.setCurrentPosition(column + Integer.toString(i), index);
                 index++;
             }
         }
     }
-
+/**
+ * Stampa a video la board di gioco.
+ */
     public void showBoardGame() {
         System.out.println("  0 1 2 3 4 5 6 7 8 9");
-        for(int i = 0; i < boardSize; i++) {
-            System.out.print(i+" ");
-            for(int j = 0; j < boardSize; j++) {
-                System.out.print(boardGame[i][j]+" ");
+        for (int i = 0; i < BOARDSIZE; i++) {
+            System.out.print(i + " ");
+            for (int j = 0; j < BOARDSIZE; j++) {
+                System.out.print(boardGame[i][j] + " ");
             }
             System.out.println();
         }
     }
-
     // void showBoardShots()
-    
-    public char convertIntToChar(int val){
-
+/**
+ * Metodo che returna un valore in char in base al valore in int passato.
+ */
+    public char convertIntToChar(final int val) {
         switch (val) {
-            case 0:
-                return 'A';
-            case 1:
-                return 'B';
-            case 2:
-                return 'C';
-            case 3:
-                return 'D';
-            case 4:
-                return 'E';
-            case 5:
-                return 'F';
-            case 6:
-                return 'G';
-            case 7:
-                return 'H';
-            case 8:
-                return 'I';
-            case 9:
-                return 'L';
-            default: 
-                return 'M';
+            case CASE0: return 'A';
+            case CASE1: return 'B';
+            case CASE2: return 'C';
+            case CASE3: return 'D';
+            case CASE4: return 'E';
+            case CASE5: return 'F';
+            case CASE6: return 'G';
+            case CASE7: return 'H';
+            case CASE8: return 'I';
+            case CASE9: return 'L';
+            default: return 'M';
         }
-    }   
-    
+    }
 }

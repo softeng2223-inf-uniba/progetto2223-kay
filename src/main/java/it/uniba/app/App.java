@@ -1,7 +1,6 @@
 package it.uniba.app;
-
 /**
- * Main class of the application.
+ *  Class that contains the main method.
  */
 public final class App {
 

@@ -9,28 +9,53 @@ public class Game {
     private int turno;
     private Timer timer;
     private boolean end;
-    private String difficult;
-    //private final int TempoGioco1=5;
-    //private final int TempoGioco2=10;
+    private int difficulty;
+    private int failableShots; //scala in base alla difficoltà, per ogni attacco fallito decrementa, se arriva a 0 abbiamo perso
     
-    Game(Player player,Board board,String difficult)
+    Game(Player player, Board board, Settings set)
     {
         this.player = player;
         this.board = board;
         this.turno = 0;
         this.timer = new Timer();
         this.end = false;
-        this.difficult = difficult;
+        //this.difficulty = set.getDifficulty();
+        switch (this.difficulty) {
+            case 1:
+                this.failableShots = 50;
+                break;
+            case 2:
+                this.failableShots = 30;
+                break;
+            case 3:
+                this.failableShots = 10;
+                break;
+            default:
+                System.out.println("Errore inaspettato, riavvia il gioco");
+        }
     }
 
-    Game(Player player,Board  board, int turno, Timer timer, boolean end, String difficult)
+    Game(Player player, Board  board, int turno, Timer timer, boolean end, Settings set)
     {
         this.player = player;
         this.board = board;
         this.turno = turno;
         this.timer = timer;
         this.end = end;
-        this.difficult = difficult;        
+        //this.difficulty = set.getDifficulty();
+        switch (this.difficulty) {
+            case 1:
+                this.failableShots = 50;
+                break;
+            case 2:
+                this.failableShots = 30;
+                break;
+            case 3:
+                this.failableShots = 10;
+                break;
+            default:
+                System.out.println("Errore inaspettato, riavvia il gioco");
+        }      
     }
 
     public Player getPlayer(){
@@ -57,9 +82,9 @@ public class Game {
         return this.end;
     }
 
-    public String difficult()
+    public int getDifficulty()
     {
-        return this.difficult;
+        return difficulty;
     }
 /*
     public void TimeSelection(int scelta,Timer timer)
@@ -90,26 +115,25 @@ public class Game {
     public void ShipPlacement()
     {
         //Ckecka se ci sono altre partite in corso
-        Board campoDiGioco = new Board();
         //Genera le navi sul campo di gioco
         Ship corazzata = new Corazzata();
         Ship incrociatore = new Incrociatore();
         Ship portaerei = new Portaerei();
         Ship cacciatorpediniere = new Cacciatorpediniere();
         //Posiziona le navi sul campo di gioco
-        campoDiGioco.generateShipsOnBoard(corazzata); // 2 navi da 4
-        campoDiGioco.generateShipsOnBoard(incrociatore); // 3 navi da 3
-        campoDiGioco.generateShipsOnBoard(portaerei); // 1 nave da 5
-        campoDiGioco.generateShipsOnBoard(cacciatorpediniere); // 4 navi da 2
+        this.board.generateShipsOnBoard(corazzata); // 2 navi da 4
+        this.board.generateShipsOnBoard(incrociatore); // 3 navi da 3
+        this.board.generateShipsOnBoard(portaerei); // 1 nave da 5
+        this.board.generateShipsOnBoard(cacciatorpediniere); // 4 navi da 2
 
         System.out.println("[!] Le navi sono state posizionate sul campo di gioco");
-        //Mostra il campo di gioco
-        campoDiGioco.showBoardGame();
     }
+
+
 
     public static void main(String[] args) {
 
-        Game game = new Game(new Player(), new Board(), "facile");
+        Game game = new Game(new Player(), new Board(), new Settings());
 
         game.ShipPlacement();
     }

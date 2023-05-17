@@ -6,7 +6,7 @@ public class GameMenu {
     
 
     // menu che viene stampato solo quando la partita non è ancora iniziata
-    public static void printMenuPreGame(Settings set){
+    public static void printMenuPreGame(Settings set) {
         System.out.println("| BATTLESHIP |");
         System.out.println("DIGITA /help PER LA LISTA DEI COMANDI");
         String command = scanner.nextLine();
@@ -14,15 +14,15 @@ public class GameMenu {
     }
 
     // menu che viene stampato solo quando la partita è iniziata
-    public static void printMenuInGame(Game game){
+    public static void printMenuInGame(Game game) {
         System.out.println("DIGITA /help PER LA LISTA DEI COMANDI");
         String command = scanner.nextLine();
         processCommandInGame(command, game);
     }
 
     // comandi disponibili solo prima che una partita venga avviata
-    public static void processCommandPreGame(String command, Settings set){
-        switch(command){
+    public static void processCommandPreGame(String command, Settings set) {
+        switch (command) {
             //case "/help":
                 //displayHelp();
             //case "/facile":
@@ -38,8 +38,8 @@ public class GameMenu {
     }
 
     // comandi disponibili solo dopo che una partita è stata avviata
-    public static void processCommandInGame(String command, Game game){
-        switch(command){
+    public static void processCommandInGame(String command, Game game) {
+        switch (command) {
             case "/svelagriglia":
                 game.getBoard().showBoardGame();
                 break;
@@ -52,7 +52,7 @@ public class GameMenu {
 
     }
     
-    public static void main(String[] args){
+    public static void main(String[] args) {
         printMenuPreGame(new Settings());
     }
     

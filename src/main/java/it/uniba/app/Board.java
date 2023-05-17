@@ -1,16 +1,15 @@
 package it.uniba.app;
 public class Board {
-
-    private char boardGame[][];
-    private char boardShots[][];
+    private char [][] boardGame;
+    private char [][] boardShots;
     private int boardSize;
 
     Board() {
         boardSize = 10;
         this.boardGame = new char[boardSize][boardSize];
         this.boardShots = new char[boardSize][boardSize];
-        for(int i = 0; i < boardSize; i++){
-            for(int j = 0; j < boardSize; j++) {
+        for (int i = 0; i < boardSize; i++) {
+            for (int j = 0; j < boardSize; j++) {
                 this.boardGame[i][j] = 'v';
                 this.boardShots[i][j] = 'v';
             }
@@ -95,7 +94,7 @@ public class Board {
 
     // void showBoardShots()
     
-    public char convertIntToChar(int val){
+    public char convertIntToChar(int val) {
 
         switch (val) {
             case 0:
@@ -121,6 +120,5 @@ public class Board {
             default: 
                 return 'M';
         }
-    }   
-    
+    }
 }

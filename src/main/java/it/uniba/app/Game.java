@@ -12,8 +12,7 @@ public class Game {
     private int difficulty;
     private int failableShots; //scala in base alla difficoltà, per ogni attacco fallito decrementa, se arriva a 0 abbiamo perso
     
-    Game(Player player, Board board, Settings set)
-    {
+    Game(Player player, Board board, Settings set) {
         this.player = player;
         this.board = board;
         this.turno = 0;
@@ -35,8 +34,7 @@ public class Game {
         }
     }
 
-    Game(Player player, Board  board, int turno, Timer timer, boolean end, Settings set)
-    {
+    Game(Player player, Board  board, int turno, Timer timer, boolean end, Settings set) {
         this.player = player;
         this.board = board;
         this.turno = turno;
@@ -58,32 +56,27 @@ public class Game {
         }      
     }
 
-    public Player getPlayer(){
+    public Player getPlayer() {
         return this.player;
     }
 
-    public Board getBoard()
-    {
+    public Board getBoard() {
         return this.board;
     }
 
-    public int getTurno()
-    {
+    public int getTurno() {
         return this.turno;
     }
 
-    public Timer getTimer()
-    {
+    public Timer getTimer() {
         return this.timer;
     }
 
-    public boolean getEnd()
-    {
+    public boolean getEnd() {
         return this.end;
     }
 
-    public int getDifficulty()
-    {
+    public int getDifficulty() {
         return difficulty;
     }
 /*
@@ -112,8 +105,7 @@ public class Game {
         
     }
  */
-    public void ShipPlacement()
-    {
+    public void ShipPlacement() {
         //Ckecka se ci sono altre partite in corso
         //Genera le navi sul campo di gioco
         Ship corazzata = new Corazzata();

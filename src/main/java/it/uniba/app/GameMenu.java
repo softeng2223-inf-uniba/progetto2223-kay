@@ -32,9 +32,18 @@ public class GameMenu {
                 displayHelp();
                 printMenuPreGame(set);
                 break;
-            //case "/facile":
-            //case "/medio":
-            //case "/difficile":
+            case "/facile":
+                set.modDifficulty(1);
+                System.out.println("OK, " + set.printDifficulty());
+                break;
+            case "/medio":
+                set.modDifficulty(2);
+                System.out.println("OK, " + set.printDifficulty());
+                break;
+            case "/difficile":
+                set.modDifficulty(3);
+                System.out.println("OK, " + set.printDifficulty());
+                break;
             //case "/mostralivello":
             case "/gioca": // in questo case andrà avviata la partita e stampato il menu in game
                 //String difficult = "facile";

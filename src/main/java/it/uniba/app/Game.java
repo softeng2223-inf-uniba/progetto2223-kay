@@ -14,14 +14,13 @@ public class Game {
     private Timer timer;
     private boolean end;
     private int difficulty;
-    //private int failableShots;
+    private int failableShots;
     private Ship cacciatorpediniere;
     private Ship incrociatore;
     private Ship corazzata;
     private Ship portaerei;
 /**
  * Costruttore della classe Game, per iniare una nuova partita da zero.
- * scala in base alla difficoltà, per ogni attacco fallito decrementa, se arriva a 0 abbiamo perso.
  */
     Game(final Player player, final Board board, final Settings set) {
         this.player = player;
@@ -29,16 +28,16 @@ public class Game {
         this.turno = 0;
         this.timer = new Timer();
         this.end = false;
-        //this.difficulty = set.getDifficulty();
+        this.difficulty = set.getDifficulty();
         switch (this.difficulty) {
             case CASE1:
-                //this.failableShots = 50;
+                this.failableShots = 50;
                 break;
             case CASE2:
-                //this.failableShots = 30;
+                this.failableShots = 30;
                 break;
             case CASE3:
-                //this.failableShots = 10;
+                this.failableShots = 10;
                 break;
             default:
                 System.out.println("Errore inaspettato, riavvia il gioco");
@@ -53,16 +52,16 @@ public class Game {
         this.turno = turno;
         this.timer = timer;
         this.end = end;
-        //this.difficulty = set.getDifficulty();
+        this.difficulty = set.getDifficulty();
         switch (this.difficulty) {
             case CASE1:
-                //this.failableShots = 50;
+                this.failableShots = 50;
                 break;
             case CASE2:
-                //this.failableShots = 30;
+                this.failableShots = 30;
                 break;
             case CASE3:
-                //this.failableShots = 10;
+                this.failableShots = 10;
                 break;
             default:
                 System.out.println("Errore inaspettato, riavvia il gioco");

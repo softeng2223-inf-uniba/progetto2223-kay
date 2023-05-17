@@ -1,19 +1,24 @@
 package it.uniba.app;
 import java.util.Timer;
 //import java.util.TimerTask;
-
+/**
+ * Classe che rappresenta il gioco.
+ */
 public class Game {
-
+    private static final int CASE1 = 1;
+    private static final int CASE2 = 2;
+    private static final int CASE3 = 3;
     private Player player;
     private Board board;
     private int turno;
     private Timer timer;
     private boolean end;
     private int difficulty;
-    private int failableShots;
-    /*
-    *scala in base alla difficoltà, per ogni attacco fallito decrementa, se arriva a 0 abbiamo perso
-    */
+    //private int failableShots;
+/**
+ * Costruttore della classe Game, per iniare una nuova partita da zero.
+ * scala in base alla difficoltà, per ogni attacco fallito decrementa, se arriva a 0 abbiamo perso.
+ */
     Game(final Player player, final Board board, final Settings set) {
         this.player = player;
         this.board = board;
@@ -22,20 +27,22 @@ public class Game {
         this.end = false;
         //this.difficulty = set.getDifficulty();
         switch (this.difficulty) {
-            case 1:
-                this.failableShots = 50;
+            case CASE1:
+                //this.failableShots = 50;
                 break;
-            case 2:
-                this.failableShots = 30;
+            case CASE2:
+                //this.failableShots = 30;
                 break;
-            case 3:
-                this.failableShots = 10;
+            case CASE3:
+                //this.failableShots = 10;
                 break;
             default:
                 System.out.println("Errore inaspettato, riavvia il gioco");
         }
     }
-
+/**
+ * Costruttore della classe Game, per continuare una partita salvata in precedenza.
+ */
     Game(final Player player, final Board board, final int turno, final Timer timer, final boolean end, final Settings set) {
         this.player = player;
         this.board = board;
@@ -44,41 +51,53 @@ public class Game {
         this.end = end;
         //this.difficulty = set.getDifficulty();
         switch (this.difficulty) {
-            case 1:
-                this.failableShots = 50;
+            case CASE1:
+                //this.failableShots = 50;
                 break;
-            case 2:
-                this.failableShots = 30;
+            case CASE2:
+                //this.failableShots = 30;
                 break;
-            case 3:
-                this.failableShots = 10;
+            case CASE3:
+                //this.failableShots = 10;
                 break;
             default:
                 System.out.println("Errore inaspettato, riavvia il gioco");
                 break;
         }
     }
-
+/**
+ * Metodo che restituisce il giocatore.
+ */
     public Player getPlayer() {
         return this.player;
     }
-
+/**
+ * Metodo che restituisce la board.
+ */
     public Board getBoard() {
         return this.board;
     }
-
+/**
+ * Metodo che restituisce il turno.
+ */
     public int getTurno() {
         return this.turno;
     }
-
+/**
+ * Metodo che restituisce il timer.
+ */
     public Timer getTimer() {
         return this.timer;
     }
-
+/**
+ * Metodo che restituisce la variabile end.
+ */
     public boolean getEnd() {
         return this.end;
     }
-
+/**
+ * Metodo che restituisce la variabile difficulty.
+ */
     public int getDifficulty() {
         return difficulty;
     }
@@ -105,7 +124,10 @@ public class Game {
             }
         }, secondi*1000);
     } */
-    public void ShipPlacement() {
+/**
+ * Metodo che setta il campo da gioco andando a caricare le navi, sulla board.
+ */
+    public void shipPlacement() {
         //Ckecka se ci sono altre partite in corso
         //Genera le navi sul campo di gioco
         Ship corazzata = new Corazzata();
@@ -120,14 +142,4 @@ public class Game {
 
         System.out.println("[!] Le navi sono state posizionate sul campo di gioco");
     }
-
-
-
-    public static void main(final String[] args) {
-
-        Game game = new Game(new Player(), new Board(), new Settings());
-
-        game.ShipPlacement();
-    }
-
 }

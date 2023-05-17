@@ -1,6 +1,11 @@
 package it.uniba.app;
-public class Corazzata extends Ship {    
+/**
+ * Classe che rappresenta la nave Corazzata.
+ */
+public class Corazzata extends Ship {
+    private static final int SIZECORAZZATA = 4;
+    private static final int NUMCORAZZATA = 2;
     Corazzata() {
-        super("Corazzata", 4, 2, 0);
+        super("Corazzata", SIZECORAZZATA, NUMCORAZZATA, 0);
     }
 }

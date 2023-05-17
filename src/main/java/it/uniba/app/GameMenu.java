@@ -40,6 +40,9 @@ public class GameMenu {
                 game.shipPlacement();
                 printMenuInGame(game);
                 break;
+            case "/esci":
+                System.exit(0);
+                break;
             default:
                 System.out.println("Comando non valido");
                 printMenuPreGame(set);
@@ -56,6 +59,9 @@ public class GameMenu {
                 break;
             //case "/mostranavi":
                 //showShips();
+            case "/esci":
+                System.exit(0);
+                break;
             default:
                 System.out.println("Comando non valido");
                 printMenuInGame(game);

@@ -33,7 +33,13 @@ public class GameMenu {
             //case "/medio":
             //case "/difficile":
             //case "/mostralivello":
-            //case "/gioca": // in questo case andrà avviata la partita e stampato il menu in game
+            case "/gioca": // in questo case andrà avviata la partita e stampato il menu in game
+                //String difficult = "facile";
+                //difficult = selectDifficulty();
+                Game game = new Game(new Player(), new Board(), set);
+                game.shipPlacement();
+                printMenuInGame(game);
+                break;
             default:
                 System.out.println("Comando non valido");
                 printMenuPreGame(set);

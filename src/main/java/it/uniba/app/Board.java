@@ -1,5 +1,4 @@
 package it.uniba.app;
-
 public class Board {
 
     private char boardGame[][];

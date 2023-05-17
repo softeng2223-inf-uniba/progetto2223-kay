@@ -23,12 +23,28 @@ public class GameMenu {
         processCommandInGame(command, game);
     }
 /**
+ * menu che viene stampato al comando /help
+ */
+    public static void displayHelp(){
+        System.out.println("Benvenuto nella battaglia navale programmata dal gruppo Kay anno accademico 2022/23, lo scopo è quello di vincere la partita abbattendo tutte le navi avversarie prima che vengano affondate le tue...");
+        System.out.println("Qui sotto troverai tutte le funzioni utilizzabili per questo gioco:");
+        System.out.println("/gioca");
+        System.out.println("esci");
+        System.out.println("mostra livello");
+        System.out.println("mostra navi");
+        System.out.println("svela griglia");
+        System.out.println("esegui un comando per iniziare");
+    } 
+    
+/**
  * processa i comandi che vengono inseriti prima che la partita venga avviata.
  */
     private static void processCommandPreGame(final String command, final Settings set) {
         switch (command) {
-            //case "/help":
-                //displayHelp();
+            case "/help":
+                displayHelp();
+                printMenuPreGame(set);
+                break;
             //case "/facile":
             //case "/medio":
             //case "/difficile":
@@ -54,6 +70,10 @@ public class GameMenu {
  */
     private static void processCommandInGame(final String command, final Game game) {
         switch (command) {
+            case "/help":
+                displayHelp();
+                printMenuInGame(game);
+                break;
             case "/svelagriglia":
                 game.getBoard().showBoardGame();
                 break;

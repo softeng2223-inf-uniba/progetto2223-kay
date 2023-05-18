@@ -11,7 +11,7 @@ public class Game {
     private Timer timer;
     private boolean end;
     private int difficulty;
-    private int failableShots;
+    //private int failableShots;
     private Ship cacciatorpediniere;
     private Ship incrociatore;
     private Ship corazzata;
@@ -19,26 +19,27 @@ public class Game {
 /**
  * Costruttore della classe Game, per iniare una nuova partita da zero.
  */
-    Game(final Player player, final Board board, final Settings set) {
-        this.player = player;
-        this.board = board;
+    Game(final Player plyr, final Board brd, final Settings set) {
+        this.player = plyr;
+        this.board = brd;
         this.turno = 0;
         this.timer = new Timer();
         this.end = false;
         this.difficulty = set.getDifficulty();
-        this.failableShots = set.getFailableShots();
+        //this.failableShots = set.getFailableShots();
     }
 /**
  * Costruttore della classe Game, per continuare una partita salvata in precedenza.
  */
-    Game(final Player player, final Board board, final int turno, final Timer timer, final boolean end, final Settings set) {
-        this.player = player;
-        this.board = board;
-        this.turno = turno;
-        this.timer = timer;
-        this.end = end;
+    Game(final Player plyr, final Board brd, final int turn, final Timer tmr,
+    final boolean nd, final Settings set) {
+        this.player = plyr;
+        this.board = brd;
+        this.turno = turn;
+        this.timer = tmr;
+        this.end = nd;
         this.difficulty = set.getDifficulty();
-        this.failableShots = set.getFailableShots();
+        //this.failableShots = set.getFailableShots();
     }
 /**
  * Metodo che restituisce il giocatore.
@@ -77,28 +78,36 @@ public class Game {
         return difficulty;
     }
 /**
- * metodo che restituisce la corazzata
+ * metodo che restituisce la corazzata.
  */
     public Ship getCorazzata() {
-        return corazzata;
+        Ship coraz = new Corazzata();
+        this.cacciatorpediniere = coraz;
+        return coraz;
     }
 /**
- * metodo che restituisce l'incrociatore
+ * metodo che restituisce l'incrociatore.
  */
     public Ship getIncrociatore() {
-        return incrociatore;
+        Ship incro = new Incrociatore();
+        this.incrociatore = incro;
+        return incro;
     }
 /**
- * metodo che restituisce la portaerei
+ * metodo che restituisce la portaerei.
  */
     public Ship getPortaerei() {
-        return portaerei;
+        Ship porta = new Portaerei();
+        this.portaerei = porta;
+        return porta;
     }
 /**
- * metodo che restituisce il cacciatorpediniere
+ * metodo che restituisce il cacciatorpediniere.
  */
     public Ship getCacciatorpediniere() {
-        return cacciatorpediniere;
+        Ship caccia = new Cacciatorpediniere();
+        this.cacciatorpediniere = caccia;
+        return caccia;
     }
 /*
     public void TimeSelection(int scelta,Timer timer)
@@ -138,7 +147,6 @@ public class Game {
         this.board.generateShipsOnBoard(incrociatore); // 3 navi da 3
         this.board.generateShipsOnBoard(corazzata); // 2 navi da 4
         this.board.generateShipsOnBoard(portaerei); // 1 nave da 5
-        
         System.out.println("[!] Le navi sono state posizionate sul campo di gioco");
     }
 }

@@ -9,13 +9,14 @@ public abstract class Ship {
     private int nrShips;
     private int shipsPositioned; //numero di navi posizionate di quella specifica istanza
     private String[] currentPosition; // contiene le coordinate della nave, esempio: [A1, A2, A3, A4, A5]
-    private boolean[] hits; 
+    private boolean[] hits;
+
 /**
  * Costruttore della classe Ship.
  */
-    Ship(final String name, final int size, final int nr, final int shipsPos) {
+    Ship(final String name, final int sze, final int nr, final int shipsPos) {
         this.nameShip = name;
-        this.size = size;
+        this.size = sze;
         this.nrShips = nr;
         this.shipsPositioned = shipsPos;
         this.currentPosition = new String[size];
@@ -51,13 +52,13 @@ public abstract class Ship {
  * Metodo che returna le coordinate della nave.
  */
     public String[] getCurrentPosition() {
-        return this.currentPosition;
+        return this.currentPosition.clone();
     }
 /**
  * Metodo che returna se le posizioni della nave sono state colpite o meno.
  */
     public boolean[] getHits() {
-        return this.hits;
+        return this.hits.clone();
     }
 /**
  * Metodo che setta le coordinate della nave.

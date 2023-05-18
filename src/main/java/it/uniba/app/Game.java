@@ -11,7 +11,7 @@ public class Game {
     private Timer timer;
     private boolean end;
     private int difficulty;
-    private int failableShots;
+    //private int failableShots;
     private Ship cacciatorpediniere;
     private Ship incrociatore;
     private Ship corazzata;
@@ -26,7 +26,7 @@ public class Game {
         this.timer = new Timer();
         this.end = false;
         this.difficulty = set.getDifficulty();
-        this.failableShots = set.getFailableShots();
+        //this.failableShots = set.getFailableShots();
     }
 /**
  * Costruttore della classe Game, per continuare una partita salvata in precedenza.
@@ -39,7 +39,7 @@ public class Game {
         this.timer = tmr;
         this.end = nd;
         this.difficulty = set.getDifficulty();
-        this.failableShots = set.getFailableShots();
+        //this.failableShots = set.getFailableShots();
     }
 /**
  * Metodo che restituisce il giocatore.
@@ -81,25 +81,33 @@ public class Game {
  * metodo che restituisce la corazzata.
  */
     public Ship getCorazzata() {
-        return corazzata;
+        Ship coraz = new Corazzata();
+        this.cacciatorpediniere = coraz;
+        return coraz;
     }
 /**
  * metodo che restituisce l'incrociatore.
  */
     public Ship getIncrociatore() {
-        return incrociatore;
+        Ship incro = new Incrociatore();
+        this.incrociatore = incro;
+        return incro;
     }
 /**
  * metodo che restituisce la portaerei.
  */
     public Ship getPortaerei() {
-        return portaerei;
+        Ship porta = new Portaerei();
+        this.portaerei = porta;
+        return porta;
     }
 /**
  * metodo che restituisce il cacciatorpediniere.
  */
     public Ship getCacciatorpediniere() {
-        return (Ship) cacciatorpediniere;
+        Ship caccia = new Cacciatorpediniere();
+        this.cacciatorpediniere = caccia;
+        return caccia;
     }
 /*
     public void TimeSelection(int scelta,Timer timer)

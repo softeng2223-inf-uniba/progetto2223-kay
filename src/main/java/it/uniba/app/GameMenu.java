@@ -121,7 +121,8 @@ final class GameMenu {
  * menu che viene stampato al comando /help.
  */
     public static void displayHelp() {
-        System.out.println("Benvenuto nella battaglia navale programmata dal gruppo Kay anno accademico 2022/23, l'obiettivo del gioco è quello di affondare le navi nemiche entro i tentativi disponibili.");
+        System.out.println("Benvenuto nella battaglia navale programmata dal gruppo Kay anno accademico 2022/23,"
+        + "l'obiettivo del gioco è quello di affondare le navi nemiche entro i tentativi disponibili.");
         System.out.println("Comandi disponibili:");
         System.out.println("Imposta la difficoltà facile (solo prima della partita): /facile");
         System.out.println("Imposta la difficoltà medio (solo prima della partita): /medio");
@@ -132,7 +133,7 @@ final class GameMenu {
         System.out.println("Mostra le navi da abbattare e il loro numero (solo in partita): /mostranavi");
         System.out.println("Svela la griglia di gioco (solo in partita): /svelagriglia");
         System.out.println("Esegui un comando per iniziare: ");
-    } 
+    }
 /**
  * metodo main.
  */

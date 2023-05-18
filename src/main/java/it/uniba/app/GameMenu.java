@@ -3,8 +3,15 @@ import java.util.Scanner;
 /**
  * Classe che rappresenta il menu di gioco.
  */
-public class GameMenu {
+final class GameMenu {
+    private static final  int CASE1 = 1;
+    private static final  int CASE2 = 2;
+    private static final  int CASE3 = 3;
     private static Scanner scanner = new Scanner(System.in);
+/**
+ * Costruttore della classe GameMenu.
+ */
+    private GameMenu() { }
 /**
  * Menu che viene stampato solo quando la partita non è ancora iniziata.
  */
@@ -22,7 +29,6 @@ public class GameMenu {
         String command = scanner.nextLine();
         processCommandInGame(command, game);
     }
-    
 /**
  * processa i comandi che vengono inseriti prima che la partita venga avviata.
  */
@@ -33,15 +39,15 @@ public class GameMenu {
                 printMenuPreGame(set);
                 break;
             case "/facile":
-                set.modDifficulty(1);
+                set.modDifficulty(CASE1);
                 System.out.println("OK, " + set.printDifficulty());
                 break;
             case "/medio":
-                set.modDifficulty(2);
+                set.modDifficulty(CASE2);
                 System.out.println("OK, " + set.printDifficulty());
                 break;
             case "/difficile":
-                set.modDifficulty(3);
+                set.modDifficulty(CASE3);
                 System.out.println("OK, " + set.printDifficulty());
                 break;
             case "/mostralivello":
@@ -91,11 +97,12 @@ public class GameMenu {
 /**
  * metodo visualizza, per ogni tipo di nave, la dimensione in quadrati e il numero di esemplari da affondare.
  */
-    public static void showShips(Game game) {
+    public static void showShips(final Game game) {
         System.out.println("Il nome della quarta nave è: " + game.getCacciatorpediniere().getNameShip());
         System.out.println("Occupa " + game.getCacciatorpediniere().getSize() + " quadrati");
         System.out.println("Ce ne sono " + game.getCacciatorpediniere().getNrShips() + " disponibili");
-        System.out.println("Ne sono posizionate " + game.getCacciatorpediniere().getShipsPositioned() + " nella griglia");
+        System.out.println("Ne sono posizionate "
+        + game.getCacciatorpediniere().getShipsPositioned() + " nella griglia");
         System.out.println("Il nome della seconda nave è: " + game.getIncrociatore().getNameShip());
         System.out.println("Occupa " + game.getIncrociatore().getSize() + " quadrati");
         System.out.println("Ce ne sono " + game.getIncrociatore().getNrShips() + " disponibili");
@@ -111,10 +118,11 @@ public class GameMenu {
     }
 
 /**
- * menu che viene stampato al comando /help
+ * menu che viene stampato al comando /help.
  */
     public static void displayHelp() {
-        System.out.println("Benvenuto nella battaglia navale programmata dal gruppo Kay anno accademico 2022/23, lo scopo è quello di vincere la partita abbattendo tutte le navi avversarie");
+        System.out.println("Benvenuto nella battaglia navale programmata dal gruppo Kay."
+        + "Lo scopo è quello di vincere la partita abbattendo tutte le navi");
         System.out.println("Qui sotto troverai tutte le funzioni utilizzabili per questo gioco:");
         System.out.println("gioca -> /gioca");
         System.out.println("esci -> /esci");
@@ -122,7 +130,7 @@ public class GameMenu {
         System.out.println("mostra navi -> /mostranavi");
         System.out.println("svela griglia -> /svelagriglia");
         System.out.println("esegui un comando per iniziare: ");
-    } 
+    }
 /**
  * metodo main.
  */

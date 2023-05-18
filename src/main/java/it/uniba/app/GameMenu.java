@@ -121,16 +121,18 @@ final class GameMenu {
  * menu che viene stampato al comando /help.
  */
     public static void displayHelp() {
-        System.out.println("Benvenuto nella battaglia navale programmata dal gruppo Kay."
-        + "Lo scopo è quello di vincere la partita abbattendo tutte le navi");
-        System.out.println("Qui sotto troverai tutte le funzioni utilizzabili per questo gioco:");
-        System.out.println("gioca -> /gioca");
-        System.out.println("esci -> /esci");
-        System.out.println("mostra la difficoltà -> /mostralivello");
-        System.out.println("mostra navi -> /mostranavi");
-        System.out.println("svela griglia -> /svelagriglia");
-        System.out.println("esegui un comando per iniziare: ");
-    }
+        System.out.println("Benvenuto nella battaglia navale programmata dal gruppo Kay anno accademico 2022/23, l'obiettivo del gioco è quello di affondare le navi nemiche entro i tentativi disponibili.");
+        System.out.println("Comandi disponibili:");
+        System.out.println("Imposta la difficoltà facile (solo prima della partita): /facile");
+        System.out.println("Imposta la difficoltà medio (solo prima della partita): /medio");
+        System.out.println("Imposta la difficoltà difficile (solo prima della partita): /difficile");
+        System.out.println("Mostra la difficoltà attuale (solo prima della partita): /mostralivello");
+        System.out.println("Avvia partita: /gioca");
+        System.out.println("Esci dal gioco: /esci");
+        System.out.println("Mostra le navi da abbattare e il loro numero (solo in partita): /mostranavi");
+        System.out.println("Svela la griglia di gioco (solo in partita): /svelagriglia");
+        System.out.println("Esegui un comando per iniziare: ");
+    } 
 /**
  * metodo main.
  */

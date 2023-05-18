@@ -26,8 +26,8 @@ public class Board {
         this.boardShots = new char[BOARDSIZE][BOARDSIZE];
         for (int i = 0; i < BOARDSIZE; i++) {
             for (int j = 0; j < BOARDSIZE; j++) {
-                this.boardGame[i][j] = 'v';
-                this.boardShots[i][j] = 'v';
+                this.boardGame[i][j] = 'O';
+                this.boardShots[i][j] = 'O';
             }
         }
     }
@@ -55,7 +55,7 @@ public class Board {
                 return false;
             } else {
                     for (int i = y; i < y + ship.getSize(); i++) {
-                     if (boardGame[x][i] != 'v') {
+                     if (boardGame[x][i] != 'O') {
                          return false;
                     }
                 }
@@ -65,7 +65,7 @@ public class Board {
                 return false;
             }
             for (int i = x; i < x + ship.getSize(); i++) {
-                if (boardGame[i][y] != 'v') {
+                if (boardGame[i][y] != 'O') {
                     return false;
                 }
             }
@@ -82,7 +82,7 @@ public class Board {
         char column;
         if (horizontal) {
             for (int i = y; i < y + ship.getSize(); i++) {
-                boardGame[x][i] = '1';
+                boardGame[x][i] = '═';
                 column = convertIntToChar(i);
                 ship.setCurrentPosition(column + Integer.toString(x), index);
                 index++;
@@ -90,7 +90,7 @@ public class Board {
         } else {
                 column = convertIntToChar(y);
                 for (int i = x; i < x + ship.getSize(); i++) {
-                boardGame[i][y] = '1';
+                boardGame[i][y] = '║';
                 ship.setCurrentPosition(column + Integer.toString(i), index);
                 index++;
             }

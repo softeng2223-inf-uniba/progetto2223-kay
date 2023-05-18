@@ -1,4 +1,6 @@
 package it.uniba.app;
+import java.util.Random;
+
 /**
  * Classe che gestisce la board di TempoGioco.
  */
@@ -17,6 +19,7 @@ public class Board {
     private static final double BOOLRAND = 0.5;
     private char[ ][ ] boardGame;
     private char[ ][ ] boardShots;
+    private Random ran = new Random();
 /**
  * Costruttore della classe Board.
  * Inizializza la boardGame e la boardShots.
@@ -36,8 +39,8 @@ public class Board {
  */
     public void generateShipsOnBoard(final Ship ship) {
         while (ship.getShipsPositioned() < ship.getNrShips()) {
-            int x = (int) (Math.random() * BOARDSIZE);
-            int y = (int) (Math.random() * BOARDSIZE);
+            int x = ran.nextInt(BOARDSIZE);
+            int y = ran.nextInt(BOARDSIZE);
             boolean horizontal = Math.random() < BOOLRAND;
 
             if (canPlaceShip(x, y, horizontal, ship)) {

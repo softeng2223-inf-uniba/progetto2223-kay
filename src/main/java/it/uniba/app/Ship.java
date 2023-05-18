@@ -52,13 +52,13 @@ public abstract class Ship {
  * Metodo che returna le coordinate della nave.
  */
     public String[] getCurrentPosition() {
-        return this.currentPosition;
+        return this.currentPosition.clone();
     }
 /**
  * Metodo che returna se le posizioni della nave sono state colpite o meno.
  */
     public boolean[] getHits() {
-        return this.hits;
+        return this.hits.clone();
     }
 /**
  * Metodo che setta le coordinate della nave.

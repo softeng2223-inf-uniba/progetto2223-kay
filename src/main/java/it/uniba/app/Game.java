@@ -99,7 +99,7 @@ public class Game {
  * metodo che restituisce il cacciatorpediniere.
  */
     public Ship getCacciatorpediniere() {
-        return cacciatorpediniere;
+        return (Ship) cacciatorpediniere;
     }
 /*
     public void TimeSelection(int scelta,Timer timer)

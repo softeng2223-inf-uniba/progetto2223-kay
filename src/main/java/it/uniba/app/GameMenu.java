@@ -53,6 +53,7 @@ final class GameMenu {
             case "/mostralivello":
                 System.out.println(set.printDifficulty());
                 System.out.println("Tentativi fallibili: " + set.getFailableShots());
+                break;
             case "/gioca": // in questo case andrà avviata la partita e stampato il menu in game
                 //String difficult = "facile";
                 //difficult = selectDifficulty();
@@ -81,6 +82,7 @@ final class GameMenu {
             case "/mostranavi":
                 showShips(game);
                 printMenuInGame(game);
+                break;
             case "/svelagriglia":
                 game.getBoard().showBoardGame();
                 printMenuInGame(game);

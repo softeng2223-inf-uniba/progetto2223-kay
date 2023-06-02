@@ -81,33 +81,25 @@ public class Game {
  * metodo che restituisce la corazzata.
  */
     public Ship getCorazzata() {
-        Ship coraz = new Corazzata();
-        this.cacciatorpediniere = coraz;
-        return coraz;
+        return this.cacciatorpediniere;
     }
 /**
  * metodo che restituisce l'incrociatore.
  */
     public Ship getIncrociatore() {
-        Ship incro = new Incrociatore();
-        this.incrociatore = incro;
-        return incro;
+        return this.incrociatore;
     }
 /**
  * metodo che restituisce la portaerei.
  */
     public Ship getPortaerei() {
-        Ship porta = new Portaerei();
-        this.portaerei = porta;
-        return porta;
+        return this.portaerei;
     }
 /**
  * metodo che restituisce il cacciatorpediniere.
  */
     public Ship getCacciatorpediniere() {
-        Ship caccia = new Cacciatorpediniere();
-        this.cacciatorpediniere = caccia;
-        return caccia;
+        return this.cacciatorpediniere;
     }
 /*
     public void TimeSelection(int scelta,Timer timer)

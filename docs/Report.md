@@ -9,7 +9,8 @@
 
 7. Manuale Utente
 9. Analisi retrospettiva
-   1. Sprint 0
+
+  1. Sprint 0
 
 
 # 1. Introduzione
@@ -146,6 +147,7 @@ Windows:
 - Git Bash (in questo caso il comando Docker ha come prefisso winpty; es: winpty docker -it ....)
 
 
+
 # 7. Manuale utente
 All’avvio il gioco si interfaccia con l’utente spiegando brevemente in cosa consiste; dopodiché è pronto a ricevere un nuovo comando, tra i seguenti:
 - `/help`
@@ -179,5 +181,6 @@ Se il numero di tentativi arriva a 0 la partita terminerà con una sconfitta.
 
 
 # 9. Analisi retrospettiva
+
 ## 1. Sprint 0
 ![Analisi retrospettiva](./img/analisiretro.png)

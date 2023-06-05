@@ -1,6 +1,5 @@
 # Report
 # Progetto Kay Ingegneria del software a.a. 22/23
-# Report
 ## Indice
 1. Introduzione
 2. Modello di dominio
@@ -10,7 +9,8 @@
 
 7. Manuale Utente
 9. Analisi retrospettiva
-   1. Sprint 1
+
+  1. Sprint 0
 
 
 # 1. Introduzione
@@ -147,7 +147,8 @@ Windows:
 - Git Bash (in questo caso il comando Docker ha come prefisso winpty; es: winpty docker -it ....)
 
 
-# 7. Manuale d'uso
+
+# 7. Manuale utente
 All’avvio il gioco si interfaccia con l’utente spiegando brevemente in cosa consiste; dopodiché è pronto a ricevere un nuovo comando, tra i seguenti:
 - `/help`
 - `/gioca`
@@ -180,5 +181,6 @@ Se il numero di tentativi arriva a 0 la partita terminerà con una sconfitta.
 
 
 # 9. Analisi retrospettiva
-## 1. Sprint 1
+
+## 1. Sprint 0
 ![Analisi retrospettiva](./img/analisiretro.png)

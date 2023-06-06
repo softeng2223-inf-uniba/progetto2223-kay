@@ -1,5 +1,6 @@
 package it.uniba.app;
 import java.util.Scanner;
+import java.util.regex.*;
 /**
  * Classe che rappresenta il menu di gioco.
  */
@@ -8,6 +9,7 @@ final class GameMenu {
     private static final  int CASE2 = 2;
     private static final  int CASE3 = 3;
     private static Scanner scanner = new Scanner(System.in, "UTF-8");
+    private static final String regex = new String(".*\\d");
 /**
  * Costruttore della classe GameMenu.
  */
@@ -32,8 +34,25 @@ final class GameMenu {
 /**
  * processa i comandi che vengono inseriti prima che la partita venga avviata.
  */
-    private static void processCommandPreGame(final String command, final Settings set) {
+    private static void processCommandPreGame(String command, final Settings set) {
+        int number = 0;
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(command);
+        if (matcher.matches()) {
+            String numb = new String(findInt(command));
+            try {
+                number = Integer.parseInt(numb);
+            } catch (NumberFormatException ex) {
+                ex.printStackTrace();
+            }
+            command = new String(findText(command));
+        }
         switch (command) {
+            case "/tempo":
+                set.modTimeMax(number);
+                System.out.println("OK");
+                printMenuPreGame(set);
+                break;
             case "/help":
                 displayHelp();
                 printMenuPreGame(set);
@@ -163,6 +182,31 @@ final class GameMenu {
         System.out.println("[*] Svela la griglia di gioco (solo in partita): /svelagriglia");
         System.out.println("[!] Esegui un comando per iniziare: ");
     }
+
+    /**
+     * Funzione che prende una stringa in input e ne restituisce una in cui è presente solo la parte numerica
+     */
+    static String findInt(String str) {
+        str = str.replaceAll("[^\\d]", " ");
+        str = str.trim();
+        str = str.replaceAll(" +", " ");
+        if (str.equals(""))
+            return "-1";
+        return str;
+    }
+
+    /**
+     * Funzione che prende una stringa in input e ne restituisce una in cui è presente solo la parte testuale
+     */
+    static String findText(String str) {
+        str = str.replaceAll("[\\d]", " ");
+        str = str.trim();
+        str = str.replaceAll(" +", " ");
+        if (str.equals(""))
+            return "-1";
+        return str;
+    }
+
 /**
  * metodo main.
  */

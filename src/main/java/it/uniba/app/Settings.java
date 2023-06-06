@@ -8,7 +8,6 @@ public class Settings {
     private static final  int CASE3 = 3;
     private static final  int INITDIFF = 1;
     private static final  int INITTIME = 5;
-    private static final  int FOWTIME = 10;
     private static final  int DIFFSEMPLICE = 50;
     private static final  int DIFFMEDIA = 30;
     private static final  int DIFFDIFFICILE = 10;
@@ -75,15 +74,11 @@ public class Settings {
  * Metodo che modifica la variabile timeMax.
  */
     public void modTimeMax(final int time) {
-        switch (time) {
-            case INITTIME:
-                this.timeMax = time;
-                break;
-            case FOWTIME:
-                this.timeMax = time;
-                break;
-            default:
-                System.out.println("Valore non valido, riprova");
+        if(time>0) {
+            this.timeMax = time;
+        }
+        else {
+            System.out.println("Valore non valido");
         }
     }
 

@@ -85,7 +85,7 @@ public class Board {
         char column;
         if (horizontal) {
             for (int i = y; i < y + ship.getSize(); i++) {
-                boardGame[x][i] = '═';
+                boardGame[x][i] = '-';
                 column = convertIntToChar(i);
                 ship.setCurrentPosition(column + Integer.toString(x), index);
                 index++;
@@ -93,7 +93,7 @@ public class Board {
         } else {
                 column = convertIntToChar(y);
                 for (int i = x; i < x + ship.getSize(); i++) {
-                boardGame[i][y] = '║';
+                boardGame[i][y] = '|';
                 ship.setCurrentPosition(column + Integer.toString(i), index);
                 index++;
             }

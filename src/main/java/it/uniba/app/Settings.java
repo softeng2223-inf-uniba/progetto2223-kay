@@ -8,9 +8,9 @@ public class Settings {
     private static final  int CASE3 = 3;
     private static final  int INITDIFF = 1;
     private static final  int INITTIME = 5;
-    private static final  int DIFFSEMPLICE = 50;
-    private static final  int DIFFMEDIA = 30;
-    private static final  int DIFFDIFFICILE = 10;
+    private static final  int DIFFSEMPLICE = 50; // intervallo tra 40 a 60
+    private static final  int DIFFMEDIA = 30; // intervallo da 20 a 39
+    private static final  int DIFFDIFFICILE = 10; // intervallo da 5 a 19
     private int difficulty;
     private int timeMax;
     private int failableShots;
@@ -88,7 +88,12 @@ public class Settings {
     public String printTimeMax() {
         return "Tempo massimo a disposizione: " + timeMax;
     }
-
+/**
+* Metodo che imposta il numero di colpi fallibile
+*/
+    public void setFailableShots(int falShots){
+        this.failableShots = falShots;
+    }
 /**
 * Metodo che restituisce la variabile failableShots.
 */

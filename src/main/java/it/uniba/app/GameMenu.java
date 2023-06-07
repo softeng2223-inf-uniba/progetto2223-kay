@@ -1,6 +1,5 @@
 package it.uniba.app;
 import java.util.Scanner;
-import java.util.regex.*;
 /**
  * Classe che rappresenta il menu di gioco.
  */
@@ -8,9 +7,7 @@ final class GameMenu {
     private static final  int CASE1 = 1;
     private static final  int CASE2 = 2;
     private static final  int CASE3 = 3;
-    private static final  int CASE4 = 4;
     private static Scanner scanner = new Scanner(System.in, "UTF-8");
-    private static final String regex = new String(".*\\d");
 /**
  * Costruttore della classe GameMenu.
  */
@@ -35,90 +32,25 @@ final class GameMenu {
 /**
  * processa i comandi che vengono inseriti prima che la partita venga avviata.
  */
-    private static void processCommandPreGame(String command, final Settings set) {
-        int number = 0;
-        Pattern pattern = Pattern.compile(regex);
-        Matcher matcher = pattern.matcher(command);
-        if (matcher.matches()) {
-            String numb = new String(findInt(command));
-            try {
-                number = Integer.parseInt(numb);
-            } catch (NumberFormatException ex) {
-                ex.printStackTrace();
-            }
-            command = new String(findText(command));
-        }
+    private static void processCommandPreGame(final String command, final Settings set) {
         switch (command) {
-            case "/tempo":
-                set.modTimeMax(number);
-                System.out.println("OK");
-                printMenuPreGame(set);
-                break;
             case "/help":
                 displayHelp();
                 printMenuPreGame(set);
                 break;
-            case "/tentativi":
-                if(number == 0){
-                    System.out.println("Il comando /tentativi deve essere seguito da un numero.");
-                }
-                else{
-                    set.modDifficulty(CASE4);
-                    set.setFailableShots(number);
-                    System.out.println("OK, " + set.printDifficulty());
-                    System.out.println("Tentativi Fallibili: " + set.getFailableShots());
-                }
-                printMenuPreGame(set);
-                break;
             case "/facile":
-                if(number >= 40 && number <= 60){
-                    set.modDifficulty(CASE1);
-                    set.setFailableShots(number);
-                    System.out.println("OK, " + set.printDifficulty());
-                    System.out.println("Tentativi Fallibili: " + set.getFailableShots());
-                } else if (number == 0) {
-                    set.modDifficulty(CASE1);
-                    set.setFailableShotsDefault(CASE1);
-                    System.out.println("OK, " + set.printDifficulty());
-                    System.out.println("Tentativi Fallibili: " + set.getFailableShots());
-                }
-                else{
-                    System.out.println("Il numero di tentativi fallibili non rispetta il range [da 40 a 60]");
-                }
+                set.modDifficulty(CASE1);
+                System.out.println("OK, " + set.printDifficulty());
                 printMenuPreGame(set);
                 break;
             case "/medio":
-                if(number >= 20 && number <= 39){
-                    set.modDifficulty(CASE2);
-                    set.setFailableShots(number);
-                    System.out.println("OK, " + set.printDifficulty());
-                    System.out.println("Tentativi Fallibili: " + set.getFailableShots());
-                } else if (number == 0) {
-                    set.modDifficulty(CASE2);
-                    set.setFailableShotsDefault(CASE2);
-                    System.out.println("OK, " + set.printDifficulty());
-                    System.out.println("Tentativi Fallibili: " + set.getFailableShots());
-                }
-                else{
-                    System.out.println("Il numero di tentativi fallibili non rispetta il range [da 20 a 39]");
-                }
+                set.modDifficulty(CASE2);
+                System.out.println("OK, " + set.printDifficulty());
                 printMenuPreGame(set);
                 break;
             case "/difficile":
-                if(number >= 5 && number <= 19){
-                    set.modDifficulty(CASE3);
-                    set.setFailableShots(number);
-                    System.out.println("OK, " + set.printDifficulty());
-                    System.out.println("Tentativi Fallibili: " + set.getFailableShots());
-                } else if (number == 0) {
-                    set.modDifficulty(CASE3);
-                    set.setFailableShotsDefault(CASE3);
-                    System.out.println("OK, " + set.printDifficulty());
-                    System.out.println("Tentativi Fallibili: " + set.getFailableShots());
-                }
-                else{
-                    System.out.println("Il numero di tentativi fallibili non rispetta il range [da 5 a 19]");
-                }
+                set.modDifficulty(CASE3);
+                System.out.println("OK, " + set.printDifficulty());
                 printMenuPreGame(set);
                 break;
             case "/mostralivello":
@@ -126,10 +58,25 @@ final class GameMenu {
                 System.out.println("[!] Tentativi fallibili: " + set.getFailableShots());
                 printMenuPreGame(set);
                 break;
+            case "/standard":
+                 set.editDimension(command);
+                 System.out.println("OK dimensione attuale " + set.printDimension() + "x" + set.printDimension());  
+                  printMenuPreGame(set);
+                break;
+            case "/large":
+                set.editDimension(command);
+                System.out.println("OK dimensione attuale " + set.printDimension() + "x" + set.printDimension());       
+                 printMenuPreGame(set);
+                break;
+            case "/extralarge":
+                set.editDimension(command);
+                System.out.println("OK dimensione attuale " + set.printDimension() + "x" + set.printDimension());
+                printMenuPreGame(set);
+                break;
             case "/gioca": // in questo case andrà avviata la partita e stampato il menu in game
                 //String difficult = "facile";
                 //difficult = selectDifficulty();
-                Game game = new Game(new Player(), new Board(), set);
+                Game game = new Game(new Player(), new Board(set.getBoardSize()), set);
                 game.shipPlacement();
                 printMenuInGame(game);
                 break;
@@ -225,35 +172,20 @@ final class GameMenu {
         System.out.println("[*] Imposta la difficoltà medio (solo prima della partita): /medio");
         System.out.println("[*] Imposta la difficoltà difficile (solo prima della partita): /difficile");
         System.out.println("[*] Mostra la difficoltà attuale (solo prima della partita): /mostralivello");
+        System.out.println("[*] Modifica la dimensione della board a 10x10(solo prima della partita): /standard");
+        System.out.println("[*] Modifica la dimensione della board a 18x18(solo prima della partita): /large");
+        System.out.println("[*] Modifica la dimensione della board a 26x26(solo prima della partita): /extralarge");
         System.out.println("[*] Avvia partita: /gioca");
         System.out.println("[*] Esci dal gioco: /esci");
         System.out.println("[*] Mostra le navi da abbattare e il loro numero (solo in partita): /mostranavi");
         System.out.println("[*] Svela la griglia di gioco (solo in partita): /svelagriglia");
         System.out.println("[!] Esegui un comando per iniziare: ");
     }
-
-    /**
-     * Funzione che prende una stringa in input e ne restituisce una in cui è presente solo la parte numerica
-     */
-    static String findInt(String str) {
-        str = str.replaceAll("[^\\d]", " ");
-        str = str.trim();
-        str = str.replaceAll(" +", " ");
-        if (str.equals(""))
-            return "-1";
-        return str;
-    }
-
-    /**
-     * Funzione che prende una stringa in input e ne restituisce una in cui è presente solo la parte testuale
-     */
-    static String findText(String str) {
-        str = str.replaceAll("[\\d]", " ");
-        str = str.trim();
-        str = str.replaceAll(" +", " ");
-        if (str.equals(""))
-            return "-1";
-        return str;
+/**
+ * metodo main.
+ */
+    public static void main(final String[] args) {
+        printMenuPreGame(new Settings());
     }
 
 }

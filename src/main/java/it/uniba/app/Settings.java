@@ -12,14 +12,17 @@ public class Settings {
     private static final  int DIFFSEMPLICE = 50; // intervallo tra 40 a 60
     private static final  int DIFFMEDIA = 30; // intervallo da 20 a 39
     private static final  int DIFFDIFFICILE = 10; // intervallo da 5 a 19
+    private static final  int INITBOARD = 10;
     private int difficulty;
     private int timeMax;
     private int failableShots;
+    private int boardSize;
 
 /**
  * Costruttore della classe Settings, per inizializzare ad uno stato iniziale le impostazioni.
  */
     Settings() {
+        this.boardSize = INITBOARD;
         this.difficulty = INITDIFF;
         this.timeMax = INITTIME;
         this.failableShots = DIFFSEMPLICE;
@@ -54,6 +57,7 @@ public class Settings {
                 return "Errore inaspettato, riavvia il gioco";
         }
     }
+
 /**
  * Metodo che restituisce la variabile timeMax.
  */
@@ -110,4 +114,51 @@ public class Settings {
     public int getFailableShots() {
         return this.failableShots;
     }
+
+
+
+    public void editDimension(String dim){
+        switch(dim){
+
+        case "/standard": 
+            if (this.boardSize == 10){
+                System.out.println("La griglia è già impostata a Standard 10x10");
+            }
+            else{
+                this.boardSize=10;  
+            }         
+            break;     
+        case "/large":
+            if (this.boardSize == 18){
+                System.out.println("La griglia è già impostata a Large 18x18");
+             }
+             else{
+                 this.boardSize=18;  
+             }         
+             break; 
+        case "/extralarge":
+            if (this.boardSize == 26){
+                 System.out.println("La griglia è già impostata a Extralarge 26x26");
+            }
+            else{
+              this.boardSize=26;  
+            }         
+             break; 
+
+    }
+
 }
+
+    public int printDimension(){
+        return boardSize;
+    }
+
+public int getBoardSize(){
+    return boardSize;
+}
+
+}
+
+
+
+    

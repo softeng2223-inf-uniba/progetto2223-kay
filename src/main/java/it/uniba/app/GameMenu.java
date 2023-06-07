@@ -8,6 +8,7 @@ final class GameMenu {
     private static final  int CASE1 = 1;
     private static final  int CASE2 = 2;
     private static final  int CASE3 = 3;
+    private static final  int CASE4 = 4;
     private static Scanner scanner = new Scanner(System.in, "UTF-8");
     private static final String regex = new String(".*\\d");
 /**
@@ -57,11 +58,29 @@ final class GameMenu {
                 displayHelp();
                 printMenuPreGame(set);
                 break;
+            case "/tentativi":
+                if(number == 0){
+                    System.out.println("Il comando /tentativi deve essere seguito da un numero.");
+                }
+                else{
+                    set.modDifficulty(CASE4);
+                    set.setFailableShots(number);
+                    System.out.println("OK, " + set.printDifficulty());
+                    System.out.println("Tentativi Fallibili: " + set.getFailableShots());
+                }
+                printMenuPreGame(set);
+                break;
             case "/facile":
                 if(number >= 40 && number <= 60){
                     set.modDifficulty(CASE1);
                     set.setFailableShots(number);
                     System.out.println("OK, " + set.printDifficulty());
+                    System.out.println("Tentativi Fallibili: " + set.getFailableShots());
+                } else if (number == 0) {
+                    set.modDifficulty(CASE1);
+                    set.setFailableShotsDefault(CASE1);
+                    System.out.println("OK, " + set.printDifficulty());
+                    System.out.println("Tentativi Fallibili: " + set.getFailableShots());
                 }
                 else{
                     System.out.println("Il numero di tentativi fallibili non rispetta il range [da 40 a 60]");
@@ -73,6 +92,12 @@ final class GameMenu {
                     set.modDifficulty(CASE2);
                     set.setFailableShots(number);
                     System.out.println("OK, " + set.printDifficulty());
+                    System.out.println("Tentativi Fallibili: " + set.getFailableShots());
+                } else if (number == 0) {
+                    set.modDifficulty(CASE2);
+                    set.setFailableShotsDefault(CASE2);
+                    System.out.println("OK, " + set.printDifficulty());
+                    System.out.println("Tentativi Fallibili: " + set.getFailableShots());
                 }
                 else{
                     System.out.println("Il numero di tentativi fallibili non rispetta il range [da 20 a 39]");
@@ -84,6 +109,12 @@ final class GameMenu {
                     set.modDifficulty(CASE3);
                     set.setFailableShots(number);
                     System.out.println("OK, " + set.printDifficulty());
+                    System.out.println("Tentativi Fallibili: " + set.getFailableShots());
+                } else if (number == 0) {
+                    set.modDifficulty(CASE3);
+                    set.setFailableShotsDefault(CASE3);
+                    System.out.println("OK, " + set.printDifficulty());
+                    System.out.println("Tentativi Fallibili: " + set.getFailableShots());
                 }
                 else{
                     System.out.println("Il numero di tentativi fallibili non rispetta il range [da 5 a 19]");

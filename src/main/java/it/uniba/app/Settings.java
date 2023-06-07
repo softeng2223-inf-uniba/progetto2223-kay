@@ -6,6 +6,7 @@ public class Settings {
     private static final  int CASE1 = 1;
     private static final  int CASE2 = 2;
     private static final  int CASE3 = 3;
+    private static final  int CASE4 = 4;
     private static final  int INITDIFF = 1;
     private static final  int INITTIME = 5;
     private static final  int DIFFSEMPLICE = 50; // intervallo tra 40 a 60
@@ -19,21 +20,9 @@ public class Settings {
  * Costruttore della classe Settings, per inizializzare ad uno stato iniziale le impostazioni.
  */
     Settings() {
-        difficulty = INITDIFF;
-        timeMax = INITTIME;
-        switch (this.difficulty) {
-            case CASE1:
-                this.failableShots = DIFFSEMPLICE;
-                break;
-            case CASE2:
-                this.failableShots = DIFFMEDIA;
-                break;
-            case CASE3:
-                this.failableShots = DIFFDIFFICILE;
-                break;
-            default:
-                System.out.println("Errore inaspettato, riavvia il gioco");
-        }
+        this.difficulty = INITDIFF;
+        this.timeMax = INITTIME;
+        this.failableShots = DIFFSEMPLICE;
     }
 
 /**
@@ -59,6 +48,8 @@ public class Settings {
                 return "Medio";
             case CASE3:
                 return "Difficile";
+            case CASE4:
+                return "Custom";
             default:
                 return "Errore inaspettato, riavvia il gioco";
         }
@@ -93,6 +84,25 @@ public class Settings {
 */
     public void setFailableShots(int falShots){
         this.failableShots = falShots;
+    }
+/**
+ * Metodo che imposta il numero di default dei colpi fallibili per la difficoltà /facile
+ */
+    public void setFailableShotsDefault(int difficulty){
+        switch (difficulty){
+            case CASE1:
+                this.failableShots = DIFFSEMPLICE;
+                break;
+            case CASE2:
+                this.failableShots = DIFFMEDIA;
+                break;
+            case CASE3:
+                this.failableShots = DIFFDIFFICILE;
+                break;
+            default:
+                System.out.println("Errore inaspettato!");
+                break;
+        }
     }
 /**
 * Metodo che restituisce la variabile failableShots.

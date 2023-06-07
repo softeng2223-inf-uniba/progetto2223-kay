@@ -58,18 +58,36 @@ final class GameMenu {
                 printMenuPreGame(set);
                 break;
             case "/facile":
-                set.modDifficulty(CASE1);
-                System.out.println("OK, " + set.printDifficulty());
+                if(number >= 40 && number <= 60){
+                    set.modDifficulty(CASE1);
+                    set.setFailableShots(number);
+                    System.out.println("OK, " + set.printDifficulty());
+                }
+                else{
+                    System.out.println("Il numero di tentativi fallibili non rispetta il range [da 40 a 60]");
+                }
                 printMenuPreGame(set);
                 break;
             case "/medio":
-                set.modDifficulty(CASE2);
-                System.out.println("OK, " + set.printDifficulty());
+                if(number >= 20 && number <= 39){
+                    set.modDifficulty(CASE2);
+                    set.setFailableShots(number);
+                    System.out.println("OK, " + set.printDifficulty());
+                }
+                else{
+                    System.out.println("Il numero di tentativi fallibili non rispetta il range [da 20 a 39]");
+                }
                 printMenuPreGame(set);
                 break;
             case "/difficile":
-                set.modDifficulty(CASE3);
-                System.out.println("OK, " + set.printDifficulty());
+                if(number >= 5 && number <= 19){
+                    set.modDifficulty(CASE3);
+                    set.setFailableShots(number);
+                    System.out.println("OK, " + set.printDifficulty());
+                }
+                else{
+                    System.out.println("Il numero di tentativi fallibili non rispetta il range [da 5 a 19]");
+                }
                 printMenuPreGame(set);
                 break;
             case "/mostralivello":
@@ -205,13 +223,6 @@ final class GameMenu {
         if (str.equals(""))
             return "-1";
         return str;
-    }
-
-/**
- * metodo main.
- */
-    public static void main(final String[] args) {
-        printMenuPreGame(new Settings());
     }
 
 }

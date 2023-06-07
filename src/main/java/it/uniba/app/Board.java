@@ -15,7 +15,7 @@ public class Board {
     private static final int CASE7 = 7;
     private static final int CASE8 = 8;
     private static final int CASE9 = 9;
-    private static final int BOARDSIZE = 10;
+    private int boardSize;
     private static final double BOOLRAND = 0.5;
     private char[ ][ ] boardGame;
     private char[ ][ ] boardShots;
@@ -24,11 +24,12 @@ public class Board {
  * Costruttore della classe Board.
  * Inizializza la boardGame e la boardShots.
  */
-    Board() {
-        this.boardGame = new char[BOARDSIZE][BOARDSIZE];
-        this.boardShots = new char[BOARDSIZE][BOARDSIZE];
-        for (int i = 0; i < BOARDSIZE; i++) {
-            for (int j = 0; j < BOARDSIZE; j++) {
+    Board(int size) {  
+        this.boardSize = size;    
+        this.boardGame = new char[boardSize][boardSize];
+        this.boardShots = new char[boardSize][boardSize];
+        for (int i = 0; i < boardSize; i++) {
+            for (int j = 0; j < boardSize; j++) {
                 this.boardGame[i][j] = 'O';
                 this.boardShots[i][j] = 'O';
             }
@@ -39,8 +40,8 @@ public class Board {
  */
     public void generateShipsOnBoard(final Ship ship) {
         while (ship.getShipsPositioned() < ship.getNrShips()) {
-            int x = ran.nextInt(BOARDSIZE);
-            int y = ran.nextInt(BOARDSIZE);
+            int x = ran.nextInt(boardSize);
+            int y = ran.nextInt(boardSize);
             boolean horizontal = Math.random() < BOOLRAND;
 
             if (canPlaceShip(x, y, horizontal, ship)) {
@@ -49,12 +50,14 @@ public class Board {
             }
         }
     }
+
+
 /**
- * Metodo che returna un booleano che indica se è possibile posizionere la nave in x,y.
+ * Metodo che returna un booleano che indica se Ã¨ possibile posizionere la nave in x,y.
  */
     private boolean canPlaceShip(final int x, final int y, final boolean horizontal, final Ship ship) {
         if (horizontal) {
-            if (y + ship.getSize() > BOARDSIZE) {
+            if (y + ship.getSize() > boardSize) {
                 return false;
             } else {
                     for (int i = y; i < y + ship.getSize(); i++) {
@@ -64,7 +67,7 @@ public class Board {
                 }
             }
         } else {
-            if (x + ship.getSize() > BOARDSIZE) {
+            if (x + ship.getSize() > boardSize) {
                 return false;
             }
             for (int i = x; i < x + ship.getSize(); i++) {
@@ -104,9 +107,9 @@ public class Board {
  */
     public void showBoardGame() {
         System.out.println("  0 1 2 3 4 5 6 7 8 9");
-        for (int i = 0; i < BOARDSIZE; i++) {
+        for (int i = 0; i < boardSize; i++) {
             System.out.print(i + " ");
-            for (int j = 0; j < BOARDSIZE; j++) {
+            for (int j = 0; j < boardSize; j++) {
                 System.out.print(boardGame[i][j] + " ");
             }
             System.out.println();

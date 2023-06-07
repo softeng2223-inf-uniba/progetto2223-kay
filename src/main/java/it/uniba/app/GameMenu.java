@@ -126,10 +126,25 @@ final class GameMenu {
                 System.out.println("[!] Tentativi fallibili: " + set.getFailableShots());
                 printMenuPreGame(set);
                 break;
+                case "/standard":
+                set.editDimension(command);
+                System.out.println("OK dimensione attuale " + set.printDimension() + "x" + set.printDimension());  
+                 printMenuPreGame(set);
+               break;
+             case "/large":
+               set.editDimension(command);
+               System.out.println("OK dimensione attuale " + set.printDimension() + "x" + set.printDimension());       
+                printMenuPreGame(set);
+                break;
+            case "/extralarge":
+               set.editDimension(command);
+               System.out.println("OK dimensione attuale " + set.printDimension() + "x" + set.printDimension());
+               printMenuPreGame(set);
+               break;
             case "/gioca": // in questo case andrà avviata la partita e stampato il menu in game
                 //String difficult = "facile";
                 //difficult = selectDifficulty();
-                Game game = new Game(new Player(), new Board(), set);
+                Game game = new Game(new Player(), new Board(set.getBoardSize()), set);
                 game.shipPlacement();
                 printMenuInGame(game);
                 break;
@@ -225,6 +240,9 @@ final class GameMenu {
         System.out.println("[*] Imposta la difficoltà medio (solo prima della partita): /medio");
         System.out.println("[*] Imposta la difficoltà difficile (solo prima della partita): /difficile");
         System.out.println("[*] Mostra la difficoltà attuale (solo prima della partita): /mostralivello");
+        System.out.println("[*] Modifica la dimensione della board a 10x10(solo prima della partita): /standard");
+        System.out.println("[*] Modifica la dimensione della board a 18x18(solo prima della partita): /large");
+        System.out.println("[*] Modifica la dimensione della board a 26x26(solo prima della partita): /extralarge");
         System.out.println("[*] Avvia partita: /gioca");
         System.out.println("[*] Esci dal gioco: /esci");
         System.out.println("[*] Mostra le navi da abbattare e il loro numero (solo in partita): /mostranavi");

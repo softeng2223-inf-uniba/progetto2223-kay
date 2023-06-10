@@ -6,19 +6,15 @@ import java.util.Arrays;
 public abstract class Ship {
     private String nameShip;
     private int size;
-    private int nrShips;
-    private int shipsPositioned; //numero di navi posizionate di quella specifica istanza
     private String[] currentPosition; // contiene le coordinate della nave, esempio: [A1, A2, A3, A4, A5]
     private boolean[] hits;
 
 /**
  * Costruttore della classe Ship.
  */
-    Ship(final String name, final int sze, final int nr, final int shipsPos) {
+    Ship(final String name, final int sze) {
         this.nameShip = name;
         this.size = sze;
-        this.nrShips = nr;
-        this.shipsPositioned = shipsPos;
         this.currentPosition = new String[size];
         Arrays.fill(currentPosition, "");
         this.hits = new boolean[size];
@@ -35,18 +31,6 @@ public abstract class Ship {
  */
     public int getSize() {
         return this.size;
-    }
-/**
- * Metodo che returna il numero di navi.
- */
-    public int getNrShips() {
-        return this.nrShips;
-    }
-/**
- * Metodo che returna il numero di navi posizionate.
- */
-    public int getShipsPositioned() {
-        return this.shipsPositioned;
     }
 /**
  * Metodo che returna le coordinate della nave.
@@ -67,9 +51,25 @@ public abstract class Ship {
         this.currentPosition[i] = position;
     }
 /**
- * Metodo che incrementa il numero di navi posizionate.
+ * Metodo che setta a true una posizione del vettore hits.
  */
-    public void setShipPositioned() {
-        this.shipsPositioned++;
+public void setTrueHits() {
+    for (int i = 0; i<hits.length; i++) {
+        if (hits[i] = false) {
+            hits[i] = true;
+            break;
+        }
     }
+}
+/**
+ * Metodo che verifica se una nave è affondata.
+ */
+public boolean isSunk() {
+    for (int i = 0; i<hits.length; i++) {
+        if (hits[i] = false) {
+            return false;
+        }
+    }
+    return true;
+}
 }

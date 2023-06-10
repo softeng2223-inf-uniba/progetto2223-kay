@@ -114,7 +114,15 @@ Settings() {
     public int getFailableShots() {
         return this.failableShots;
     }
-
+/**
+ * Metodo che decrementa failableShots.
+ */
+public void DecrementFailableShots() {
+    failableShots--;
+}
+/**
+ * Metodo che modifica la dimensione della boardGame.
+ */
     public void editDimension(String dim){
         switch(dim){
 

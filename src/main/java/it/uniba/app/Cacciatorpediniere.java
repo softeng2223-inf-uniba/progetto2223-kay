@@ -4,8 +4,7 @@ package it.uniba.app;
  */
 public class Cacciatorpediniere extends Ship {
     private static final int SIZECACCIA = 2;
-    private static final int NUMCACCIA = 4;
     Cacciatorpediniere() {
-        super("Cacciatorpediniere", SIZECACCIA, NUMCACCIA, 0);
+        super("Cacciatorpediniere", SIZECACCIA);
     }
 }

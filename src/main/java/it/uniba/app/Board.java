@@ -36,18 +36,27 @@ public class Board {
         }
     }
 /**
+ * Metodo che resituisce il valore presente alla coordinata x, y.
+ */
+public char getValue(int x, int y) {
+    return boardGame[x][y];
+}
+/**
+ * Metodo che modifica il contenuto della cella x, y (a seguito di un attacco in x,y).
+ */
+public void modBoard(int x, int y) {
+    boardGame[x][y] = 'X';
+}
+/**
  * Metodo che genera la boardGame.
  */
     public void generateShipsOnBoard(final Ship ship) {
-        while (ship.getShipsPositioned() < ship.getNrShips()) {
-            int x = ran.nextInt(boardSize);
-            int y = ran.nextInt(boardSize);
-            boolean horizontal = Math.random() < BOOLRAND;
+        int x = ran.nextInt(boardSize);
+        int y = ran.nextInt(boardSize);
+        boolean horizontal = Math.random() < BOOLRAND;
 
-            if (canPlaceShip(x, y, horizontal, ship)) {
-                placeShip(x, y, horizontal, ship);
-                ship.setShipPositioned();
-            }
+        if (canPlaceShip(x, y, horizontal, ship)) {
+            placeShip(x, y, horizontal, ship);
         }
     }
 
@@ -134,4 +143,14 @@ public class Board {
             default: return 'M';
         }
     }
+
+/**
+ * Metodo che returna un valore intero che rappresenta l'ordine in alfabeto del carattere passato in input.
+ */
+public int convertStringToInt(final String y) {
+
+    char colonna = y.charAt(0);
+    int col = colonna - 'A' + 1;
+    return col;
+}
 }

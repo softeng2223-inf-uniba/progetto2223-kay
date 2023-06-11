@@ -189,34 +189,30 @@ public static int getNrCacciatorpediniere() {
 public void attack(int row, String col, Settings set) {
 
     int column = board.convertStringToInt(col);
-    int i = set.getFailableShots();
-
+    set.getPlayer().incrementShots();
     if (board.getValue(row, column) == 'O') {
-        int shots = set.getFailableShots() - i;
         // mostrate la baord con le navi colpite e affondate
-        System.out.println("Tentativi effettuati: " + shots);
+        System.out.println("Tentativi effettuati: " + set.getPlayer().getShots());
         System.out.println("Acqua!");
+        set.DecrementFailableShots();
+        set.getPlayer().incrementFailedShots();
     } 
     if (board.getValue(row, column) == '|' || board.getValue(row, column) == '-') {
         board.modBoard(row, column);
         Ship shipHitted = guessShip(row, column);
-        int shots = set.getFailableShots()- i;
-        if (shipHitted.isSunk()) { // se tutte le celle sono true quindi colpite allora affondata
-            // mostrare la board con le navi colpite e affondate
-            System.out.println("Colpita e affondata!");
-            System.out.println("Tentativi effettuati: " + shots);
-        } else { // altrimenti setto quella cella a true
-            shipHitted.setTrueHits();
-            //mostrare la board con le navi colpite e affondate
-            if (shipHitted.isSunk()) {
-                 System.out.println("Colpita e affondata!");
-            } else {
-                System.out.println("Colpita!");
-            }
-            System.out.println("Tentativi effettuati: " + shots);
+        shipHitted.setTrueHits();
+        //mostrare la board con le navi colpite e affondate
+        if (shipHitted.isSunk()) {
+                System.out.println("Colpita e affondata!");
+         } else {
+            System.out.println("Colpita!");
         }
+        System.out.println("Tentativi effettuati: " + set.getPlayer().getShots());
+}
+
+    if (set.getFailableShots() == 0) {
+        System.out.println("Partita terminata. Hai esaurito i tentativi a disposizione :( ");
     }
-    System.out.println("Partita terminata. Hai esaurito i tentativi a disposizione :( ");
 }
 
 /**
@@ -225,11 +221,11 @@ public void attack(int row, String col, Settings set) {
 public Ship guessShip(int row, int col) {
 
     char column = board.convertIntToChar(col);
-    String coordinate = String.valueOf(row).concat(String.valueOf(column));
+    String coordinate = String.valueOf(column).concat(String.valueOf(row));
     for (int i = 0; i<NRCACCIA; i++) {
         String [] posCacciatorpediniere = cacciatorpediniere[i].getCurrentPosition();
         for (int j = 0; j<posCacciatorpediniere.length; j++) {
-            if (posCacciatorpediniere[j] == coordinate) {
+            if (posCacciatorpediniere[j].equals(coordinate)) {
                 return cacciatorpediniere[i];
             }
         }
@@ -238,7 +234,7 @@ public Ship guessShip(int row, int col) {
     for (int i = 0; i<NRCORAZZATA; i++) {
         String [] posCorazzata = corazzata[i].getCurrentPosition();
         for (int j = 0; j<posCorazzata.length; j++) {
-            if (posCorazzata[j] == coordinate) {
+            if (posCorazzata[j].equals(coordinate)) {
                 return corazzata[i];
             }
         }
@@ -247,7 +243,7 @@ public Ship guessShip(int row, int col) {
     for (int i = 0; i<NRPORTAEREI; i++) {
         String [] posPortaerei = portaerei[i].getCurrentPosition();
         for (int j = 0; j<posPortaerei.length; j++) {
-            if (posPortaerei[j] == coordinate) {
+            if (posPortaerei[j].equals(coordinate)) {
                 return portaerei[i];
             }
         }
@@ -256,7 +252,7 @@ public Ship guessShip(int row, int col) {
     for (int i = 0; i<NRINCROCIATORE; i++) {
         String [] posIncrociatore = incrociatore[i].getCurrentPosition();
         for (int j = 0; j<posIncrociatore.length; j++) {
-            if (posIncrociatore[j] == coordinate) {
+            if (posIncrociatore[j].equals(coordinate)) {
                 return incrociatore[i];
             }
         }

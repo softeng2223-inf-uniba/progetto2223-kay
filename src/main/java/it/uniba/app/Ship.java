@@ -55,7 +55,7 @@ public abstract class Ship {
  */
 public void setTrueHits() {
     for (int i = 0; i<hits.length; i++) {
-        if (hits[i] = false) {
+        if (hits[i] == false) {
             hits[i] = true;
             break;
         }
@@ -66,7 +66,7 @@ public void setTrueHits() {
  */
 public boolean isSunk() {
     for (int i = 0; i<hits.length; i++) {
-        if (hits[i] = false) {
+        if (hits[i] == false) {
             return false;
         }
     }

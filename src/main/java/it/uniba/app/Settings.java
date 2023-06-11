@@ -13,6 +13,7 @@ public class Settings {
     private static final  int DIFFMEDIA = 30; // intervallo da 20 a 39
     private static final  int DIFFDIFFICILE = 10; // intervallo da 5 a 19
     private static final  int INITBOARD = 10;
+    private Player p;
     private int difficulty;
     private int timeMax;
     private int failableShots;
@@ -26,8 +27,15 @@ Settings() {
     this.difficulty = INITDIFF;
     this.timeMax = INITTIME;
     this.failableShots = DIFFSEMPLICE;
+    this.p = new Player();
 }
 
+/**
+ * Metodo che resituisce il Player.
+ */
+public Player getPlayer() {
+    return this.p;
+}
 
 /**
  * Metodo che restituisce la variabile difficulty.

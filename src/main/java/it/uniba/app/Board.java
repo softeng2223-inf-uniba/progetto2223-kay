@@ -152,7 +152,7 @@ public void modBoard(int x, int y) {
  * Metodo che returna un valore in char in base al valore in int passato.
  */
     public char convertIntToChar(final int val) {
-        return (char) ('A' + val - 1);
+        return (char) ('A' + val );
     }
 
 /**
@@ -161,7 +161,7 @@ public void modBoard(int x, int y) {
 public int convertStringToInt(final String y) {
 
     char colonna = y.charAt(0);
-    int col = colonna - 'A' + 1;
+    int col = colonna - 'A';
     return col;
 }
 }

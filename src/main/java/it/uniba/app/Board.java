@@ -5,16 +5,6 @@ import java.util.Random;
  * Classe che gestisce la board di TempoGioco.
  */
 public class Board {
-    private static final int CASE0 = 0;
-    private static final int CASE1 = 1;
-    private static final int CASE2 = 2;
-    private static final int CASE3 = 3;
-    private static final int CASE4 = 4;
-    private static final int CASE5 = 5;
-    private static final int CASE6 = 6;
-    private static final int CASE7 = 7;
-    private static final int CASE8 = 8;
-    private static final int CASE9 = 9;
     private static final int STANDARDSIZE = 10;
     private static final int LARGESIZE = 18;
     private static final int EXTRASIZE = 26;
@@ -54,12 +44,16 @@ public void modBoard(int x, int y) {
  * Metodo che genera la boardGame.
  */
     public void generateShipsOnBoard(final Ship ship) {
-        int x = ran.nextInt(boardSize);
-        int y = ran.nextInt(boardSize);
-        boolean horizontal = Math.random() < BOOLRAND;
+        boolean placed = false;
+        while (!placed) {
+            int x = ran.nextInt(boardSize);
+            int y = ran.nextInt(boardSize);
+            boolean horizontal = Math.random() < BOOLRAND;
 
-        if (canPlaceShip(x, y, horizontal, ship)) {
-            placeShip(x, y, horizontal, ship);
+            if (canPlaceShip(x, y, horizontal, ship)) {
+                placeShip(x, y, horizontal, ship);
+                placed = true;
+            }
         }
     }
 
@@ -158,19 +152,7 @@ public void modBoard(int x, int y) {
  * Metodo che returna un valore in char in base al valore in int passato.
  */
     public char convertIntToChar(final int val) {
-        switch (val) {
-            case CASE0: return 'A';
-            case CASE1: return 'B';
-            case CASE2: return 'C';
-            case CASE3: return 'D';
-            case CASE4: return 'E';
-            case CASE5: return 'F';
-            case CASE6: return 'G';
-            case CASE7: return 'H';
-            case CASE8: return 'I';
-            case CASE9: return 'L';
-            default: return 'M';
-        }
+        return (char) ('A' + val - 1);
     }
 
 /**

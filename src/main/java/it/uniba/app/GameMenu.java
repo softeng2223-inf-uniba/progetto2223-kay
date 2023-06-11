@@ -235,21 +235,20 @@ final class GameMenu {
  * metodo visualizza, per ogni tipo di nave, la dimensione in quadrati e il numero di esemplari da affondare.
  */
     public static void showShips(final Game game) {
-        System.out.println("[*] Il nome della prima nave è: " + game.getCacciatorpediniere(1).getNameShip());
-        System.out.println("[*] Occupa " + game.getCacciatorpediniere(1).getSize() + " quadrati");
+        System.out.println("[*] Il nome della prima nave è: " + game.getCacciatorpediniere(0).getNameShip());
+        System.out.println("[*] Occupa " + game.getCacciatorpediniere(0).getSize() + " quadrati");
         System.out.println("[*] Ce ne sono " + getNrCacciatorpediniere() + " disponibili"); // da ritornarci 
-        System.out.println("[*] Ne sono posizionate "
-        + getNrCacciatorpediniere() + " nella griglia"); 
-        System.out.println("[*] Il nome della seconda nave è: " + game.getIncrociatore(1).getNameShip());
-        System.out.println("[*] Occupa " + game.getIncrociatore(1).getSize() + " quadrati");
+        System.out.println("[*] Ne sono posizionate " + getNrCacciatorpediniere() + " nella griglia"); 
+        System.out.println("[*] Il nome della seconda nave è: " + game.getIncrociatore(0).getNameShip());
+        System.out.println("[*] Occupa " + game.getIncrociatore(0).getSize() + " quadrati");
         System.out.println("[*] Ce ne sono " + getNrIncrociatore() + " disponibili");
         System.out.println("[*] Ne sono posizionate " + getNrIncrociatore() + " nella griglia");
-        System.out.println("[*] Il nome della terza nave è: " + game.getCorazzata(1).getNameShip());
-        System.out.println("[*] Occupa " + game.getCorazzata(1).getSize() + " quadrati");
+        System.out.println("[*] Il nome della terza nave è: " + game.getCorazzata(0).getNameShip());
+        System.out.println("[*] Occupa " + game.getCorazzata(0).getSize() + " quadrati");
         System.out.println("[*] Ce ne sono " + getNrCorazzata() + " disponibili");
         System.out.println("[*] Ne sono posizionate " + getNrCorazzata() + " nella griglia");
-        System.out.println("[*] Il nome della quarta nave è: " + game.getPortaerei(1).getNameShip());
-        System.out.println("[*] Occupa " + game.getPortaerei(1).getSize() + " quadrati");
+        System.out.println("[*] Il nome della quarta nave è: " + game.getPortaerei(0).getNameShip());
+        System.out.println("[*] Occupa " + game.getPortaerei(0).getSize() + " quadrati");
         System.out.println("[*] Ce ne sono " + getNrPortaerei() + " disponibili");
         System.out.println("[*] Ne sono posizionate " + getNrPortaerei() + " nella griglia");
     }

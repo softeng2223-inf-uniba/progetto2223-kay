@@ -128,21 +128,21 @@ final class GameMenu {
                 System.out.println("[!] Tentativi fallibili: " + set.getFailableShots());
                 printMenuPreGame(set);
                 break;
-                case "/standard":
+            case "/standard":
                 set.editDimension(command);
                 System.out.println("OK dimensione attuale " + set.printDimension() + "x" + set.printDimension());  
-                 printMenuPreGame(set);
-               break;
-             case "/large":
-               set.editDimension(command);
-               System.out.println("OK dimensione attuale " + set.printDimension() + "x" + set.printDimension());       
+                printMenuPreGame(set);
+                break;
+            case "/large":
+                set.editDimension(command);
+                System.out.println("OK dimensione attuale " + set.printDimension() + "x" + set.printDimension());
                 printMenuPreGame(set);
                 break;
             case "/extralarge":
-               set.editDimension(command);
-               System.out.println("OK dimensione attuale " + set.printDimension() + "x" + set.printDimension());
-               printMenuPreGame(set);
-               break;
+                set.editDimension(command);
+                System.out.println("OK dimensione attuale " + set.printDimension() + "x" + set.printDimension());
+                printMenuPreGame(set);
+                break;
             case "/gioca": // in questo case andrà avviata la partita e stampato il menu in game
                 //String difficult = "facile";
                 //difficult = selectDifficulty();

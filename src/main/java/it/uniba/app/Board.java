@@ -15,6 +15,9 @@ public class Board {
     private static final int CASE7 = 7;
     private static final int CASE8 = 8;
     private static final int CASE9 = 9;
+    private static final int STANDARDSIZE = 10;
+    private static final int LARGESIZE = 18;
+    private static final int EXTRASIZE = 26;
     private int boardSize;
     private static final double BOOLRAND = 0.5;
     private char[ ][ ] boardGame;
@@ -115,14 +118,40 @@ public void modBoard(int x, int y) {
  * Stampa a video la board di gioco.
  */
     public void showBoardGame() {
-        System.out.println("  0 1 2 3 4 5 6 7 8 9");
-        for (int i = 0; i < boardSize; i++) {
-            System.out.print(i + " ");
-            for (int j = 0; j < boardSize; j++) {
-                System.out.print(boardGame[i][j] + " ");
-            }
-            System.out.println();
+
+        switch(boardSize){
+            case STANDARDSIZE:
+                System.out.println("  A B C D E F G H I J");
+                for (int i = 0; i < boardSize; i++) {
+                    System.out.print(i + " ");
+                    for (int j = 0; j < boardSize; j++) {
+                        System.out.print(boardGame[i][j] + " ");
+                    }
+                    System.out.println();
+                }
+                break;
+            case LARGESIZE:
+                System.out.println("  A B C D E F G H I J K L M N O P Q R");
+                for (int i = 0; i < boardSize; i++) {
+                    System.out.print(i + " ");
+                    for (int j = 0; j < boardSize; j++) {
+                        System.out.print(boardGame[i][j] + " ");
+                    }
+                    System.out.println();
+                }
+                break;
+            case EXTRASIZE:
+                System.out.println("  A B C D E F G H I J K L M N O P Q R S T U V W X Y Z");
+                for (int i = 0; i < boardSize; i++) {
+                    System.out.print(i + " ");
+                    for (int j = 0; j < boardSize; j++) {
+                        System.out.print(boardGame[i][j] + " ");
+                    }
+                    System.out.println();
+                }
+                break;
         }
+
     }
     // void showBoardShots()
 /**

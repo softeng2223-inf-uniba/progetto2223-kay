@@ -124,8 +124,8 @@ public void DecrementFailableShots() {
  * Metodo che modifica la dimensione della boardGame.
  */
     public void editDimension(String dim){
-        switch(dim){
 
+        switch(dim){
         case "/standard": 
             if (this.boardSize == 10){
                 System.out.println("La griglia è già impostata a Standard 10x10");
@@ -149,8 +149,7 @@ public void DecrementFailableShots() {
             else{
               this.boardSize=26;  
             }         
-             break; 
-
+             break;
     }
 
 }
@@ -159,7 +158,7 @@ public void DecrementFailableShots() {
         return boardSize;
     }
 
-public int getBoardSize(){
+    public int getBoardSize(){
     return boardSize;
 }
 }

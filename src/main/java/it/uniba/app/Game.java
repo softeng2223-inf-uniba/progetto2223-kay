@@ -188,10 +188,11 @@ public static int getNrCacciatorpediniere() {
 
 public void attack(int row, String col, Settings set) {
 
+    row = row - 1;
     int column = board.convertStringToInt(col);
     set.getPlayer().incrementShots();
     if (board.getValue(row, column) == 'O') {
-        // mostrate la baord con le navi colpite e affondate
+        getBoard().showBoardShots();
         System.out.println("Tentativi effettuati: " + set.getPlayer().getShots());
         System.out.println("Acqua!");
         set.DecrementFailableShots();
@@ -201,7 +202,7 @@ public void attack(int row, String col, Settings set) {
         board.modBoard(row, column);
         Ship shipHitted = guessShip(row, column);
         shipHitted.setTrueHits();
-        //mostrare la board con le navi colpite e affondate
+        getBoard().showBoardShots();
         if (shipHitted.isSunk()) {
                 System.out.println("Colpita e affondata!");
          } else {

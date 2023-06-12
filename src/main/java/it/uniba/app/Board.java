@@ -1,10 +1,10 @@
 package it.uniba.app;
 import java.util.Random;
-
 /**
  * Classe che gestisce la board di TempoGioco.
  */
 public class Board {
+    private static final int CASE8 = 8;
     private static final int STANDARDSIZE = 10;
     private static final int LARGESIZE = 18;
     private static final int EXTRASIZE = 26;
@@ -17,28 +17,27 @@ public class Board {
  * Costruttore della classe Board.
  * Inizializza la boardGame e la boardShots.
  */
-    Board(int size) {  
-        this.boardSize = size;    
-        this.boardGame = new char[boardSize][boardSize];
-        this.boardShots = new char[boardSize][boardSize];
-        for (int i = 0; i < boardSize; i++) {
-            for (int j = 0; j < boardSize; j++) {
-                this.boardGame[i][j] = 'O';
-                this.boardShots[i][j] = 'O';
-            }
+Board(final int size) {
+    this.boardSize = size;
+    this.boardGame = new char[boardSize][boardSize];
+    this.boardShots = new char[boardSize][boardSize];
+    for (int i = 0; i < boardSize; i++) {
+        for (int j = 0; j < boardSize; j++) {
+            this.boardGame[i][j] = 'O';
+            this.boardShots[i][j] = 'O';
         }
     }
+}
 /**
  * Metodo che resituisce il valore presente alla coordinata x, y.
  */
-public char getValue(int x, int y) {
+public char getValue(final int x, final int y) {
     return boardGame[x][y];
 }
 /**
  * Metodo che modifica il contenuto della cella x, y (a seguito di un attacco in x,y).
  */
-public void modBoard(int x, int y) {
-    //boardGame[x][y] = 'X';
+public void modBoard(final int x, final int y) {
     boardShots[x][y] = 'X';
 }
 /**
@@ -83,7 +82,6 @@ public void modBoard(int x, int y) {
                 }
             }
         }
-
         return true;
     }
 /**
@@ -114,14 +112,14 @@ public void modBoard(int x, int y) {
  */
     public void showBoardGame() {
 
-        switch(boardSize){
+        switch (boardSize) {
             case STANDARDSIZE:
                 System.out.println("   A B C D E F G H I J");
                 for (int i = 0; i < boardSize; i++) {
-                    if( i > 8 ){
+                    if (i > CASE8) {
                         System.out.print((i + 1) + " ");
-                    }else{
-                        System.out.print((i + 1) + "  ");  
+                    } else {
+                        System.out.print((i + 1) + "  ");
                     }
                     for (int j = 0; j < boardSize; j++) {
                         System.out.print(boardGame[i][j] + " ");
@@ -132,10 +130,10 @@ public void modBoard(int x, int y) {
             case LARGESIZE:
                 System.out.println("   A B C D E F G H I J K L M N O P Q R");
                 for (int i = 0; i < boardSize; i++) {
-                    if( i > 8 ){
+                    if (i > CASE8) {
                         System.out.print((i + 1) + " ");
-                    }else{
-                        System.out.print((i + 1) + "  ");  
+                    } else {
+                        System.out.print((i + 1) + "  ");
                     }
                     for (int j = 0; j < boardSize; j++) {
                         System.out.print(boardGame[i][j] + " ");
@@ -146,10 +144,10 @@ public void modBoard(int x, int y) {
             case EXTRASIZE:
                 System.out.println("   A B C D E F G H I J K L M N O P Q R S T U V W X Y Z");
                 for (int i = 0; i < boardSize; i++) {
-                    if( i > 8 ){
+                    if (i > CASE8) {
                         System.out.print((i + 1) + " ");
-                    }else{
-                        System.out.print((i + 1) + "  ");  
+                    } else {
+                        System.out.print((i + 1) + "  ");
                     }
                     for (int j = 0; j < boardSize; j++) {
                         System.out.print(boardGame[i][j] + " ");
@@ -157,22 +155,24 @@ public void modBoard(int x, int y) {
                     System.out.println();
                 }
                 break;
+            default:
+                System.out.println("Errore nella stampa della board");
+                break;
         }
-
     }
-/*
- * Stampa a video la board con navi colpite o affondate
+/**
+ * Stampa a video la board con navi colpite o affondate.
  */
     public void showBoardShots() {
 
-        switch(boardSize){
+        switch (boardSize) {
             case STANDARDSIZE:
                 System.out.println("   A B C D E F G H I J");
                 for (int i = 0; i < boardSize; i++) {
-                    if( i > 8 ){
+                    if (i > CASE8) {
                         System.out.print((i + 1) + " ");
-                    }else{
-                        System.out.print((i + 1) + "  ");  
+                    } else {
+                        System.out.print((i + 1) + "  ");
                     }
                     for (int j = 0; j < boardSize; j++) {
                         System.out.print(boardShots[i][j] + " ");
@@ -183,10 +183,10 @@ public void modBoard(int x, int y) {
             case LARGESIZE:
                 System.out.println("   A B C D E F G H I J K L M N O P Q R");
                 for (int i = 0; i < boardSize; i++) {
-                   if( i > 8 ){
+                   if (i > CASE8) {
                         System.out.print((i + 1) + " ");
-                    }else{
-                        System.out.print((i + 1) + "  ");  
+                    } else {
+                        System.out.print((i + 1) + "  ");
                     }
                     for (int j = 0; j < boardSize; j++) {
                         System.out.print(boardShots[i][j] + "  ");
@@ -197,10 +197,10 @@ public void modBoard(int x, int y) {
             case EXTRASIZE:
                 System.out.println("   A B C D E F G H I J K L M N O P Q R S T U V W X Y Z");
                 for (int i = 0; i < boardSize; i++) {
-                    if( i > 8 ){
+                    if (i > CASE8) {
                         System.out.print((i + 1) + " ");
-                    }else{
-                        System.out.print((i + 1) + "  ");  
+                    } else {
+                        System.out.print((i + 1) + "  ");
                     }
                     for (int j = 0; j < boardSize; j++) {
                         System.out.print(boardShots[i][j] + " ");
@@ -208,23 +208,23 @@ public void modBoard(int x, int y) {
                     System.out.println();
                 }
                 break;
+            default:
+                System.out.println("Errore nella stampa della board");
         }
-
     }
 /**
  * Metodo che returna un valore in char in base al valore in int passato.
  */
     public char convertIntToChar(final int val) {
-        return (char) ('A' + val );
+        return (char) ('A' + val);
     }
-
 /**
  * Metodo che returna un valore intero che rappresenta l'ordine in alfabeto del carattere passato in input.
  */
-public int convertStringToInt(final String y) {
+    public int convertStringToInt(final String y) {
 
-    char colonna = y.charAt(0);
-    int col = colonna - 'A';
-    return col;
-}
+        char colonna = y.charAt(0);
+        int col = colonna - 'A';
+        return col;
+    }
 }

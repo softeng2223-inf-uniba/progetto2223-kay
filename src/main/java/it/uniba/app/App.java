@@ -1,5 +1,5 @@
 package it.uniba.app;
-import static it.uniba.app.GameMenu.*;
+import static it.uniba.app.GameMenu.displayHelp;
 /**
  *  Class that contains the main method.
  */
@@ -16,9 +16,9 @@ public final class App {
     /**
      * Metodo per gestire il comando --help parametrizzato.
      */
-    public static void helpManager (final String[] args) {
+    public static void helpManager(final String[] args) {
         int count = 0;
-        for (int i = 0; i<args.length && count < 1; i++) {
+        for (int i = 0; i < args.length && count < 1; i++) {
             if (args[i] == "--help" || args[i] == "-h") {
                 displayHelp();
                 count++;
@@ -31,7 +31,6 @@ public final class App {
      * @param args command line arguments
      */
     public static void main(final String[] args) {
-        
         helpManager(args);
         Settings sett = new Settings();
         GameMenu.printMenuPreGame(sett);

@@ -2,8 +2,12 @@ package it.uniba.app;
 import java.util.Scanner;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.regex.*;
-import static it.uniba.app.Game.*;
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
+import static it.uniba.app.Game.getNrCacciatorpediniere;
+import static it.uniba.app.Game.getNrCorazzata;
+import static it.uniba.app.Game.getNrIncrociatore;
+import static it.uniba.app.Game.getNrPortaerei;
 /**
  * Classe che rappresenta il menu di gioco.
  */
@@ -12,7 +16,16 @@ final class GameMenu {
     private static final  int CASE2 = 2;
     private static final  int CASE3 = 3;
     private static final  int CASE4 = 4;
+    private static final  int LOWRANGEEASY = 40;
+    private static final  int HIGHRANGEEASY = 60;
+    private static final  int LOWRANGEMEDIUM = 20;
+    private static final  int HIGHRANGEMEDIUM = 39;
+    private static final  int LOWRANGEDIFF = 5;
+    private static final  int HIGHRANGEDIFF = 19;
+    private static final  int TOMILLISECONDS = 1000;
+    private static final  int TOMINUTES = 60;
     private static Scanner scanner = new Scanner(System.in, "UTF-8");
+    // Errori Checkstyle non risolti: pattern necessari per il funzionamento del menu
     private static final String regexPre = new String(".*\\d");
     private static final String regexIn = new String("[0-9][0-9]?-[A-Z]");
     private static Timer timer = new Timer();
@@ -33,7 +46,7 @@ final class GameMenu {
 /**
  * menu che viene stampato solo quando la partita è iniziata.
  */
-    private static void printMenuInGame(final Game game, Settings set) {
+    private static void printMenuInGame(final Game game, final Settings set) {
         System.out.println("DIGITA /help PER LA LISTA DEI COMANDI");
         String command = scanner.nextLine();
         processCommandInGame(command, game, set);
@@ -41,8 +54,9 @@ final class GameMenu {
 /**
  * processa i comandi che vengono inseriti prima che la partita venga avviata.
  */
-    private static void processCommandPreGame(String command, final Settings set) {
+    private static void processCommandPreGame(final String command, final Settings set) {
         int number = 0;
+        String regCommand = command;
         Pattern pattern = Pattern.compile(regexPre);
         Matcher matcher = pattern.matcher(command);
         if (matcher.matches()) {
@@ -52,9 +66,9 @@ final class GameMenu {
             } catch (NumberFormatException ex) {
                 ex.printStackTrace();
             }
-            command = new String(findText(command));
+            regCommand = new String(findText(command));
         }
-        switch (command) {
+        switch (regCommand) {
             case "/tempo":
                 set.modTimeMax(number);
                 System.out.println("OK");
@@ -65,10 +79,9 @@ final class GameMenu {
                 printMenuPreGame(set);
                 break;
             case "/tentativi":
-                if(number == 0){
+                if (number == 0) {
                     System.out.println("Il comando /tentativi deve essere seguito da un numero.");
-                }
-                else{
+                } else {
                     set.modDifficulty(CASE4);
                     set.setFailableShots(number);
                     System.out.println("OK, " + set.printDifficulty());
@@ -77,7 +90,7 @@ final class GameMenu {
                 printMenuPreGame(set);
                 break;
             case "/facile":
-                if(number >= 40 && number <= 60){
+                if (number >= LOWRANGEEASY && number <= HIGHRANGEEASY) {
                     set.modDifficulty(CASE1);
                     set.setFailableShots(number);
                     System.out.println("OK, " + set.printDifficulty());
@@ -87,14 +100,13 @@ final class GameMenu {
                     set.setFailableShotsDefault(CASE1);
                     System.out.println("OK, " + set.printDifficulty());
                     System.out.println("Tentativi Fallibili: " + set.getFailableShots());
-                }
-                else{
+                } else {
                     System.out.println("Il numero di tentativi fallibili non rispetta il range [da 40 a 60]");
                 }
                 printMenuPreGame(set);
                 break;
             case "/medio":
-                if(number >= 20 && number <= 39){
+                if (number >= LOWRANGEMEDIUM && number <= HIGHRANGEMEDIUM) {
                     set.modDifficulty(CASE2);
                     set.setFailableShots(number);
                     System.out.println("OK, " + set.printDifficulty());
@@ -104,14 +116,13 @@ final class GameMenu {
                     set.setFailableShotsDefault(CASE2);
                     System.out.println("OK, " + set.printDifficulty());
                     System.out.println("Tentativi Fallibili: " + set.getFailableShots());
-                }
-                else{
+                } else {
                     System.out.println("Il numero di tentativi fallibili non rispetta il range [da 20 a 39]");
                 }
                 printMenuPreGame(set);
                 break;
             case "/difficile":
-                if(number >= 5 && number <= 19){
+                if (number >= LOWRANGEDIFF && number <= HIGHRANGEDIFF) {
                     set.modDifficulty(CASE3);
                     set.setFailableShots(number);
                     System.out.println("OK, " + set.printDifficulty());
@@ -121,8 +132,7 @@ final class GameMenu {
                     set.setFailableShotsDefault(CASE3);
                     System.out.println("OK, " + set.printDifficulty());
                     System.out.println("Tentativi Fallibili: " + set.getFailableShots());
-                }
-                else{
+                } else {
                     System.out.println("Il numero di tentativi fallibili non rispetta il range [da 5 a 19]");
                 }
                 printMenuPreGame(set);
@@ -134,7 +144,7 @@ final class GameMenu {
                 break;
             case "/standard":
                 set.editDimension(command);
-                System.out.println("OK dimensione attuale " + set.printDimension() + "x" + set.printDimension());  
+                System.out.println("OK dimensione attuale " + set.printDimension() + "x" + set.printDimension());
                 printMenuPreGame(set);
                 break;
             case "/large":
@@ -147,9 +157,7 @@ final class GameMenu {
                 System.out.println("OK dimensione attuale " + set.printDimension() + "x" + set.printDimension());
                 printMenuPreGame(set);
                 break;
-            case "/gioca": // in questo case andrà avviata la partita e stampato il menu in game
-                //String difficult = "facile";
-                //difficult = selectDifficulty();
+            case "/gioca":
                 Game game = new Game(new Player(), new Board(set.getBoardSize()), set);
                 game.shipPlacement();
                 //comincia il timer
@@ -159,9 +167,10 @@ final class GameMenu {
                     timer.cancel();
                     System.exit(0);
                     }
-                }, set.getTimeMax() * 1000);
+                }, set.getTimeMax() * TOMILLISECONDS);
                 startingTime = System.currentTimeMillis();
-                System.out.println("AVVISO: Per effettuare un attacco alla griglia bisogna digitare prima il numero della riga '-' lettera di colonna. (Es. 5-B)");
+                System.out.println("AVVISO: Per effettuare un attacco alla griglia bisogna"
+                + " digitare il numero della riga '-' lettera di colonna. (Es. 5-B)");
                 printMenuInGame(game, set);
                 break;
             case "/mostranavi":
@@ -180,41 +189,43 @@ final class GameMenu {
 /**
  * processa i comandi che vengono inseriti dopo che la partita è stata avviata.
  */
-    private static void processCommandInGame(String command, final Game game, Settings set) {
+    private static void processCommandInGame(final String command, final Game game, final Settings set) {
 
         Pattern pattern = Pattern.compile(regexIn);
         Matcher matcher = pattern.matcher(command);
+        String regCommand = command;
 
         int row = 0;
         String col = "";
         if (matcher.matches()) {
-            String nrow = new String(findInt(command));
+            String nrow = new String(findInt(regCommand));
             try {
                 row = Integer.parseInt(nrow);
             } catch (NumberFormatException ex) {
                 ex.printStackTrace();
             }
-            col = new String (extractColumn(command));
-            command = new String("/attacco");
+            col = new String(extractColumn(regCommand));
+            regCommand = new String("/attacco");
         }
-
-        switch (command) {
+        switch (regCommand) {
             case "/mostratempo":
                 long elapsedTime = System.currentTimeMillis() - startingTime;
-                long elapsedSeconds = elapsedTime / 1000;
-                long secondsDisplay = elapsedSeconds % 60;
-                long elapsedMinutes = elapsedSeconds / 60;
+                long elapsedSeconds = elapsedTime / TOMILLISECONDS;
+                long secondsDisplay = elapsedSeconds % TOMINUTES;
+                long elapsedMinutes = elapsedSeconds / TOMINUTES;
                 long availableMinutes;
                 long availableSeconds;
                 if (secondsDisplay == 0) {
-                    availableMinutes = set.getTimeMax() / 60 - elapsedMinutes;
+                    availableMinutes = set.getTimeMax() / TOMINUTES - elapsedMinutes;
                     availableSeconds = 0;
                 } else {
-                    availableMinutes = set.getTimeMax() / 60 - elapsedMinutes - 1;
-                    availableSeconds = 60 - secondsDisplay;
+                    availableMinutes = set.getTimeMax() / TOMINUTES - elapsedMinutes - 1;
+                    availableSeconds = TOMINUTES - secondsDisplay;
                 }
-                System.out.println("Tempo trascorso: " + elapsedMinutes + " minuti e " + secondsDisplay + " secondi");
-                System.out.println("Tempo disponibile: " + availableMinutes + " minuti e " + availableSeconds + " secondi");;
+                System.out.println("Tempo trascorso: " + elapsedMinutes
+                + " minuti e " + secondsDisplay + " secondi");
+                System.out.println("Tempo disponibile: " + availableMinutes + " minuti e "
+                + availableSeconds + " secondi");
                 printMenuInGame(game, set);
                 break;
             case "/attacco":
@@ -240,13 +251,14 @@ final class GameMenu {
                 printMenuInGame(game, set);
                 break;
             case "/abbandona":
-                System.out.print("Sei sicuro di voler abbandonare la partita?\n-/si per confermare,\n-/no per tornare al gioco\nabbanDigita: ");
+                System.out.print("Sei sicuro di voler abbandonare la partita?"
+                + " \n-/si per confermare,\n-/no per tornare al gioco\nabbanDigita: ");
                 String answer = scanner.nextLine();
                 if (answer.equals("/si")) {
                     System.out.println("[!]Partita terminata\n");
                     game.getBoard().showBoardGame();
                     timer.cancel();
-                    printMenuPreGame(set);   
+                    printMenuPreGame(set);
                 } else if (answer.equals("/no")) {
                     printMenuInGame(game, set);
                 } else {
@@ -268,14 +280,15 @@ final class GameMenu {
                 System.out.println("[!] Comando non valido");
                 printMenuInGame(game, set);
         }
-
     }
-
-    public static void showShipsPreGame(){
+/**
+ * mostra le navi disponibili e le loro caratteristiche.
+ */
+    public static void showShipsPreGame() {
         Ship caccia = new Cacciatorpediniere();
         System.out.println("[*] Il nome della prima nave è: " + caccia.getNameShip());
         System.out.println("[*] Occupa " + caccia.getSize() + " quadrati");
-        System.out.println("[*] Ce ne sono " + getNrCacciatorpediniere()+ " disponibili");
+        System.out.println("[*] Ce ne sono " + getNrCacciatorpediniere() + " disponibili");
         Ship incrociatore = new Incrociatore();
         System.out.println("[*] Il nome della seconda nave è: " + incrociatore.getNameShip());
         System.out.println("[*] Occupa " + incrociatore.getSize() + " quadrati");
@@ -295,8 +308,8 @@ final class GameMenu {
     public static void showShips(final Game game) {
         System.out.println("[*] Il nome della prima nave è: " + game.getCacciatorpediniere(0).getNameShip());
         System.out.println("[*] Occupa " + game.getCacciatorpediniere(0).getSize() + " quadrati");
-        System.out.println("[*] Ce ne sono " + getNrCacciatorpediniere() + " disponibili"); // da ritornarci 
-        System.out.println("[*] Ne sono posizionate " + getNrCacciatorpediniere() + " nella griglia"); 
+        System.out.println("[*] Ce ne sono " + getNrCacciatorpediniere() + " disponibili");
+        System.out.println("[*] Ne sono posizionate " + getNrCacciatorpediniere() + " nella griglia");
         System.out.println("[*] Il nome della seconda nave è: " + game.getIncrociatore(0).getNameShip());
         System.out.println("[*] Occupa " + game.getIncrociatore(0).getSize() + " quadrati");
         System.out.println("[*] Ce ne sono " + getNrIncrociatore() + " disponibili");
@@ -310,7 +323,6 @@ final class GameMenu {
         System.out.println("[*] Ce ne sono " + getNrPortaerei() + " disponibili");
         System.out.println("[*] Ne sono posizionate " + getNrPortaerei() + " nella griglia");
     }
-
 /**
  * menu che viene stampato al comando /help.
  */
@@ -331,43 +343,44 @@ final class GameMenu {
         System.out.println("[*] Svela la griglia di gioco (solo in partita): /svelagriglia");
         System.out.println("[!] Esegui un comando per iniziare: ");
     }
-
-    /**
-     * Funzione che prende una stringa in input e ne restituisce una in cui è presente solo la parte numerica
-     */
-    static String findInt(String str) {
-        str = str.replaceAll("[^\\d]", " ");
-        str = str.trim();
-        str = str.replaceAll(" +", " ");
-        if (str.equals(""))
+/**
+ * Funzione che prende una stringa in input e ne restituisce una in cui è presente solo la parte numerica.
+ */
+    static String findInt(final String str) {
+        String check  = str;
+        check = str.replaceAll("[^\\d]", " ");
+        check = str.trim();
+        check = str.replaceAll(" +", " ");
+        if (check.equals("")) {
             return "-1";
-        return str;
+        }
+        return check;
     }
-
-    /**
-     * Funzione che prende una stringa in input e ne restituisce una in cui è presente solo la parte testuale
-     */
-    static String findText(String str) {
-        str = str.replaceAll("[\\d]", " ");
-        str = str.trim();
-        str = str.replaceAll(" +", " ");
-        if (str.equals(""))
+/**
+ * Funzione che prende una stringa in input e ne restituisce una in cui è presente solo la parte testuale.
+ */
+    static String findText(final String str) {
+        String check  = str;
+        check = str.replaceAll("[\\d]", " ");
+        check = str.trim();
+        check = str.replaceAll(" +", " ");
+        if (str.equals("")) {
             return "-1";
-        return str;
+        }
+        return check;
     }
-
-    /**
-     * Funzione che prende una stringa in input e restituisce soltanto il carattere dopo il -.
-     */
-    static String extractColumn(String str) {
-        str = str.replaceAll("-", " ");
-        str = str.replaceAll("[\\d]", " ");
-        str = str.trim();
-        
-        str = str.replaceAll(" +", " ");
-        if (str.equals(""))
+/**
+ * Funzione che prende una stringa in input e restituisce soltanto il carattere dopo il -.
+ */
+    static String extractColumn(final String str) {
+        String check  = str;
+        check = str.replaceAll("-", " ");
+        check = str.replaceAll("[\\d]", " ");
+        check = str.trim();
+        check = str.replaceAll(" +", " ");
+        if (str.equals("")) {
             return "-1";
-        return str;
+        }
+        return check;
     }
-
 }

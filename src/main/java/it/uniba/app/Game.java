@@ -1,8 +1,7 @@
 package it.uniba.app;
 import java.util.Timer;
-//import java.util.TimerTask;
 /**
- * Classe che rappresenta il gioco.
+ * Classe che gestisce il gioco TempoGioco.
  */
 public class Game {
     private static final int NRCACCIA = 4;
@@ -74,25 +73,25 @@ public class Game {
 /**
  * metodo che restituisce la corazzata.
  */
-    public Ship getCorazzata(int index) {
+    public Ship getCorazzata(final int index) {
         return this.cacciatorpediniere[index];
     }
 /**
  * metodo che restituisce l'incrociatore.
  */
-    public Ship getIncrociatore(int index) {
+    public Ship getIncrociatore(final int index) {
         return this.incrociatore[index];
     }
 /**
  * metodo che restituisce la portaerei.
  */
-    public Ship getPortaerei(int index) {
+    public Ship getPortaerei(final int index) {
         return this.portaerei[index];
     }
 /**
  * metodo che restituisce il cacciatorpediniere.
  */
-    public Ship getCacciatorpediniere(int index) {
+    public Ship getCacciatorpediniere(final int index) {
         return this.cacciatorpediniere[index];
     }
 
@@ -120,125 +119,108 @@ public class Game {
     public static int getNrCacciatorpediniere() {
         return NRCACCIA;
     }
-
 /**
  * Metodo che setta il campo da gioco andando a caricare le navi, sulla board.
  */
     public void shipPlacement() {
         //Ckecka se ci sono altre partite in corso
         //Genera le navi sul campo di gioco
-        for (int i = 0; i<NRCACCIA; i++) {
+        for (int i = 0; i < NRCACCIA; i++) {
             this.cacciatorpediniere[i] = new Cacciatorpediniere();
         }
-
-        for (int i = 0; i<NRCORAZZATA; i++) {
+        for (int i = 0; i < NRCORAZZATA; i++) {
             this.corazzata[i] = new Corazzata();
         }
-
-        for (int i = 0; i<NRINCROCIATORE; i++) {
+        for (int i = 0; i < NRINCROCIATORE; i++) {
             this.incrociatore[i] = new Incrociatore();
         }
-
-        for (int i = 0; i<NRPORTAEREI; i++) {
+        for (int i = 0; i < NRPORTAEREI; i++) {
             this.portaerei[i] = new Portaerei();
         }
         //Posiziona le navi sul campo di gioco
         for (int i = 0; i < NRCACCIA; i++) {
             this.board.generateShipsOnBoard(cacciatorpediniere[i]); // 4 navi da 2
         }
-
         for (int i = 0; i < NRCORAZZATA; i++) {
             this.board.generateShipsOnBoard(corazzata[i]); // 2 navi da 4
         }
-
         for (int i = 0; i < NRINCROCIATORE; i++) {
             this.board.generateShipsOnBoard(incrociatore[i]); // 3 navi da 3
         }
-
         for (int i = 0; i < NRPORTAEREI; i++) {
             this.board.generateShipsOnBoard(portaerei[i]); // 1 nave da 5
         }
-
         System.out.println("[!] Le navi sono state posizionate sul campo di gioco");
     }
-
 /**
 * Metodo che si occupa di attaccare la boardGame.
 */
-
-public void attack(int row, String col, Settings set) {
-
-    row = row - 1;
-    int column = board.convertStringToInt(col);
-    set.getPlayer().incrementShots();
-    if (board.getValue(row, column) == 'O') {
-        getBoard().showBoardShots();
-        System.out.println("Tentativi effettuati: " + set.getPlayer().getShots());
-        System.out.println("Acqua!");
-        set.DecrementFailableShots();
-        set.getPlayer().incrementFailedShots();
-    } 
-    if (board.getValue(row, column) == '|' || board.getValue(row, column) == '-') {
-        board.modBoard(row, column);
-        Ship shipHitted = guessShip(row, column);
-        shipHitted.setTrueHits();
-        getBoard().showBoardShots();
-        if (shipHitted.isSunk()) {
-                System.out.println("Colpita e affondata!");
-         } else {
-            System.out.println("Colpita!");
+    public void attack(final int row, final String col, final Settings set) {
+        int line = row - 1;
+        int column = board.convertStringToInt(col);
+        set.getPlayer().incrementShots();
+        if (board.getValue(line, column) == 'O') {
+            getBoard().showBoardShots();
+            System.out.println("Tentativi effettuati: " + set.getPlayer().getShots());
+            System.out.println("Acqua!");
+            set.decrementFailableShots();
+            set.getPlayer().incrementFailedShots();
         }
-        System.out.println("Tentativi effettuati: " + set.getPlayer().getShots());
-}
-
-    if (set.getFailableShots() == 0) {
-        System.out.println("Partita terminata. Hai esaurito i tentativi a disposizione :( ");
+        if (board.getValue(line, column) == '|' || board.getValue(line, column) == '-') {
+            board.modBoard(line, column);
+            Ship shipHitted = guessShip(line, column);
+            shipHitted.setTrueHits();
+            getBoard().showBoardShots();
+            if (shipHitted.isSunk()) {
+                    System.out.println("Colpita e affondata!");
+            } else {
+                System.out.println("Colpita!");
+            }
+            System.out.println("Tentativi effettuati: " + set.getPlayer().getShots());
     }
-}
-
+        if (set.getFailableShots() == 0) {
+            System.out.println("Partita terminata. Hai esaurito i tentativi a disposizione :( ");
+        }
+    }
 /**
  * Metodo che scopre quale nava è posizionata in una determinata posizione x, y.
  */
-public Ship guessShip(int row, int col) {
-
-    char column = board.convertIntToChar(col);
-    String coordinate = String.valueOf(column).concat(String.valueOf(row));
-    for (int i = 0; i<NRCACCIA; i++) {
-        String [] posCacciatorpediniere = cacciatorpediniere[i].getCurrentPosition();
-        for (int j = 0; j<posCacciatorpediniere.length; j++) {
-            if (posCacciatorpediniere[j].equals(coordinate)) {
-                return cacciatorpediniere[i];
+    public Ship guessShip(final int row, final  int col) {
+        char column = board.convertIntToChar(col);
+        String coordinate = String.valueOf(column).concat(String.valueOf(row));
+        for (int i = 0; i < NRCACCIA; i++) {
+            String[] posCacciatorpediniere = cacciatorpediniere[i].getCurrentPosition();
+            for (int j = 0; j < posCacciatorpediniere.length; j++) {
+                if (posCacciatorpediniere[j].equals(coordinate)) {
+                    return cacciatorpediniere[i];
+                }
             }
         }
-    }
-
-    for (int i = 0; i<NRCORAZZATA; i++) {
-        String [] posCorazzata = corazzata[i].getCurrentPosition();
-        for (int j = 0; j<posCorazzata.length; j++) {
-            if (posCorazzata[j].equals(coordinate)) {
-                return corazzata[i];
+        for (int i = 0; i < NRCORAZZATA; i++) {
+            String[] posCorazzata = corazzata[i].getCurrentPosition();
+            for (int j = 0; j < posCorazzata.length; j++) {
+                if (posCorazzata[j].equals(coordinate)) {
+                    return corazzata[i];
+                }
             }
         }
-    }
-
-    for (int i = 0; i<NRPORTAEREI; i++) {
-        String [] posPortaerei = portaerei[i].getCurrentPosition();
-        for (int j = 0; j<posPortaerei.length; j++) {
-            if (posPortaerei[j].equals(coordinate)) {
-                return portaerei[i];
+        for (int i = 0; i < NRPORTAEREI; i++) {
+            String[] posPortaerei = portaerei[i].getCurrentPosition();
+            for (int j = 0; j < posPortaerei.length; j++) {
+                if (posPortaerei[j].equals(coordinate)) {
+                    return portaerei[i];
+                }
             }
         }
-    }
-
-    for (int i = 0; i<NRINCROCIATORE; i++) {
-        String [] posIncrociatore = incrociatore[i].getCurrentPosition();
-        for (int j = 0; j<posIncrociatore.length; j++) {
-            if (posIncrociatore[j].equals(coordinate)) {
-                return incrociatore[i];
+        for (int i = 0; i < NRINCROCIATORE; i++) {
+            String[] posIncrociatore = incrociatore[i].getCurrentPosition();
+            for (int j = 0; j < posIncrociatore.length; j++) {
+                if (posIncrociatore[j].equals(coordinate)) {
+                    return incrociatore[i];
+                }
             }
         }
+        System.out.println("Errore inaspettato!");
+        return null;
     }
-    System.out.println("Errore inaspettato!");
-    return null;
-}
 }

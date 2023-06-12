@@ -54,8 +54,8 @@ public abstract class Ship {
  * Metodo che setta a true una posizione del vettore hits.
  */
 public void setTrueHits() {
-    for (int i = 0; i<hits.length; i++) {
-        if (hits[i] == false) {
+    for (int i = 0; i < hits.length; i++) {
+        if (!(hits[i])) {
             hits[i] = true;
             break;
         }
@@ -65,8 +65,8 @@ public void setTrueHits() {
  * Metodo che verifica se una nave è affondata.
  */
 public boolean isSunk() {
-    for (int i = 0; i<hits.length; i++) {
-        if (hits[i] == false) {
+    for (int i = 0; i < hits.length; i++) {
+        if (!(hits[i])) {
             return false;
         }
     }

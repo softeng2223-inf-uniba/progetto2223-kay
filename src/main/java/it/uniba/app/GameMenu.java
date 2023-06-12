@@ -254,6 +254,13 @@ final class GameMenu {
                     printMenuInGame(game, set);
                 }
                 break;
+            case "/mostratentativi":
+                System.out.println("--MENU TENTATIVI--");
+                System.out.println("Tentativi effettuati: " + set.getPlayer().getShots());
+                System.out.println("Tentativi falliti: " + set.getPlayer().getFailedShots());
+                System.out.println("Tentativi fallibili rimasti: " + set.getFailableShots());
+                printMenuInGame(game, set);
+                break;
             case "/esci":
                 System.exit(0);
                 break;

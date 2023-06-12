@@ -5,16 +5,9 @@ import java.util.Random;
  * Classe che gestisce la board di TempoGioco.
  */
 public class Board {
-    private static final int CASE0 = 0;
-    private static final int CASE1 = 1;
-    private static final int CASE2 = 2;
-    private static final int CASE3 = 3;
-    private static final int CASE4 = 4;
-    private static final int CASE5 = 5;
-    private static final int CASE6 = 6;
-    private static final int CASE7 = 7;
-    private static final int CASE8 = 8;
-    private static final int CASE9 = 9;
+    private static final int STANDARDSIZE = 10;
+    private static final int LARGESIZE = 18;
+    private static final int EXTRASIZE = 26;
     private int boardSize;
     private static final double BOOLRAND = 0.5;
     private char[ ][ ] boardGame;
@@ -36,17 +29,30 @@ public class Board {
         }
     }
 /**
+ * Metodo che resituisce il valore presente alla coordinata x, y.
+ */
+public char getValue(int x, int y) {
+    return boardGame[x][y];
+}
+/**
+ * Metodo che modifica il contenuto della cella x, y (a seguito di un attacco in x,y).
+ */
+public void modBoard(int x, int y) {
+    boardGame[x][y] = 'X';
+}
+/**
  * Metodo che genera la boardGame.
  */
     public void generateShipsOnBoard(final Ship ship) {
-        while (ship.getShipsPositioned() < ship.getNrShips()) {
+        boolean placed = false;
+        while (!placed) {
             int x = ran.nextInt(boardSize);
             int y = ran.nextInt(boardSize);
             boolean horizontal = Math.random() < BOOLRAND;
 
             if (canPlaceShip(x, y, horizontal, ship)) {
                 placeShip(x, y, horizontal, ship);
-                ship.setShipPositioned();
+                placed = true;
             }
         }
     }
@@ -106,32 +112,56 @@ public class Board {
  * Stampa a video la board di gioco.
  */
     public void showBoardGame() {
-        System.out.println("  0 1 2 3 4 5 6 7 8 9");
-        for (int i = 0; i < boardSize; i++) {
-            System.out.print(i + " ");
-            for (int j = 0; j < boardSize; j++) {
-                System.out.print(boardGame[i][j] + " ");
-            }
-            System.out.println();
+
+        switch(boardSize){
+            case STANDARDSIZE:
+                System.out.println("  A B C D E F G H I J");
+                for (int i = 0; i < boardSize; i++) {
+                    System.out.print(i + " ");
+                    for (int j = 0; j < boardSize; j++) {
+                        System.out.print(boardGame[i][j] + " ");
+                    }
+                    System.out.println();
+                }
+                break;
+            case LARGESIZE:
+                System.out.println("  A B C D E F G H I J K L M N O P Q R");
+                for (int i = 0; i < boardSize; i++) {
+                    System.out.print(i + " ");
+                    for (int j = 0; j < boardSize; j++) {
+                        System.out.print(boardGame[i][j] + " ");
+                    }
+                    System.out.println();
+                }
+                break;
+            case EXTRASIZE:
+                System.out.println("  A B C D E F G H I J K L M N O P Q R S T U V W X Y Z");
+                for (int i = 0; i < boardSize; i++) {
+                    System.out.print(i + " ");
+                    for (int j = 0; j < boardSize; j++) {
+                        System.out.print(boardGame[i][j] + " ");
+                    }
+                    System.out.println();
+                }
+                break;
         }
+
     }
     // void showBoardShots()
 /**
  * Metodo che returna un valore in char in base al valore in int passato.
  */
     public char convertIntToChar(final int val) {
-        switch (val) {
-            case CASE0: return 'A';
-            case CASE1: return 'B';
-            case CASE2: return 'C';
-            case CASE3: return 'D';
-            case CASE4: return 'E';
-            case CASE5: return 'F';
-            case CASE6: return 'G';
-            case CASE7: return 'H';
-            case CASE8: return 'I';
-            case CASE9: return 'L';
-            default: return 'M';
-        }
+        return (char) ('A' + val );
     }
+
+/**
+ * Metodo che returna un valore intero che rappresenta l'ordine in alfabeto del carattere passato in input.
+ */
+public int convertStringToInt(final String y) {
+
+    char colonna = y.charAt(0);
+    int col = colonna - 'A';
+    return col;
+}
 }

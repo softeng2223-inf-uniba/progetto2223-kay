@@ -13,6 +13,7 @@ public class Settings {
     private static final  int DIFFMEDIA = 30; // intervallo da 20 a 39
     private static final  int DIFFDIFFICILE = 10; // intervallo da 5 a 19
     private static final  int INITBOARD = 10;
+    private Player p;
     private int difficulty;
     private int timeMax;
     private int failableShots;
@@ -26,8 +27,15 @@ Settings() {
     this.difficulty = INITDIFF;
     this.timeMax = INITTIME;
     this.failableShots = DIFFSEMPLICE;
+    this.p = new Player();
 }
 
+/**
+ * Metodo che resituisce il Player.
+ */
+public Player getPlayer() {
+    return this.p;
+}
 
 /**
  * Metodo che restituisce la variabile difficulty.
@@ -114,10 +122,18 @@ Settings() {
     public int getFailableShots() {
         return this.failableShots;
     }
-
+/**
+ * Metodo che decrementa failableShots.
+ */
+public void DecrementFailableShots() {
+    failableShots--;
+}
+/**
+ * Metodo che modifica la dimensione della boardGame.
+ */
     public void editDimension(String dim){
-        switch(dim){
 
+        switch(dim){
         case "/standard": 
             if (this.boardSize == 10){
                 System.out.println("La griglia è già impostata a Standard 10x10");
@@ -141,8 +157,7 @@ Settings() {
             else{
               this.boardSize=26;  
             }         
-             break; 
-
+             break;
     }
 
 }
@@ -151,7 +166,7 @@ Settings() {
         return boardSize;
     }
 
-public int getBoardSize(){
+    public int getBoardSize(){
     return boardSize;
 }
 }

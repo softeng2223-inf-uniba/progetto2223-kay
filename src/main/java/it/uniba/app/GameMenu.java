@@ -1,6 +1,7 @@
 package it.uniba.app;
 import java.util.Scanner;
 import java.util.regex.*;
+import static it.uniba.app.Game.*;
 /**
  * Classe che rappresenta il menu di gioco.
  */
@@ -10,7 +11,8 @@ final class GameMenu {
     private static final  int CASE3 = 3;
     private static final  int CASE4 = 4;
     private static Scanner scanner = new Scanner(System.in, "UTF-8");
-    private static final String regex = new String(".*\\d");
+    private static final String regexPre = new String(".*\\d");
+    private static final String regexIn = new String("[0-9][0-9]?-[A-Z]");
 /**
  * Costruttore della classe GameMenu.
  */
@@ -27,17 +29,17 @@ final class GameMenu {
 /**
  * menu che viene stampato solo quando la partita è iniziata.
  */
-    private static void printMenuInGame(final Game game) {
+    private static void printMenuInGame(final Game game, Settings set) {
         System.out.println("DIGITA /help PER LA LISTA DEI COMANDI");
         String command = scanner.nextLine();
-        processCommandInGame(command, game);
+        processCommandInGame(command, game, set);
     }
 /**
  * processa i comandi che vengono inseriti prima che la partita venga avviata.
  */
     private static void processCommandPreGame(String command, final Settings set) {
         int number = 0;
-        Pattern pattern = Pattern.compile(regex);
+        Pattern pattern = Pattern.compile(regexPre);
         Matcher matcher = pattern.matcher(command);
         if (matcher.matches()) {
             String numb = new String(findInt(command));
@@ -126,27 +128,27 @@ final class GameMenu {
                 System.out.println("[!] Tentativi fallibili: " + set.getFailableShots());
                 printMenuPreGame(set);
                 break;
-                case "/standard":
+            case "/standard":
                 set.editDimension(command);
                 System.out.println("OK dimensione attuale " + set.printDimension() + "x" + set.printDimension());  
-                 printMenuPreGame(set);
-               break;
-             case "/large":
-               set.editDimension(command);
-               System.out.println("OK dimensione attuale " + set.printDimension() + "x" + set.printDimension());       
+                printMenuPreGame(set);
+                break;
+            case "/large":
+                set.editDimension(command);
+                System.out.println("OK dimensione attuale " + set.printDimension() + "x" + set.printDimension());
                 printMenuPreGame(set);
                 break;
             case "/extralarge":
-               set.editDimension(command);
-               System.out.println("OK dimensione attuale " + set.printDimension() + "x" + set.printDimension());
-               printMenuPreGame(set);
-               break;
+                set.editDimension(command);
+                System.out.println("OK dimensione attuale " + set.printDimension() + "x" + set.printDimension());
+                printMenuPreGame(set);
+                break;
             case "/gioca": // in questo case andrà avviata la partita e stampato il menu in game
                 //String difficult = "facile";
                 //difficult = selectDifficulty();
                 Game game = new Game(new Player(), new Board(set.getBoardSize()), set);
                 game.shipPlacement();
-                printMenuInGame(game);
+                printMenuInGame(game, set);
                 break;
             case "/mostranavi":
                 showShipsPreGame();
@@ -164,26 +166,49 @@ final class GameMenu {
 /**
  * processa i comandi che vengono inseriti dopo che la partita è stata avviata.
  */
-    private static void processCommandInGame(final String command, final Game game) {
+    private static void processCommandInGame(String command, final Game game, Settings set) {
+
+        Pattern pattern = Pattern.compile(regexIn);
+        Matcher matcher = pattern.matcher(command);
+
+        int row = 0;
+        String col = "";
+        if (matcher.matches()) {
+            String nrow = new String(findInt(command));
+            try {
+                row = Integer.parseInt(nrow);
+            } catch (NumberFormatException ex) {
+                ex.printStackTrace();
+            }
+            col = new String (extractColumn(command));
+            command = new String("/attacco");
+        }
+
         switch (command) {
+            case "/attacco":
+                if (set.getFailableShots() > 0) {
+                    game.attack(row, col, set);
+                }
+                printMenuInGame(game, set);
+                break;
             case "/help":
                 displayHelp();
-                printMenuInGame(game);
+                printMenuInGame(game, set);
                 break;
             case "/mostranavi":
                 showShips(game);
-                printMenuInGame(game);
+                printMenuInGame(game, set);
                 break;
             case "/svelagriglia":
                 game.getBoard().showBoardGame();
-                printMenuInGame(game);
+                printMenuInGame(game, set);
                 break;
             case "/esci":
                 System.exit(0);
                 break;
             default:
                 System.out.println("[!] Comando non valido");
-                printMenuInGame(game);
+                printMenuInGame(game, set);
         }
 
     }
@@ -192,41 +217,40 @@ final class GameMenu {
         Ship caccia = new Cacciatorpediniere();
         System.out.println("[*] Il nome della prima nave è: " + caccia.getNameShip());
         System.out.println("[*] Occupa " + caccia.getSize() + " quadrati");
-        System.out.println("[*] Ce ne sono " + caccia.getNrShips() + " disponibili");
+        System.out.println("[*] Ce ne sono " + getNrCacciatorpediniere()+ " disponibili");
         Ship incrociatore = new Incrociatore();
         System.out.println("[*] Il nome della seconda nave è: " + incrociatore.getNameShip());
         System.out.println("[*] Occupa " + incrociatore.getSize() + " quadrati");
-        System.out.println("[*] Ce ne sono " + incrociatore.getNrShips() + " disponibili");
+        System.out.println("[*] Ce ne sono " + getNrIncrociatore() + " disponibili");
         Ship corazzata = new Corazzata();
         System.out.println("[*] Il nome della terza nave è: " + corazzata.getNameShip());
         System.out.println("[*] Occupa " + corazzata.getSize() + " quadrati");
-        System.out.println("[*] Ce ne sono " + corazzata.getNrShips() + " disponibili");
+        System.out.println("[*] Ce ne sono " + getNrCorazzata() + " disponibili");
         Ship portaerei = new Portaerei();
         System.out.println("[*] Il nome della quarta nave è: " + portaerei.getNameShip());
         System.out.println("[*] Occupa " + portaerei.getSize() + " quadrati");
-        System.out.println("[*] Ce ne sono " + portaerei.getNrShips() + " disponibili");
+        System.out.println("[*] Ce ne sono " + getNrPortaerei() + " disponibili");
     }
 /**
  * metodo visualizza, per ogni tipo di nave, la dimensione in quadrati e il numero di esemplari da affondare.
  */
     public static void showShips(final Game game) {
-        System.out.println("[*] Il nome della prima nave è: " + game.getCacciatorpediniere().getNameShip());
-        System.out.println("[*] Occupa " + game.getCacciatorpediniere().getSize() + " quadrati");
-        System.out.println("[*] Ce ne sono " + game.getCacciatorpediniere().getNrShips() + " disponibili");
-        System.out.println("[*] Ne sono posizionate "
-        + game.getCacciatorpediniere().getShipsPositioned() + " nella griglia");
-        System.out.println("[*] Il nome della seconda nave è: " + game.getIncrociatore().getNameShip());
-        System.out.println("[*] Occupa " + game.getIncrociatore().getSize() + " quadrati");
-        System.out.println("[*] Ce ne sono " + game.getIncrociatore().getNrShips() + " disponibili");
-        System.out.println("[*] Ne sono posizionate " + game.getIncrociatore().getShipsPositioned() + " nella griglia");
-        System.out.println("[*] Il nome della terza nave è: " + game.getCorazzata().getNameShip());
-        System.out.println("[*] Occupa " + game.getCorazzata().getSize() + " quadrati");
-        System.out.println("[*] Ce ne sono " + game.getCorazzata().getNrShips() + " disponibili");
-        System.out.println("[*] Ne sono posizionate " + game.getCorazzata().getShipsPositioned() + " nella griglia");
-        System.out.println("[*] Il nome della quarta nave è: " + game.getPortaerei().getNameShip());
-        System.out.println("[*] Occupa " + game.getPortaerei().getSize() + " quadrati");
-        System.out.println("[*] Ce ne sono " + game.getPortaerei().getNrShips() + " disponibili");
-        System.out.println("[*] Ne sono posizionate " + game.getPortaerei().getShipsPositioned() + " nella griglia");
+        System.out.println("[*] Il nome della prima nave è: " + game.getCacciatorpediniere(0).getNameShip());
+        System.out.println("[*] Occupa " + game.getCacciatorpediniere(0).getSize() + " quadrati");
+        System.out.println("[*] Ce ne sono " + getNrCacciatorpediniere() + " disponibili"); // da ritornarci 
+        System.out.println("[*] Ne sono posizionate " + getNrCacciatorpediniere() + " nella griglia"); 
+        System.out.println("[*] Il nome della seconda nave è: " + game.getIncrociatore(0).getNameShip());
+        System.out.println("[*] Occupa " + game.getIncrociatore(0).getSize() + " quadrati");
+        System.out.println("[*] Ce ne sono " + getNrIncrociatore() + " disponibili");
+        System.out.println("[*] Ne sono posizionate " + getNrIncrociatore() + " nella griglia");
+        System.out.println("[*] Il nome della terza nave è: " + game.getCorazzata(0).getNameShip());
+        System.out.println("[*] Occupa " + game.getCorazzata(0).getSize() + " quadrati");
+        System.out.println("[*] Ce ne sono " + getNrCorazzata() + " disponibili");
+        System.out.println("[*] Ne sono posizionate " + getNrCorazzata() + " nella griglia");
+        System.out.println("[*] Il nome della quarta nave è: " + game.getPortaerei(0).getNameShip());
+        System.out.println("[*] Occupa " + game.getPortaerei(0).getSize() + " quadrati");
+        System.out.println("[*] Ce ne sono " + getNrPortaerei() + " disponibili");
+        System.out.println("[*] Ne sono posizionate " + getNrPortaerei() + " nella griglia");
     }
 
 /**
@@ -268,6 +292,20 @@ final class GameMenu {
     static String findText(String str) {
         str = str.replaceAll("[\\d]", " ");
         str = str.trim();
+        str = str.replaceAll(" +", " ");
+        if (str.equals(""))
+            return "-1";
+        return str;
+    }
+
+    /**
+     * Funzione che prende una stringa in input e restituisce soltanto il carattere dopo il -.
+     */
+    static String extractColumn(String str) {
+        str = str.replaceAll("-", " ");
+        str = str.replaceAll("[\\d]", " ");
+        str = str.trim();
+        
         str = str.replaceAll(" +", " ");
         if (str.equals(""))
             return "-1";

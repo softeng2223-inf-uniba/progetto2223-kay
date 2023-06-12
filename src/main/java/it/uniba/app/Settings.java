@@ -15,7 +15,7 @@ public class Settings {
     private static final  int INITBOARD = 10;
     private Player p;
     private int difficulty;
-    private int timeMax;
+    private int timeMax; //in secondi
     private int failableShots;
     private int boardSize;
 
@@ -25,7 +25,7 @@ public class Settings {
 Settings() {
     this.boardSize = INITBOARD;
     this.difficulty = INITDIFF;
-    this.timeMax = INITTIME;
+    this.timeMax = INITTIME * 60;
     this.failableShots = DIFFSEMPLICE;
     this.p = new Player();
 }
@@ -78,7 +78,7 @@ public Player getPlayer() {
  */
     public void modTimeMax(final int time) {
         if(time>0) {
-            this.timeMax = time;
+            this.timeMax = time * 60;
         }
         else {
             System.out.println("Valore non valido");

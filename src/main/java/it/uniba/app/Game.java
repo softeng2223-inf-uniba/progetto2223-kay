@@ -15,7 +15,6 @@ public class Game {
     private Timer timer;
     private boolean end;
     private int difficulty;
-    //private int failableShots;
     private Ship[] cacciatorpediniere;
     private Ship[] incrociatore;
     private Ship[] corazzata;
@@ -100,47 +99,28 @@ public class Game {
 /**
  * Metodo che restituisce il numero di navi corazzata.
  */
-public static int getNrCorazzata() {
-    return NRCORAZZATA;
-}
+    public static int getNrCorazzata() {
+        return NRCORAZZATA;
+    }
 /**
  * Metodo che restituisce il numero di navi incrociatore.
  */
-public static int getNrIncrociatore() {
-    return NRINCROCIATORE;
-}
+    public static int getNrIncrociatore() {
+        return NRINCROCIATORE;
+    }
 /**
  * Metodo che restituisce il numero di navi portaerei.
  */
-public static int getNrPortaerei() {
-    return NRPORTAEREI;
-}
+    public static int getNrPortaerei() {
+        return NRPORTAEREI;
+    }
 /**
  * Metodo che restituisce il numero di navi cacciatorpediniere.
  */
-public static int getNrCacciatorpediniere() {
-    return NRCACCIA;
-}
-/*
-    public void TimeSelection(int scelta, Timer timer) {
-        int secondi;
-        if(scelta==1) {
-            secondi=TempoGioco1*60;
-        }
-        else {
-            secondi=TempoGioco1*60;
-        }
-        this.timer.schedule(new TimerTask()
-        {
-            public void run()
-            {
-                System.out.println("Il tempo Ã¨ partito");
-                // Dentro qua ci saranno le chiamate a tutti i metodi del gioco
-                timer.cancel();
+    public static int getNrCacciatorpediniere() {
+        return NRCACCIA;
+    }
 
-            }
-        }, secondi*1000);
-    } */
 /**
  * Metodo che setta il campo da gioco andando a caricare le navi, sulla board.
  */

@@ -1,5 +1,7 @@
 package it.uniba.app;
 import java.util.Scanner;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.regex.*;
 import static it.uniba.app.Game.*;
 /**
@@ -13,6 +15,8 @@ final class GameMenu {
     private static Scanner scanner = new Scanner(System.in, "UTF-8");
     private static final String regexPre = new String(".*\\d");
     private static final String regexIn = new String("[0-9][0-9]?-[A-Z]");
+    private static Timer timer = new Timer();
+    private static long startingTime;
 /**
  * Costruttore della classe GameMenu.
  */
@@ -148,6 +152,15 @@ final class GameMenu {
                 //difficult = selectDifficulty();
                 Game game = new Game(new Player(), new Board(set.getBoardSize()), set);
                 game.shipPlacement();
+                //comincia il timer
+                timer.schedule(new TimerTask() {
+                    public void run() {
+                    System.out.println("\nTempo terminato, partita finita!");
+                    timer.cancel();
+                    System.exit(0);
+                    }
+                }, set.getTimeMax() * 1000);
+                startingTime = System.currentTimeMillis();
                 printMenuInGame(game, set);
                 break;
             case "/mostranavi":
@@ -185,6 +198,24 @@ final class GameMenu {
         }
 
         switch (command) {
+            case "/mostratempo":
+                long elapsedTime = System.currentTimeMillis() - startingTime;
+                long elapsedSeconds = elapsedTime / 1000;
+                long secondsDisplay = elapsedSeconds % 60;
+                long elapsedMinutes = elapsedSeconds / 60;
+                long availableMinutes;
+                long availableSeconds;
+                if (secondsDisplay == 0) {
+                    availableMinutes = set.getTimeMax() / 60 - elapsedMinutes;
+                    availableSeconds = 0;
+                } else {
+                    availableMinutes = set.getTimeMax() / 60 - elapsedMinutes - 1;
+                    availableSeconds = 60 - secondsDisplay;
+                }
+                System.out.println("Tempo trascorso: " + elapsedMinutes + " minuti e " + secondsDisplay + " secondi");
+                System.out.println("Tempo disponibile: " + availableMinutes + " minuti e " + availableSeconds + " secondi");;
+                printMenuInGame(game, set);
+                break;
             case "/attacco":
                 if (set.getFailableShots() > 0) {
                     game.attack(row, col, set);

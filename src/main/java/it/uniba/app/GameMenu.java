@@ -161,6 +161,7 @@ final class GameMenu {
                     }
                 }, set.getTimeMax() * 1000);
                 startingTime = System.currentTimeMillis();
+                System.out.println("AVVISO: Per effettuare un attacco alla griglia bisogna digitare prima il numero della riga '-' lettera di colonna. (Es. 5-B)");
                 printMenuInGame(game, set);
                 break;
             case "/mostranavi":

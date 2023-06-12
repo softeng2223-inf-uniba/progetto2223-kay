@@ -160,6 +160,7 @@ public class Game {
         int column = board.convertStringToInt(col);
         set.getPlayer().incrementShots();
         if (board.getValue(line, column) == 'O') {
+            board.modBoardWater(line, column);
             getBoard().showBoardShots();
             System.out.println("Tentativi effettuati: " + set.getPlayer().getShots());
             System.out.println("Acqua!");
@@ -167,7 +168,7 @@ public class Game {
             set.getPlayer().incrementFailedShots();
         }
         if (board.getValue(line, column) == '|' || board.getValue(line, column) == '-') {
-            board.modBoard(line, column);
+            board.modBoardHit(line, column);
             Ship shipHitted = guessShip(line, column);
             shipHitted.setTrueHits();
             getBoard().showBoardShots();
@@ -222,5 +223,53 @@ public class Game {
         }
         System.out.println("Errore inaspettato!");
         return null;
+    }
+/**
+ * Metodo che restituisce il numero di cacciatorpedinieri disponibili.
+ */
+    public int getNrAvailableCT() {
+        int count = 0;
+        for (int i = 0; i < getNrCacciatorpediniere(); i++) {
+            if (!(this.getCacciatorpediniere(i).isSunk())) {
+                count++;
+            }
+        }
+        return count;
+    }
+/**
+ * Metodo che restituisce il numero di incrociatori disponibili.
+ */
+    public int getNrAvailableIC() {
+        int count = 0;
+        for (int i = 0; i < getNrIncrociatore(); i++) {
+            if (!(this.getIncrociatore(i).isSunk())) {
+                count++;
+            }
+        }
+        return count;
+    }
+/**
+ * Metodo che restituisce il numero di corazzate disponibili.
+ */
+    public int getNrAvailableCZ() {
+        int count = 0;
+        for (int i = 0; i < getNrCorazzata(); i++) {
+            if (!(this.getCorazzata(i).isSunk())) {
+                count++;
+            }
+        }
+        return count;
+    }
+/**
+ * Metodo che restituisce il numero di portaerei disponibili.
+ */
+    public int getNrAvailablePT() {
+        int count = 0;
+        for (int i = 0; i < getNrPortaerei(); i++) {
+            if (!(this.getPortaerei(i).isSunk())) {
+                count++;
+            }
+        }
+        return count;
     }
 }

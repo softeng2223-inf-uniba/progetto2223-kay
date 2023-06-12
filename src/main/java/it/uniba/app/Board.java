@@ -37,8 +37,14 @@ public char getValue(final int x, final int y) {
 /**
  * Metodo che modifica il contenuto della cella x, y (a seguito di un attacco in x,y).
  */
-public void modBoard(final int x, final int y) {
+public void modBoardHit(final int x, final int y) {
     boardShots[x][y] = 'X';
+}
+/**
+ * Metodo che modifica il contenuto della cella x, y (a seguito di un attacco in x,y).
+ */
+public void modBoardWater(final int x, final int y) {
+    boardShots[x][y] = 'W';
 }
 /**
  * Metodo che genera la boardGame.

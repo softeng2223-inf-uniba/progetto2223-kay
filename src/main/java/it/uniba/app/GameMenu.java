@@ -239,6 +239,21 @@ final class GameMenu {
                 game.getBoard().showBoardShots();
                 printMenuInGame(game, set);
                 break;
+            case "/abbandona":
+                System.out.print("Sei sicuro di voler abbandonare la partita?\n-/si per confermare,\n-/no per tornare al gioco\nabbanDigita: ");
+                String answer = scanner.nextLine();
+                if (answer.equals("/si")) {
+                    System.out.println("[!]Partita terminata\n");
+                    game.getBoard().showBoardGame();
+                    timer.cancel();
+                    printMenuPreGame(set);   
+                } else if (answer.equals("/no")) {
+                    printMenuInGame(game, set);
+                } else {
+                    System.out.println("[!] Comando non valido");
+                    printMenuInGame(game, set);
+                }
+                break;
             case "/esci":
                 System.exit(0);
                 break;

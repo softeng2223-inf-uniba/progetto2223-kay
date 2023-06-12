@@ -203,6 +203,10 @@ final class GameMenu {
                 game.getBoard().showBoardGame();
                 printMenuInGame(game, set);
                 break;
+            case "/mostragriglia":
+                game.getBoard().showBoardShots();
+                printMenuInGame(game, set);
+                break;
             case "/esci":
                 System.exit(0);
                 break;

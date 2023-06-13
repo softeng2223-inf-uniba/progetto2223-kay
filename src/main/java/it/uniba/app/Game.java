@@ -1,6 +1,7 @@
 package it.uniba.app;
-import java.util.Timer;
 /**
+ * &#60; Entity &#62;
+ * <p>
  * Classe che gestisce il gioco TempoGioco.
  */
 public class Game {
@@ -8,12 +9,10 @@ public class Game {
     private static final int NRINCROCIATORE = 3;
     private static final int NRCORAZZATA = 2;
     private static final int NRPORTAEREI = 1;
-    private Player player;
     private Board board;
-    private int turno;
-    private Timer timer;
-    private boolean end;
     private int difficulty;
+    private int failblShots;
+    private Player plyr;
     private Ship[] cacciatorpediniere;
     private Ship[] incrociatore;
     private Ship[] corazzata;
@@ -22,23 +21,15 @@ public class Game {
 /**
  * Costruttore della classe Game, per iniare una nuova partita da zero.
  */
-    Game(final Player plyr, final Board brd, final Settings set) {
-        this.player = plyr;
+    Game(final Board brd, final Settings set) {
         this.board = brd;
-        this.turno = 0;
-        this.timer = new Timer();
-        this.end = false;
         this.difficulty = set.getDifficulty();
+        this.failblShots = set.getFailableShots();
+        this.plyr = new Player();
         this.cacciatorpediniere = new Ship[NRCACCIA];
         this.incrociatore = new Ship[NRINCROCIATORE];
         this.corazzata = new Ship[NRCORAZZATA];
         this.portaerei = new Ship[NRPORTAEREI];
-    }
-/**
- * Metodo che restituisce il giocatore.
- */
-    public Player getPlayer() {
-        return this.player;
     }
 /**
  * Metodo che restituisce la board.
@@ -47,28 +38,22 @@ public class Game {
         return this.board;
     }
 /**
- * Metodo che restituisce il turno.
- */
-    public int getTurno() {
-        return this.turno;
-    }
-/**
- * Metodo che restituisce il timer.
- */
-    public Timer getTimer() {
-        return this.timer;
-    }
-/**
- * Metodo che restituisce la variabile end.
- */
-    public boolean getEnd() {
-        return this.end;
-    }
-/**
  * Metodo che restituisce la variabile difficulty.
  */
     public int getDifficulty() {
         return difficulty;
+    }
+/**
+ * Metodo che restituisce la variabile failableShots.
+ */
+    public int getFailableShots() {
+        return this.failblShots;
+    }
+/**
+ * Metodo che resituisce il Player.
+ */
+    public Player getPlayer() {
+        return this.plyr;
     }
 /**
  * metodo che restituisce la corazzata.
@@ -123,7 +108,6 @@ public class Game {
  * Metodo che setta il campo da gioco andando a caricare le navi, sulla board.
  */
     public void shipPlacement() {
-        //Ckecka se ci sono altre partite in corso
         //Genera le navi sul campo di gioco
         for (int i = 0; i < NRCACCIA; i++) {
             this.cacciatorpediniere[i] = new Cacciatorpediniere();
@@ -150,41 +134,58 @@ public class Game {
         for (int i = 0; i < NRPORTAEREI; i++) {
             this.board.generateShipsOnBoard(portaerei[i]); // 1 nave da 5
         }
-        System.out.println("[!] Le navi sono state posizionate sul campo di gioco");
+        System.out.println("\n[!] Le navi sono state posizionate sul campo di gioco");
     }
 /**
-* Metodo che si occupa di attaccare la boardGame.
-*/
+ * Metodo che si occupa di attaccare la boardGame.
+ *
+ * @param row       variabile contenente la riga da attaccare
+ * @param col       variabile contenente la colonna da attaccare
+ * @param set       oggetto che contiene le impostazioni di gioco
+ */
     public void attack(final int row, final String col, final Settings set) {
         int line = row - 1;
         int column = board.convertStringToInt(col);
-        set.getPlayer().incrementShots();
-        if (board.getValue(line, column) == 'O') {
-            board.modBoardWater(line, column);
-            getBoard().showBoardShots();
-            System.out.println("Tentativi effettuati: " + set.getPlayer().getShots());
-            System.out.println("Acqua!");
-            set.decrementFailableShots();
-            set.getPlayer().incrementFailedShots();
-        }
-        if (board.getValue(line, column) == '|' || board.getValue(line, column) == '-') {
-            board.modBoardHit(line, column);
-            Ship shipHitted = guessShip(line, column);
-            shipHitted.setTrueHits();
-            getBoard().showBoardShots();
-            if (shipHitted.isSunk()) {
-                    System.out.println("Colpita e affondata!");
-            } else {
-                System.out.println("Colpita!");
+        if (board.getShotsValue(line, column) == 'O') {
+            this.getPlayer().incrementShots();
+            if (board.getGameValue(line, column) == 'O') {
+                board.modBoardWater(line, column);
+                getBoard().showBoardShots();
+                System.out.println("Tentativi effettuati: " + this.getPlayer().getShots());
+                System.out.println("Acqua!");
+                failblShots--;
+                this.getPlayer().incrementFailedShots();
             }
-            System.out.println("Tentativi effettuati: " + set.getPlayer().getShots());
-    }
-        if (set.getFailableShots() == 0) {
-            System.out.println("Partita terminata. Hai esaurito i tentativi a disposizione :( ");
+            if (board.getGameValue(line, column) == '|' || board.getGameValue(line, column) == '-') {
+                board.modBoardHit(line, column);
+                Ship shipHitted = guessShip(line, column);
+                shipHitted.setTrueHits();
+                if (shipHitted.isSunk()) {
+                    board.modBoardSunk(shipHitted);
+                }
+                getBoard().showBoardShots();
+                if (shipHitted.isSunk()) {
+                    System.out.println("Colpita e affondata!");
+                } else {
+                    System.out.println("Colpita!");
+                }
+                System.out.println("Tentativi effettuati: " + this.getPlayer().getShots());
+            }
+        } else {
+            System.out.println("\n[!] Coordinata già immessa, riprova");
+        }
+        if (this.getFailableShots() == 0) {
+            System.out.println("[!] Partita terminata. Hai esaurito i tentativi a disposizione :( ");
+            /* Errore Spotbugs non risolto:
+            chiamata a System.exit necessaria per terminare il programma quando termina il timer */
+            System.exit(0);
         }
     }
 /**
  * Metodo che scopre quale nava è posizionata in una determinata posizione x, y.
+ *
+ * @param row       variabile contenente la riga da controllare
+ * @param col       variabile contenente la colonna da controllare
  */
     public Ship guessShip(final int row, final  int col) {
         char column = board.convertIntToChar(col);

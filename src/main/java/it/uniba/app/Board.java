@@ -1,6 +1,10 @@
 package it.uniba.app;
 import java.util.Random;
+import static it.uniba.app.GameMenu.findInt;
+import static it.uniba.app.GameMenu.findText;;
 /**
+ * &#60; Entity &#62;
+ * <p>
  * Classe che gestisce la board di TempoGioco.
  */
 public class Board {
@@ -17,37 +21,57 @@ public class Board {
  * Costruttore della classe Board.
  * Inizializza la boardGame e la boardShots.
  */
-Board(final int size) {
-    this.boardSize = size;
-    this.boardGame = new char[boardSize][boardSize];
-    this.boardShots = new char[boardSize][boardSize];
-    for (int i = 0; i < boardSize; i++) {
-        for (int j = 0; j < boardSize; j++) {
-            this.boardGame[i][j] = 'O';
-            this.boardShots[i][j] = 'O';
+    Board(final int size) {
+        this.boardSize = size;
+        this.boardGame = new char[boardSize][boardSize];
+        this.boardShots = new char[boardSize][boardSize];
+        for (int i = 0; i < boardSize; i++) {
+            for (int j = 0; j < boardSize; j++) {
+                this.boardGame[i][j] = 'O';
+                this.boardShots[i][j] = 'O';
+            }
         }
     }
-}
 /**
- * Metodo che resituisce il valore presente alla coordinata x, y.
+ * Metodo che resituisce il valore presente alla coordinata x, y della boardGame.
+ *
+ * @param x             variabile contenente la coordinata della riga
+ * @param y             variabile contenente la coordinata della colonna
  */
-public char getValue(final int x, final int y) {
-    return boardGame[x][y];
-}
+    public char getGameValue(final int x, final int y) {
+        return boardGame[x][y];
+    }
+/**
+ * Metodo che resituisce il valore presente alla coordinata x, y della boardGame.
+ *
+ * @param x             variabile contenente la coordinata della riga
+ * @param y             variabile contenente la coordinata della colonna
+ */
+    public char getShotsValue(final int x, final int y) {
+        return boardShots[x][y];
+    }
 /**
  * Metodo che modifica il contenuto della cella x, y (a seguito di un attacco in x,y).
+ *
+ * @param x             variabile contenente la coordinata della riga
+ * @param y             variabile contenente la coordinata della colonna
  */
-public void modBoardHit(final int x, final int y) {
-    boardShots[x][y] = 'X';
-}
+    public void modBoardHit(final int x, final int y) {
+        boardShots[x][y] = 'X';
+    }
 /**
  * Metodo che modifica il contenuto della cella x, y (a seguito di un attacco in x,y).
+ *
+ * @param x             variabile contenente la coordinata della riga
+ * @param y             variabile contenente la coordinata della colonna
  */
-public void modBoardWater(final int x, final int y) {
-    boardShots[x][y] = 'W';
-}
+    public void modBoardWater(final int x, final int y) {
+        boardShots[x][y] = 'W';
+    }
 /**
- * Metodo che genera la boardGame.
+ * Metodo che posiziona una nave sulla board.
+ *
+ * @param ship          oggetto contenente la nave da posizionare
  */
     public void generateShipsOnBoard(final Ship ship) {
         boolean placed = false;
@@ -62,10 +86,13 @@ public void modBoardWater(final int x, final int y) {
             }
         }
     }
-
-
 /**
- * Metodo che returna un booleano che indica se Ã¨ possibile posizionere la nave in x,y.
+ * Metodo che returna un booleano che indica se è possibile posizionere la nave in x,y.
+ *
+ * @param x             variabile contenente la coordinata della riga
+ * @param y             variabile contenente la coordinata della colonna
+ * @param horizontal    variabile che indica se una nave è orizzontale o meno
+ * @param ship          oggetto contenente la nave da posizionare
  */
     private boolean canPlaceShip(final int x, final int y, final boolean horizontal, final Ship ship) {
         if (horizontal) {
@@ -91,7 +118,12 @@ public void modBoardWater(final int x, final int y) {
         return true;
     }
 /**
- *  Metodo che posiziona la nave in x,y.
+ * Metodo che posiziona la nave in x,y.
+ *
+ * @param x             variabile contenente la coordinata della riga
+ * @param y             variabile contenente la coordinata della colonna
+ * @param horizontal    variabile che indica se una nave è orizzontale o meno
+ * @param ship          oggetto contenente la nave da posizionare
  */
     private void placeShip(final int x, final int y, final boolean horizontal, final Ship ship) {
 
@@ -117,7 +149,7 @@ public void modBoardWater(final int x, final int y) {
  * Stampa a video la board di gioco.
  */
     public void showBoardGame() {
-
+        System.out.println();
         switch (boardSize) {
             case STANDARDSIZE:
                 System.out.println("   A B C D E F G H I J");
@@ -165,12 +197,13 @@ public void modBoardWater(final int x, final int y) {
                 System.out.println("Errore nella stampa della board");
                 break;
         }
+        System.out.println();
     }
 /**
- * Stampa a video la board con navi colpite o affondate.
+ * Metodo che stampa a video la board con navi colpite o affondate.
  */
     public void showBoardShots() {
-
+        System.out.println();
         switch (boardSize) {
             case STANDARDSIZE:
                 System.out.println("   A B C D E F G H I J");
@@ -217,6 +250,7 @@ public void modBoardWater(final int x, final int y) {
             default:
                 System.out.println("Errore nella stampa della board");
         }
+        System.out.println();
     }
 /**
  * Metodo che returna un valore in char in base al valore in int passato.
@@ -228,9 +262,28 @@ public void modBoardWater(final int x, final int y) {
  * Metodo che returna un valore intero che rappresenta l'ordine in alfabeto del carattere passato in input.
  */
     public int convertStringToInt(final String y) {
-
         char colonna = y.charAt(0);
         int col = colonna - 'A';
         return col;
+    }
+/**
+ * Metodo che cambia i caratteri sulla boardShots di una nave affondata da X a S.
+ *
+ * @param ship          oggetto che contiene la nave di cui cambiare i caratteri
+ */
+    public void modBoardSunk(final Ship ship) {
+        String[] posToChange = ship.getCurrentPosition();
+        for (int i = 0; i < posToChange.length; i++) {
+            String line = findInt(posToChange[i]);
+            String column = findText(posToChange[i]);
+            int row = 0;
+            try {
+                row = Integer.parseInt(line);
+            } catch (NumberFormatException ex) {
+                ex.printStackTrace();
+            }
+            int col = convertStringToInt(column);
+            boardShots[row][col] = 'S';
+        }
     }
 }

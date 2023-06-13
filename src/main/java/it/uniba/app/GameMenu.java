@@ -9,6 +9,8 @@ import static it.uniba.app.Game.getNrCorazzata;
 import static it.uniba.app.Game.getNrIncrociatore;
 import static it.uniba.app.Game.getNrPortaerei;
 /**
+ * &#60; Boundary &#62;
+ * <p>
  * Classe che rappresenta il menu di gioco e che esegue i comandi digitati dall'utente.
  */
 final class GameMenu {
@@ -22,13 +24,13 @@ final class GameMenu {
     private static final  int HIGHRANGEMEDIUM = 39;
     private static final  int LOWRANGEDIFF = 5;
     private static final  int HIGHRANGEDIFF = 19;
-    private static final  int TOMILLISECONDS = 1000;
-    private static final  int TOMINUTES = 60;
+    private static final  int MILLISECINSEC = 1000;
+    private static final  int SECINMIN = 60;
     private static Scanner scanner = new Scanner(System.in, "UTF-8");
     // Errori Checkstyle non risolti: pattern necessari per il funzionamento del menu
     private static final String regexPre = ".*\\d";
     private static final String regexIn = "[0-9][0-9]?-[A-Z]";
-    private static Timer timer = new Timer();
+    private static Timer timer;
     private static long startingTime;
 /**
  * Costruttore della classe GameMenu.
@@ -36,18 +38,23 @@ final class GameMenu {
     private GameMenu() { }
 /**
  * Menu che viene stampato solo quando la partita non è ancora iniziata.
+ *
+ * @param set       oggetto che contiene le impostazioni di gioco
  */
     static void printMenuPreGame(final Settings set) {
         System.out.println("| BATTLESHIP |");
-        System.out.println("DIGITA /help PER LA LISTA DEI COMANDI");
+        System.out.print("Digita un comando o /help per la lista dei comandi: ");
         String command = scanner.nextLine();
         processCommandPreGame(command, set);
     }
 /**
  * Menu che viene stampato solo quando la partita è iniziata.
+ *
+ * @param game      oggetto che contiene la partita in corso
+ * @param set       oggetto che contiene le impostazioni di gioco
  */
     private static void printMenuInGame(final Game game, final Settings set) {
-        System.out.println("DIGITA /help PER LA LISTA DEI COMANDI");
+        System.out.print("Digita un comando o /help per la lista dei comandi: ");
         String command = scanner.nextLine();
         processCommandInGame(command, game, set);
     }
@@ -73,8 +80,9 @@ final class GameMenu {
  * </ul>
  * </p>
  * Se nessuno di questi comandi è inserito viene segnalato l'errore e il menu viene richiamato
- * @param command   la stringa che contiene il comando da eseguire
- * @param set       l'oggetto che contiene le impostazioni di gioco
+ *
+ * @param command   stringa che contiene il comando da eseguire
+ * @param set       oggetto che contiene le impostazioni di gioco
  */
     private static void processCommandPreGame(final String command, final Settings set) {
         int number = 0;
@@ -92,8 +100,12 @@ final class GameMenu {
         }
         switch (regCommand) {
             case "/tempo":
-                set.modTimeMax(number);
-                System.out.println("OK");
+                if (number > 0) {
+                    set.modTimeMax(number);
+                    System.out.println("\nOK\n");
+                } else {
+                    System.out.println("\n[!] Comando non valido\n");
+                }
                 printMenuPreGame(set);
                 break;
             case "/help":
@@ -102,12 +114,12 @@ final class GameMenu {
                 break;
             case "/tentativi":
                 if (number == 0) {
-                    System.out.println("Il comando /tentativi deve essere seguito da un numero.");
+                    System.out.println("\nIl comando /tentativi deve essere seguito da un numero.\n");
                 } else {
                     set.modDifficulty(CASE4);
                     set.setFailableShots(number);
-                    System.out.println("OK, " + set.printDifficulty());
-                    System.out.println("Tentativi Fallibili: " + set.getFailableShots());
+                    System.out.println("\nOK, " + set.printDifficulty());
+                    System.out.println("Tentativi Fallibili: " + set.getFailableShots() + "\n");
                 }
                 printMenuPreGame(set);
                 break;
@@ -115,15 +127,15 @@ final class GameMenu {
                 if (number >= LOWRANGEEASY && number <= HIGHRANGEEASY) {
                     set.modDifficulty(CASE1);
                     set.setFailableShots(number);
-                    System.out.println("OK, " + set.printDifficulty());
-                    System.out.println("Tentativi Fallibili: " + set.getFailableShots());
+                    System.out.println("\nOK, " + set.printDifficulty());
+                    System.out.println("Tentativi Fallibili: " + set.getFailableShots() + "\n");
                 } else if (number == 0) {
                     set.modDifficulty(CASE1);
                     set.setFailableShotsDefault(CASE1);
-                    System.out.println("OK, " + set.printDifficulty());
-                    System.out.println("Tentativi Fallibili: " + set.getFailableShots());
+                    System.out.println("\nOK, " + set.printDifficulty());
+                    System.out.println("Tentativi Fallibili: " + set.getFailableShots() + "\n");
                 } else {
-                    System.out.println("Il numero di tentativi fallibili non rispetta il range [da 40 a 60]");
+                    System.out.println("\nIl numero di tentativi fallibili non rispetta il range [da 40 a 60]\n");
                 }
                 printMenuPreGame(set);
                 break;
@@ -131,15 +143,15 @@ final class GameMenu {
                 if (number >= LOWRANGEMEDIUM && number <= HIGHRANGEMEDIUM) {
                     set.modDifficulty(CASE2);
                     set.setFailableShots(number);
-                    System.out.println("OK, " + set.printDifficulty());
-                    System.out.println("Tentativi Fallibili: " + set.getFailableShots());
+                    System.out.println("\nOK, " + set.printDifficulty());
+                    System.out.println("Tentativi Fallibili: " + set.getFailableShots() + "\n");
                 } else if (number == 0) {
                     set.modDifficulty(CASE2);
                     set.setFailableShotsDefault(CASE2);
                     System.out.println("OK, " + set.printDifficulty());
-                    System.out.println("Tentativi Fallibili: " + set.getFailableShots());
+                    System.out.println("Tentativi Fallibili: " + set.getFailableShots() + "\n");
                 } else {
-                    System.out.println("Il numero di tentativi fallibili non rispetta il range [da 20 a 39]");
+                    System.out.println("\nIl numero di tentativi fallibili non rispetta il range [da 20 a 39]\n");
                 }
                 printMenuPreGame(set);
                 break;
@@ -147,53 +159,57 @@ final class GameMenu {
                 if (number >= LOWRANGEDIFF && number <= HIGHRANGEDIFF) {
                     set.modDifficulty(CASE3);
                     set.setFailableShots(number);
-                    System.out.println("OK, " + set.printDifficulty());
-                    System.out.println("Tentativi Fallibili: " + set.getFailableShots());
+                    System.out.println("\nOK, " + set.printDifficulty());
+                    System.out.println("Tentativi Fallibili: " + set.getFailableShots() + "\n");
                 } else if (number == 0) {
                     set.modDifficulty(CASE3);
                     set.setFailableShotsDefault(CASE3);
-                    System.out.println("OK, " + set.printDifficulty());
-                    System.out.println("Tentativi Fallibili: " + set.getFailableShots());
+                    System.out.println("\nOK, " + set.printDifficulty());
+                    System.out.println("Tentativi Fallibili: " + set.getFailableShots() + "\n");
                 } else {
-                    System.out.println("Il numero di tentativi fallibili non rispetta il range [da 5 a 19]");
+                    System.out.println("\nIl numero di tentativi fallibili non rispetta il range [da 5 a 19]\n");
                 }
                 printMenuPreGame(set);
                 break;
             case "/mostralivello":
                 System.out.println(set.printDifficulty());
-                System.out.println("[!] Tentativi fallibili: " + set.getFailableShots());
+                System.out.println("\n[!] Tentativi fallibili: " + set.getFailableShots() + "\n");
                 printMenuPreGame(set);
                 break;
             case "/standard":
                 set.editDimension(command);
-                System.out.println("OK dimensione attuale " + set.printDimension() + "x" + set.printDimension());
+                System.out.println("\nOK dimensione attuale " + set.printDimension() + "x"
+                + set.printDimension() + "\n");
                 printMenuPreGame(set);
                 break;
             case "/large":
                 set.editDimension(command);
-                System.out.println("OK dimensione attuale " + set.printDimension() + "x" + set.printDimension());
+                System.out.println("\nOK dimensione attuale " + set.printDimension() + "x"
+                + set.printDimension() + "\n");
                 printMenuPreGame(set);
                 break;
             case "/extralarge":
                 set.editDimension(command);
-                System.out.println("OK dimensione attuale " + set.printDimension() + "x" + set.printDimension());
+                System.out.println("\nOK dimensione attuale " + set.printDimension() + "x"
+                + set.printDimension() + "\n");
                 printMenuPreGame(set);
                 break;
             case "/gioca":
-                Game game = new Game(new Player(), new Board(set.getBoardSize()), set);
+                Game game = new Game(new Board(set.getBoardSize()), set);
                 game.shipPlacement();
-                //comincia il timer
+                timer = new Timer();
                 timer.schedule(new TimerTask() {
                     public void run() {
                     System.out.println("\nTempo terminato, partita finita!");
                     timer.cancel();
-                    // Chiamata a System.exit necessaria per terminare il programma quando termina il timer
+                    /* Errore Spotbugs non risolto:
+                    chiamata a System.exit necessaria per terminare il programma quando termina il timer */
                     System.exit(0);
                     }
-                }, set.getTimeMax() * TOMILLISECONDS);
+                }, set.getTimeMax() * MILLISECINSEC);
                 startingTime = System.currentTimeMillis();
                 System.out.println("AVVISO: Per effettuare un attacco alla griglia bisogna"
-                + " digitare il numero della riga '-' lettera di colonna. (Es. 5-B)");
+                + " digitare il numero della riga '-' lettera di colonna. (Es. 5-B)\n");
                 printMenuInGame(game, set);
                 break;
             case "/mostranavi":
@@ -204,7 +220,7 @@ final class GameMenu {
                 System.exit(0);
                 break;
             default:
-                System.out.println("[!] Comando non valido");
+                System.out.println("\n[!] Comando non valido\n");
                 printMenuPreGame(set);
                 break;
         }
@@ -226,9 +242,10 @@ final class GameMenu {
  * </ul>
  * </p>
  * Se nessuno di questi comandi è inserito viene segnalato l'errore e il menu viene richiamato
- * @param command   la stringa che contiene il comando da eseguire
- * @param game      l'oggetto che contiene la partita in corso
- * @param set       l'oggetto che contiene le impostazioni di gioco
+ *
+ * @param command   stringa che contiene il comando da eseguire
+ * @param game      oggetto che contiene la partita in corso
+ * @param set       oggetto che contiene le impostazioni di gioco
  */
     private static void processCommandInGame(final String command, final Game game, final Settings set) {
 
@@ -250,14 +267,17 @@ final class GameMenu {
         }
         switch (regCommand) {
             case "/mostratempo":
+                System.out.println();
                 showTimer(set);
+                System.out.println();
                 printMenuInGame(game, set);
                 break;
             case "/attacco":
-                if (set.getFailableShots() > 0) {
+                if (game.getFailableShots() > 0) {
                     game.attack(row, col, set);
+                    showTimer(set);
                 }
-                showTimer(set);
+                System.out.println();
                 printMenuInGame(game, set);
                 break;
             case "/help":
@@ -277,33 +297,33 @@ final class GameMenu {
                 printMenuInGame(game, set);
                 break;
             case "/abbandona":
-                System.out.print("Sei sicuro di voler abbandonare la partita?"
+                System.out.print("\nSei sicuro di voler abbandonare la partita?"
                 + " \n-/si per confermare,\n-/no per tornare al gioco\nDigita: ");
                 String answer = scanner.nextLine();
                 if (answer.equals("/si")) {
-                    System.out.println("[!]Partita terminata\n");
+                    System.out.println("[!]Partita terminata");
                     game.getBoard().showBoardGame();
                     timer.cancel();
                     printMenuPreGame(set);
                 } else if (answer.equals("/no")) {
+                    System.out.println();
                     printMenuInGame(game, set);
                 } else {
-                    System.out.println("[!] Comando non valido");
+                    System.out.println("[!] Comando non valido\n");
                     printMenuInGame(game, set);
                 }
                 break;
             case "/mostratentativi":
-                System.out.println("--MENU TENTATIVI--");
-                System.out.println("Tentativi effettuati: " + set.getPlayer().getShots());
-                System.out.println("Tentativi falliti: " + set.getPlayer().getFailedShots());
-                System.out.println("Tentativi fallibili rimasti: " + set.getFailableShots());
+                System.out.println("\nTentativi effettuati: " + game.getPlayer().getShots());
+                System.out.println("Tentativi falliti: " + game.getPlayer().getFailedShots());
+                System.out.println("Tentativi fallibili rimasti: " + game.getFailableShots() + "\n");
                 printMenuInGame(game, set);
                 break;
             case "/esci":
                 System.exit(0);
                 break;
             default:
-                System.out.println("[!] Comando non valido");
+                System.out.println("\n[!] Comando non valido\n");
                 printMenuInGame(game, set);
         }
     }
@@ -331,10 +351,11 @@ final class GameMenu {
 /**
  * Metodo visualizza, per ogni tipo di nave, la dimensione in quadrati, il numero di esemplari da affondare
  * e il numero di quante ne sono state posizionate all'inizio della partita.
- * @param game      l'oggetto che contiene la partita in corso
+ *
+ * @param game      oggetto che contiene la partita in corso
  */
     public static void showShips(final Game game) {
-        System.out.println("[*] Il nome della prima nave è: " + game.getCacciatorpediniere(0).getNameShip());
+        System.out.println("\n[*] Il nome della prima nave è: " + game.getCacciatorpediniere(0).getNameShip());
         System.out.println("[*] Occupa " + game.getCacciatorpediniere(0).getSize() + " quadrati");
         System.out.println("[*] Ce ne sono " + game.getNrAvailableCT() + " disponibili");
         System.out.println("[*] Ne sono posizionate " + getNrCacciatorpediniere() + " nella griglia");
@@ -349,30 +370,42 @@ final class GameMenu {
         System.out.println("[*] Il nome della quarta nave è: " + game.getPortaerei(0).getNameShip());
         System.out.println("[*] Occupa " + game.getPortaerei(0).getSize() + " quadrati");
         System.out.println("[*] Ce ne sono " + game.getNrAvailablePT() + " disponibili");
-        System.out.println("[*] Ne sono posizionate " + getNrPortaerei() + " nella griglia");
+        System.out.println("[*] Ne sono posizionate " + getNrPortaerei() + " nella griglia\n");
     }
 /**
  * Funzione che stampa l'elenco dei comandi.
  */
     public static void displayHelp() {
-        System.out.println("//Benvenuto nella battaglia navale programmata dal gruppo Kay anno accademico 2022/23,"
+        System.out.println("\n//Benvenuto nella battaglia navale programmata dal gruppo Kay anno accademico 2022/23,"
         + " \n l'obiettivo del gioco è quello di affondare le navi nemiche entro i tentativi disponibili.//");
         System.out.println("//Comandi disponibili:");
+        System.out.println("[*] Imposta il tempo di gioco a \"n\" minuti (solo prima della partita): /tempo n");
         System.out.println("[*] Imposta la difficoltà facile (solo prima della partita): /facile");
+        System.out.println("[*] Imposta la difficoltà facile e i tentativi a \"n\" [entro 60 e 40]"
+        + " (solo prima della partita): /facile n");
         System.out.println("[*] Imposta la difficoltà medio (solo prima della partita): /medio");
+        System.out.println("[*] Imposta la difficoltà medio e i tentativi a \"n\" [entro 39 e 20]"
+        + " (solo prima della partita): /medio n");
         System.out.println("[*] Imposta la difficoltà difficile (solo prima della partita): /difficile");
+        System.out.println("[*] Imposta la difficoltà difficile e i tentativi a \"n\" [entro 19 e 5]"
+        + " (solo prima della partita): /difficile n");
         System.out.println("[*] Mostra la difficoltà attuale (solo prima della partita): /mostralivello");
-        System.out.println("[*] Modifica la dimensione della board a 10x10(solo prima della partita): /standard");
-        System.out.println("[*] Modifica la dimensione della board a 18x18(solo prima della partita): /large");
-        System.out.println("[*] Modifica la dimensione della board a 26x26(solo prima della partita): /extralarge");
-        System.out.println("[*] Avvia partita: /gioca");
-        System.out.println("[*] Esci dal gioco: /esci");
-        System.out.println("[*] Mostra le navi da abbattare e il loro numero (solo in partita): /mostranavi");
-        System.out.println("[*] Svela la griglia di gioco (solo in partita): /svelagriglia");
-        System.out.println("[!] Esegui un comando per iniziare: ");
+        System.out.println("[*] Modifica la dimensione della board a 10x10 (solo prima della partita): /standard");
+        System.out.println("[*] Modifica la dimensione della board a 18x18 (solo prima della partita): /large");
+        System.out.println("[*] Modifica la dimensione della board a 26x26 (solo prima della partita): /extralarge");
+        System.out.println("[*] Mostra le navi da abbattere e il loro numero: /mostranavi");
+        System.out.println("[*] Avvia partita (solo prima della partita): /gioca");
+        System.out.println("[*] Colpisce la \"coordinata\" indicata [Es. 5-B] (solo in partita): coordinata");
+        System.out.println("[*] Mostra il tempo di gioco trascorso e rimanente (solo in partita): /mostratempo");
+        System.out.println("[*] Mostra la griglia di gioco con le caselle colpite [W per acqua, X per i colpi"
+        + " alle navi] (solo in partita): /mostragriglia");
+        System.out.println("[*] Svela la griglia di gioco con le navi posizionate (solo in partita): /svelagriglia");
+        System.out.println("[*] Esci dalla partita e torna al menù iniziale (solo in partita): /abbandona");
+        System.out.println("[*] Esci dal gioco: /esci\n");
     }
 /**
  * Funzione che prende una stringa in input e ne restituisce una in cui è presente solo la parte numerica.
+ *
  * @param str        stringa da cui effettuare l'estrazione
  */
     static String findInt(final String str) {
@@ -387,6 +420,7 @@ final class GameMenu {
     }
 /**
  * Funzione che prende una stringa in input e ne restituisce una in cui è presente solo la parte testuale.
+ *
  * @param str        stringa da cui effettuare l'estrazione
  */
     static String findText(final String str) {
@@ -401,6 +435,7 @@ final class GameMenu {
     }
 /**
  * Funzione che prende una stringa in input e restituisce soltanto il carattere dopo il -.
+ *
  * @param str        stringa da cui effettuare l'estrazione
  */
     static String extractColumn(final String str) {
@@ -416,21 +451,22 @@ final class GameMenu {
     }
 /**
  * Funzione che stampa a video il tempo trascorso e quello rimanente.
- * @param set       l'oggetto che contiene le impostazioni di gioco
+ *
+ * @param set       oggetto che contiene le impostazioni di gioco
  */
     static void showTimer(final Settings set) {
         long elapsedTime = System.currentTimeMillis() - startingTime;
-        long elapsedSeconds = elapsedTime / TOMILLISECONDS;
-        long secondsDisplay = elapsedSeconds % TOMINUTES;
-        long elapsedMinutes = elapsedSeconds / TOMINUTES;
+        long elapsedSeconds = elapsedTime / MILLISECINSEC;
+        long secondsDisplay = elapsedSeconds % SECINMIN;
+        long elapsedMinutes = elapsedSeconds / SECINMIN;
         long availableMinutes;
         long availableSeconds;
         if (secondsDisplay == 0) {
-            availableMinutes = set.getTimeMax() / TOMINUTES - elapsedMinutes;
+            availableMinutes = set.getTimeMax() / SECINMIN - elapsedMinutes;
             availableSeconds = 0;
         } else {
-            availableMinutes = set.getTimeMax() / TOMINUTES - elapsedMinutes - 1;
-            availableSeconds = TOMINUTES - secondsDisplay;
+            availableMinutes = set.getTimeMax() / SECINMIN - elapsedMinutes - 1;
+            availableSeconds = SECINMIN - secondsDisplay;
         }
         System.out.println("Tempo trascorso: " + elapsedMinutes
         + " minuti e " + secondsDisplay + " secondi");

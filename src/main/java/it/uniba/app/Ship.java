@@ -1,6 +1,8 @@
 package it.uniba.app;
 import java.util.Arrays;
 /**
+ * &#60; Entity &#62;
+ * <p>
  * Classe astratta che rappresenta una nave.
  */
 public abstract class Ship {
@@ -8,7 +10,6 @@ public abstract class Ship {
     private int size;
     private String[] currentPosition; // contiene le coordinate della nave, esempio: [A1, A2, A3, A4, A5]
     private boolean[] hits;
-
 /**
  * Costruttore della classe Ship.
  */

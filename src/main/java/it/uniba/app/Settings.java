@@ -1,5 +1,7 @@
 package it.uniba.app;
 /**
+ * &#60; Control &#62;
+ * <p>
  * Classe che contiene le impostazioni di gioco.
  */
 public class Settings {
@@ -13,11 +15,10 @@ public class Settings {
     private static final  int DIFFMEDIA = 30; // intervallo da 20 a 39
     private static final  int DIFFDIFFICILE = 10; // intervallo da 5 a 19
     private static final  int INITBOARD = 10;
-    private static final  int TOMINUTES = 60;
+    private static final  int SECINMIN = 60;
     private static final  int DIMBOARDSTANDARD = 10;
     private static final  int DIMBOARDLARGE = 18;
     private static final  int DIMBOARDSEXTRALARGE = 26;
-    private Player p;
     private int difficulty;
     private int timeMax; //in secondi
     private int failableShots;
@@ -28,18 +29,9 @@ public class Settings {
 Settings() {
     this.boardSize = INITBOARD;
     this.difficulty = INITDIFF;
-    this.timeMax = INITTIME * TOMINUTES;
+    this.timeMax = INITTIME * SECINMIN;
     this.failableShots = DIFFSEMPLICE;
-    this.p = new Player();
 }
-
-/**
- * Metodo che resituisce il Player.
- */
-public Player getPlayer() {
-    return this.p;
-}
-
 /**
  * Metodo che restituisce la variabile difficulty.
  */
@@ -48,6 +40,8 @@ public Player getPlayer() {
     }
 /**
  * Metodo che modifica la variabile difficulty.
+ *
+ * @param diff      variabile con cui cambiare il valore della difficoltà
  */
     public void modDifficulty(final int diff) {
         this.difficulty = diff;
@@ -66,7 +60,7 @@ public Player getPlayer() {
             case CASE4:
                 return "Custom";
             default:
-                return "Errore inaspettato, riavvia il gioco";
+                return "[!] Errore inaspettato, riavvia il gioco";
         }
     }
 /**
@@ -77,12 +71,14 @@ public Player getPlayer() {
     }
 /**
  * Metodo che modifica la variabile timeMax.
+ *
+ * @param time      variabile con cui cambiare il valore del tempo massimo
  */
     public void modTimeMax(final int time) {
         if (time > 0) {
-            this.timeMax = time * TOMINUTES;
+            this.timeMax = time * SECINMIN;
         } else {
-            System.out.println("Valore non valido");
+            System.out.println("[!] Valore non valido");
         }
     }
 /**
@@ -92,16 +88,20 @@ public Player getPlayer() {
         return "Tempo massimo a disposizione: " + timeMax;
     }
 /**
-* Metodo che imposta il numero di colpi fallibile.
-*/
+ * Metodo che imposta il numero di colpi fallibile.
+ *
+ * @param falShots   variabile con cui cambiare il valore dei tentativi fallibili
+ */
     public void setFailableShots(final int falShots) {
         this.failableShots = falShots;
     }
 /**
- * Metodo che imposta il numero di default dei colpi fallibili per la difficoltà /facile.
+ * Metodo che imposta il numero di default dei colpi fallibili in base alla difficoltà.
+ *
+ * @param diff      variabile che indica la difficoltà che sta per essere impostata
  */
-    public void setFailableShotsDefault(final int difficult) {
-        switch (difficult) {
+    public void setFailableShotsDefault(final int diff) {
+        switch (diff) {
             case CASE1:
                 this.failableShots = DIFFSEMPLICE;
                 break;
@@ -112,50 +112,46 @@ public Player getPlayer() {
                 this.failableShots = DIFFDIFFICILE;
                 break;
             default:
-                System.out.println("Errore inaspettato!");
+                System.out.println("[!] Errore inaspettato!");
                 break;
         }
     }
 /**
-* Metodo che restituisce la variabile failableShots.
-*/
+ * Metodo che restituisce la variabile failableShots.
+ */
     public int getFailableShots() {
         return this.failableShots;
     }
 /**
- * Metodo che decrementa failableShots.
- */
-public void decrementFailableShots() {
-    failableShots--;
-}
-/**
  * Metodo che modifica la dimensione della boardGame.
+ *
+ * @param dim       stringa indicante la dimensione che vogliamo impostare
  */
     public void editDimension(final String dim) {
         switch (dim) {
         case "/standard":
             if (this.boardSize == DIMBOARDSTANDARD) {
-                System.out.println("La griglia è già impostata a Standard 10x10");
+                System.out.print("\nLa griglia è già impostata a Standard 10x10");
             } else {
                 this.boardSize = DIMBOARDSTANDARD;
             }
             break;
         case "/large":
             if (this.boardSize == DIMBOARDLARGE) {
-                System.out.println("La griglia è già impostata a Large 18x18");
+                System.out.print("\nLa griglia è già impostata a Large 18x18");
              } else {
                  this.boardSize = DIMBOARDLARGE;
              }
              break;
         case "/extralarge":
             if (this.boardSize == DIMBOARDSEXTRALARGE) {
-                 System.out.println("La griglia è già impostata a Extralarge 26x26");
+                 System.out.print("\nLa griglia è già impostata a Extralarge 26x26");
             } else {
               this.boardSize = DIMBOARDSEXTRALARGE;
             }
             break;
         default:
-            System.out.println("Comando non valido");
+            System.out.println("\n[!] Comando non valido\n");
             break;
     }
 }
@@ -172,4 +168,3 @@ public void decrementFailableShots() {
         return boardSize;
     }
 }
-

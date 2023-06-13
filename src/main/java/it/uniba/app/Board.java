@@ -17,10 +17,10 @@ public class Board {
     private char[ ][ ] boardGame;
     private char[ ][ ] boardShots;
     private Random ran = new Random();
-/**
- * Costruttore della classe Board.
- * Inizializza la boardGame e la boardShots.
- */
+    /**
+     * Costruttore della classe Board.
+     * Inizializza la boardGame e la boardShots.
+     */
     Board(final int size) {
         this.boardSize = size;
         this.boardGame = new char[boardSize][boardSize];
@@ -32,47 +32,47 @@ public class Board {
             }
         }
     }
-/**
- * Metodo che resituisce il valore presente alla coordinata x, y della boardGame.
- *
- * @param x             variabile contenente la coordinata della riga
- * @param y             variabile contenente la coordinata della colonna
- */
+    /**
+     * Metodo che resituisce il valore presente alla coordinata x, y della boardGame.
+     *
+     * @param x             variabile contenente la coordinata della riga
+     * @param y             variabile contenente la coordinata della colonna
+     */
     public char getGameValue(final int x, final int y) {
         return boardGame[x][y];
     }
-/**
- * Metodo che resituisce il valore presente alla coordinata x, y della boardGame.
- *
- * @param x             variabile contenente la coordinata della riga
- * @param y             variabile contenente la coordinata della colonna
- */
+    /**
+     * Metodo che resituisce il valore presente alla coordinata x, y della boardGame.
+     *
+     * @param x             variabile contenente la coordinata della riga
+     * @param y             variabile contenente la coordinata della colonna
+     */
     public char getShotsValue(final int x, final int y) {
         return boardShots[x][y];
     }
-/**
- * Metodo che modifica il contenuto della cella x, y (a seguito di un attacco in x,y).
- *
- * @param x             variabile contenente la coordinata della riga
- * @param y             variabile contenente la coordinata della colonna
- */
+    /**
+     * Metodo che modifica il contenuto della cella x, y (a seguito di un attacco in x,y).
+     *
+     * @param x             variabile contenente la coordinata della riga
+     * @param y             variabile contenente la coordinata della colonna
+     */
     public void modBoardHit(final int x, final int y) {
         boardShots[x][y] = 'X';
     }
-/**
- * Metodo che modifica il contenuto della cella x, y (a seguito di un attacco in x,y).
- *
- * @param x             variabile contenente la coordinata della riga
- * @param y             variabile contenente la coordinata della colonna
- */
+    /**
+     * Metodo che modifica il contenuto della cella x, y (a seguito di un attacco in x,y).
+     *
+     * @param x             variabile contenente la coordinata della riga
+     * @param y             variabile contenente la coordinata della colonna
+     */
     public void modBoardWater(final int x, final int y) {
         boardShots[x][y] = 'W';
     }
-/**
- * Metodo che posiziona una nave sulla board.
- *
- * @param ship          oggetto contenente la nave da posizionare
- */
+    /**
+     * Metodo che posiziona una nave sulla board.
+     *
+     * @param ship          oggetto contenente la nave da posizionare
+     */
     public void generateShipsOnBoard(final Ship ship) {
         boolean placed = false;
         while (!placed) {
@@ -86,14 +86,14 @@ public class Board {
             }
         }
     }
-/**
- * Metodo che returna un booleano che indica se è possibile posizionere la nave in x,y.
- *
- * @param x             variabile contenente la coordinata della riga
- * @param y             variabile contenente la coordinata della colonna
- * @param horizontal    variabile che indica se una nave è orizzontale o meno
- * @param ship          oggetto contenente la nave da posizionare
- */
+    /**
+     * Metodo che returna un booleano che indica se è possibile posizionere la nave in x,y.
+     *
+     * @param x             variabile contenente la coordinata della riga
+     * @param y             variabile contenente la coordinata della colonna
+     * @param horizontal    variabile che indica se una nave è orizzontale o meno
+     * @param ship          oggetto contenente la nave da posizionare
+     */
     private boolean canPlaceShip(final int x, final int y, final boolean horizontal, final Ship ship) {
         if (horizontal) {
             if (y + ship.getSize() > boardSize) {
@@ -117,14 +117,14 @@ public class Board {
         }
         return true;
     }
-/**
- * Metodo che posiziona la nave in x,y.
- *
- * @param x             variabile contenente la coordinata della riga
- * @param y             variabile contenente la coordinata della colonna
- * @param horizontal    variabile che indica se una nave è orizzontale o meno
- * @param ship          oggetto contenente la nave da posizionare
- */
+    /**
+     * Metodo che posiziona la nave in x,y.
+     *
+     * @param x             variabile contenente la coordinata della riga
+     * @param y             variabile contenente la coordinata della colonna
+     * @param horizontal    variabile che indica se una nave è orizzontale o meno
+     * @param ship          oggetto contenente la nave da posizionare
+     */
     private void placeShip(final int x, final int y, final boolean horizontal, final Ship ship) {
 
         int index = 0;
@@ -145,9 +145,9 @@ public class Board {
             }
         }
     }
-/**
- * Stampa a video la board di gioco.
- */
+    /**
+     * Stampa a video la board di gioco.
+     */
     public void showBoardGame() {
         System.out.println();
         switch (boardSize) {
@@ -199,9 +199,9 @@ public class Board {
         }
         System.out.println();
     }
-/**
- * Metodo che stampa a video la board con navi colpite o affondate.
- */
+    /**
+     * Metodo che stampa a video la board con navi colpite o affondate.
+     */
     public void showBoardShots() {
         System.out.println();
         switch (boardSize) {
@@ -252,25 +252,25 @@ public class Board {
         }
         System.out.println();
     }
-/**
- * Metodo che returna un valore in char in base al valore in int passato.
- */
+    /**
+     * Metodo che returna un valore in char in base al valore in int passato.
+     */
     public char convertIntToChar(final int val) {
         return (char) ('A' + val);
     }
-/**
- * Metodo che returna un valore intero che rappresenta l'ordine in alfabeto del carattere passato in input.
- */
+    /**
+     * Metodo che returna un valore intero che rappresenta l'ordine in alfabeto del carattere passato in input.
+     */
     public int convertStringToInt(final String y) {
         char colonna = y.charAt(0);
         int col = colonna - 'A';
         return col;
     }
-/**
- * Metodo che cambia i caratteri sulla boardShots di una nave affondata da X a S.
- *
- * @param ship          oggetto che contiene la nave di cui cambiare i caratteri
- */
+    /**
+     * Metodo che cambia i caratteri sulla boardShots di una nave affondata da X a S.
+     *
+     * @param ship          oggetto che contiene la nave di cui cambiare i caratteri
+     */
     public void modBoardSunk(final Ship ship) {
         String[] posToChange = ship.getCurrentPosition();
         for (int i = 0; i < posToChange.length; i++) {

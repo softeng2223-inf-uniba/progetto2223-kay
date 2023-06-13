@@ -1,152 +1,134 @@
 package it.uniba.app;
-
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
-
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 /**
- * Classe test della classe Board contenuta nel package main
+ * Classe test della classe Board contenuta nel package main.
  */
-public class BoardTest {
-/**
- * Test per la generazione automatica delle navi nella board.
- */
+class BoardTest {
+    private static final int BOARDSIZESTD = 10;
+    private static final int BOARDSIZELRG = 18;
+    private static final int BOARDSIZEXL = 26;
+    private static final int EXAMPLEN4 = 4;
+    private static final int EXAMPLEN16 = 16;
+    /**
+     * Test per la generazione automatica delle navi nella board.
+     */
     @Test
-    public void generateShipOnBoardTest(){
-        Board bUsed = new Board(10);
-        Board bNotUsed = new Board(10);
-
+    void generateShipOnBoardTest() {
+        Board bUsed = new Board(BOARDSIZESTD);
+        Board bNotUsed = new Board(BOARDSIZESTD);
         Ship cacciatorpediniere = new Cacciatorpediniere();
         bUsed.generateShipsOnBoard(cacciatorpediniere);
-        assertNotEquals(bUsed, bNotUsed);
-
-        Ship Incrociatore = new Incrociatore();
-        bUsed.generateShipsOnBoard(Incrociatore);
-        assertNotEquals(bUsed, bNotUsed);
-
-        Ship Corazzata = new Corazzata();
-        bUsed.generateShipsOnBoard(Corazzata);
-        assertNotEquals(bUsed, bNotUsed);
-
-        Ship Portaerei = new Portaerei();
-        bUsed.generateShipsOnBoard(Portaerei);
+        Ship incrociatore = new Incrociatore();
+        bUsed.generateShipsOnBoard(incrociatore);
+        Ship corazzata = new Corazzata();
+        bUsed.generateShipsOnBoard(corazzata);
+        Ship portaerei = new Portaerei();
+        bUsed.generateShipsOnBoard(portaerei);
         assertNotEquals(bUsed, bNotUsed);
     }
-/**
- * Test per la generazione automatica delle navi nella board da 18.
- */
+    /**
+     * Test per la generazione automatica delle navi nella board da 18.
+     */
     @Test
-    public void generateShipOnBoardOf18Test(){
-        Board bUsed = new Board(18);
-        Board bNotUsed = new Board(18);
-
+    void generateShipOnBoardOf18Test() {
+        Board bUsed = new Board(BOARDSIZELRG);
+        Board bNotUsed = new Board(BOARDSIZELRG);
         Ship cacciatorpediniere = new Cacciatorpediniere();
         bUsed.generateShipsOnBoard(cacciatorpediniere);
-        assertNotEquals(bUsed, bNotUsed);
-
-        Ship Incrociatore = new Incrociatore();
-        bUsed.generateShipsOnBoard(Incrociatore);
-        assertNotEquals(bUsed, bNotUsed);
-
-        Ship Corazzata = new Corazzata();
-        bUsed.generateShipsOnBoard(Corazzata);
-        assertNotEquals(bUsed, bNotUsed);
-
-        Ship Portaerei = new Portaerei();
-        bUsed.generateShipsOnBoard(Portaerei);
+        Ship incrociatore = new Incrociatore();
+        bUsed.generateShipsOnBoard(incrociatore);
+        Ship corazzata = new Corazzata();
+        bUsed.generateShipsOnBoard(corazzata);
+        Ship portaerei = new Portaerei();
+        bUsed.generateShipsOnBoard(portaerei);
         assertNotEquals(bUsed, bNotUsed);
     }
-/**
- * Test per la generazione automatica delle navi nella board da 26.
- */
+    /**
+     * Test per la generazione automatica delle navi nella board da 26.
+     */
     @Test
-    public void generateShipOnBoardOf26Test(){
-        Board bUsed = new Board(26);
-        Board bNotUsed = new Board(26);
-
+    void generateShipOnBoardOf26Test() {
+        Board bUsed = new Board(BOARDSIZEXL);
+        Board bNotUsed = new Board(BOARDSIZEXL);
         Ship cacciatorpediniere = new Cacciatorpediniere();
         bUsed.generateShipsOnBoard(cacciatorpediniere);
-        assertNotEquals(bUsed, bNotUsed);
-
-        Ship Incrociatore = new Incrociatore();
-        bUsed.generateShipsOnBoard(Incrociatore);
-        assertNotEquals(bUsed, bNotUsed);
-
-        Ship Corazzata = new Corazzata();
-        bUsed.generateShipsOnBoard(Corazzata);
-        assertNotEquals(bUsed, bNotUsed);
-
-        Ship Portaerei = new Portaerei();
-        bUsed.generateShipsOnBoard(Portaerei);
+        Ship incrociatore = new Incrociatore();
+        bUsed.generateShipsOnBoard(incrociatore);
+        Ship corazzata = new Corazzata();
+        bUsed.generateShipsOnBoard(corazzata);
+        Ship portaerei = new Portaerei();
+        bUsed.generateShipsOnBoard(portaerei);
         assertNotEquals(bUsed, bNotUsed);
     }
-/**
- * primo Test convertitore da int a char.
- */
+    /**
+     * Primo test convertitore da int a char.
+     */
     @Test
-    public void convert4ToCharETest(){
-        Board bUsed = new Board(10);
-        char c = bUsed.convertIntToChar(4);
-        assertEquals('E', c);
+    void convert4ToCharETest() {
+        Board bUsed = new Board(BOARDSIZESTD);
+        char c = bUsed.convertIntToChar(EXAMPLEN4);
+        assertEquals('E', c, "Test fallito!");
     }
-/**
- * secondo Test convertitore da int a char.
- */
+    /**
+     * Secondo test convertitore da int a char.
+     */
     @Test
-    public void convert16ToCharQTest(){
-        Board bUsed = new Board(10);
-        char c = bUsed.convertIntToChar(16);
-        assertEquals('Q', c);
+    void convert16ToCharQTest() {
+        Board bUsed = new Board(BOARDSIZESTD);
+        char c = bUsed.convertIntToChar(EXAMPLEN16);
+        assertEquals('Q', c, "Test fallito!");
     }
-/**
- * terzo Test convertitore da int a char.
- */
+    /**
+     * Terzo test convertitore da int a char.
+     */
     @Test
-    public void OneShouldNotBeCharDTest(){
-        Board bUsed = new Board(10);
+    void oneShouldNotBeCharDTest() {
+        Board bUsed = new Board(BOARDSIZESTD);
         char c = bUsed.convertIntToChar(1);
         assertNotEquals('D', c);
     }
-/**
- * primo Test convertitore da string a int.
- */
+    /**
+     * Primo test convertitore da string a int.
+     */
     @Test
-    public void convertETo4Test(){
-        Board bUsed = new Board(10);
+    void convertETo4Test() {
+        Board bUsed = new Board(BOARDSIZESTD);
         int n = bUsed.convertStringToInt("E");
-        assertEquals(4,n);
+        assertEquals(EXAMPLEN4, n, "Test fallito!");
     }
-/**
- * secondo Test convertitore da string a int.
- */
+    /**
+     * Secondo test convertitore da string a int.
+     */
     @Test
-    public void convertQTo16Test(){
-        Board bUsed = new Board(10);
+    void convertQTo16Test() {
+        Board bUsed = new Board(BOARDSIZESTD);
         int n = bUsed.convertStringToInt("Q");
-        assertEquals(16,n);
+        assertEquals(EXAMPLEN16, n, "Test fallito!");
     }
-/**
- * terzo Test convertitore da string a int.
- */
+    /**
+     * Terzo test convertitore da string a int.
+     */
     @Test
-    public void DShouldNotBeCharOneTest(){
-        Board bUsed = new Board(10);
+    void stringDShouldNotBeCharOneTest() {
+        Board bUsed = new Board(BOARDSIZESTD);
         int n = bUsed.convertStringToInt("D");
-        assertNotEquals(1,n);
+        assertNotEquals(1, n);
     }
-/**
- * Test della modifica del carattere sulla board degli shot quando una qualsiasi nave viene affondata.
- */
+    /**
+     * Test della modifica del carattere sulla board degli shot quando una qualsiasi nave viene affondata.
+     */
     @Test
-    public void modBoardSunkTest(){
-        Board boardShotsUsed = new Board(10);
-        Board boardShotsNotUsed = new Board(10);
+    void modBoardSunkTest() {
+        Board boardShotsUsed = new Board(BOARDSIZESTD);
+        Board boardShotsNotUsed = new Board(BOARDSIZESTD);
         Ship caccia = new Cacciatorpediniere();
         boardShotsUsed.generateShipsOnBoard(caccia);
-        for(int i = 0; i < caccia.getHits().length; i++){
+        for (int i = 0; i < caccia.getHits().length; i++) {
             caccia.setTrueHits();
         }
         boardShotsUsed.modBoardSunk(caccia);
-        assertNotEquals(boardShotsUsed,boardShotsNotUsed);
+        assertNotEquals(boardShotsUsed, boardShotsNotUsed);
     }
 }

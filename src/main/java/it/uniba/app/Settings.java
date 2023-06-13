@@ -23,32 +23,32 @@ public class Settings {
     private int timeMax; //in secondi
     private int failableShots;
     private int boardSize;
-/**
- * Costruttore della classe Settings, per inizializzare ad uno stato iniziale le impostazioni.
- */
-Settings() {
-    this.boardSize = INITBOARD;
-    this.difficulty = INITDIFF;
-    this.timeMax = INITTIME * SECINMIN;
-    this.failableShots = DIFFSEMPLICE;
-}
-/**
- * Metodo che restituisce la variabile difficulty.
- */
+    /**
+     * Costruttore della classe Settings, per inizializzare ad uno stato iniziale le impostazioni.
+     */
+    Settings() {
+        this.boardSize = INITBOARD;
+        this.difficulty = INITDIFF;
+        this.timeMax = INITTIME * SECINMIN;
+        this.failableShots = DIFFSEMPLICE;
+    }
+    /**
+     * Metodo che restituisce la variabile difficulty.
+     */
     public int getDifficulty() {
         return difficulty;
     }
-/**
- * Metodo che modifica la variabile difficulty.
- *
- * @param diff      variabile con cui cambiare il valore della difficoltà
- */
+    /**
+     * Metodo che modifica la variabile difficulty.
+     *
+     * @param diff      variabile con cui cambiare il valore della difficoltà
+     */
     public void modDifficulty(final int diff) {
         this.difficulty = diff;
     }
-/**
- * Metodo che stampa la variabile difficulty.
- */
+    /**
+     * Metodo che stampa la variabile difficulty.
+     */
     public String printDifficulty() {
         switch (difficulty) {
             case CASE1:
@@ -63,17 +63,17 @@ Settings() {
                 return "[!] Errore inaspettato, riavvia il gioco";
         }
     }
-/**
- * Metodo che restituisce la variabile timeMax.
- */
+    /**
+     * Metodo che restituisce la variabile timeMax.
+     */
     public int getTimeMax() {
         return timeMax;
     }
-/**
- * Metodo che modifica la variabile timeMax.
- *
- * @param time      variabile con cui cambiare il valore del tempo massimo
- */
+    /**
+     * Metodo che modifica la variabile timeMax.
+     *
+     * @param time      variabile con cui cambiare il valore del tempo massimo
+     */
     public void modTimeMax(final int time) {
         if (time > 0) {
             this.timeMax = time * SECINMIN;
@@ -81,25 +81,25 @@ Settings() {
             System.out.println("[!] Valore non valido");
         }
     }
-/**
- * Metodo che stampa la variabile timeMax.
- */
+    /**
+     * Metodo che stampa la variabile timeMax.
+     */
     public String printTimeMax() {
         return "Tempo massimo a disposizione: " + timeMax;
     }
-/**
- * Metodo che imposta il numero di colpi fallibile.
- *
- * @param falShots   variabile con cui cambiare il valore dei tentativi fallibili
- */
+    /**
+     * Metodo che imposta il numero di colpi fallibile.
+     *
+     * @param falShots   variabile con cui cambiare il valore dei tentativi fallibili
+     */
     public void setFailableShots(final int falShots) {
         this.failableShots = falShots;
     }
-/**
- * Metodo che imposta il numero di default dei colpi fallibili in base alla difficoltà.
- *
- * @param diff      variabile che indica la difficoltà che sta per essere impostata
- */
+    /**
+     * Metodo che imposta il numero di default dei colpi fallibili in base alla difficoltà.
+     *
+     * @param diff      variabile che indica la difficoltà che sta per essere impostata
+     */
     public void setFailableShotsDefault(final int diff) {
         switch (diff) {
             case CASE1:
@@ -116,17 +116,17 @@ Settings() {
                 break;
         }
     }
-/**
- * Metodo che restituisce la variabile failableShots.
- */
+    /**
+     * Metodo che restituisce la variabile failableShots.
+     */
     public int getFailableShots() {
         return this.failableShots;
     }
-/**
- * Metodo che modifica la dimensione della boardGame.
- *
- * @param dim       stringa indicante la dimensione che vogliamo impostare
- */
+    /**
+     * Metodo che modifica la dimensione della boardGame.
+     *
+     * @param dim       stringa indicante la dimensione che vogliamo impostare
+     */
     public void editDimension(final String dim) {
         switch (dim) {
         case "/standard":
@@ -155,15 +155,15 @@ Settings() {
             break;
     }
 }
-/**
- * Metodo che stampa la dimensione della boardGame.
- */
+    /**
+     * Metodo che stampa la dimensione della boardGame.
+     */
     public int printDimension() {
         return boardSize;
     }
-/**
- * Metodo che restituisce la dimensione della boardGame.
- */
+    /**
+     * Metodo che restituisce la dimensione della boardGame.
+     */
     public int getBoardSize() {
         return boardSize;
     }

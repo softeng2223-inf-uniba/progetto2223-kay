@@ -6,6 +6,9 @@ package it.uniba.app;
  */
 public class Cacciatorpediniere extends Ship {
     private static final int SIZECACCIA = 2;
+    /**
+     * Costruttore della classe Cacciatorpediniere.
+     */
     Cacciatorpediniere() {
         super("Cacciatorpediniere", SIZECACCIA);
     }

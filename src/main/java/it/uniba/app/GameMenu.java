@@ -32,58 +32,58 @@ final class GameMenu {
     private static final String regexIn = "[0-9][0-9]?-[A-Z]";
     private static Timer timer;
     private static long startingTime;
-/**
- * Costruttore della classe GameMenu.
- */
+    /**
+     * Costruttore della classe GameMenu.
+     */
     private GameMenu() { }
-/**
- * Menu che viene stampato solo quando la partita non è ancora iniziata.
- *
- * @param set       oggetto che contiene le impostazioni di gioco
- */
+    /**
+     * Menu che viene stampato solo quando la partita non è ancora iniziata.
+     *
+     * @param set       oggetto che contiene le impostazioni di gioco
+     */
     static void printMenuPreGame(final Settings set) {
         System.out.println("| BATTLESHIP |");
         System.out.print("Digita un comando o /help per la lista dei comandi: ");
         String command = scanner.nextLine();
         processCommandPreGame(command, set);
     }
-/**
- * Menu che viene stampato solo quando la partita è iniziata.
- *
- * @param game      oggetto che contiene la partita in corso
- * @param set       oggetto che contiene le impostazioni di gioco
- */
+    /**
+     * Menu che viene stampato solo quando la partita è iniziata.
+     *
+     * @param game      oggetto che contiene la partita in corso
+     * @param set       oggetto che contiene le impostazioni di gioco
+     */
     private static void printMenuInGame(final Game game, final Settings set) {
         System.out.print("Digita un comando o /help per la lista dei comandi: ");
         String command = scanner.nextLine();
         processCommandInGame(command, game, set);
     }
-/**
- * Funzione che processa i comandi che vengono inseriti prima che la partita venga avviata.
- * <p>
- * I comandi accettati sono:
- * <ul>
- * <li>/help</li>
- * <li>/gioca</li>
- * <li>/tempo (numero)</li>
- * <li>/facile [numero]</li>
- * <li>/medio [numero]</li>
- * <li>/difficile [numero]</li>
- * <li>/tentativi (numero)</li>
- * <li>/mostralivello</li>
- * <li>/standard</li>
- * <li>/large</li>
- * <li>/extralarge</li>
- * <li>/mostranavi</li>
- * <li>/gioca</li>
- * <li>/esci</li>
- * </ul>
- * </p>
- * Se nessuno di questi comandi è inserito viene segnalato l'errore e il menu viene richiamato
- *
- * @param command   stringa che contiene il comando da eseguire
- * @param set       oggetto che contiene le impostazioni di gioco
- */
+    /**
+     * Funzione che processa i comandi che vengono inseriti prima che la partita venga avviata.
+     * <p>
+     * I comandi accettati sono:
+     * <ul>
+     * <li>/help</li>
+     * <li>/gioca</li>
+     * <li>/tempo (numero)</li>
+     * <li>/facile [numero]</li>
+     * <li>/medio [numero]</li>
+     * <li>/difficile [numero]</li>
+     * <li>/tentativi (numero)</li>
+     * <li>/mostralivello</li>
+     * <li>/standard</li>
+     * <li>/large</li>
+     * <li>/extralarge</li>
+     * <li>/mostranavi</li>
+     * <li>/gioca</li>
+     * <li>/esci</li>
+     * </ul>
+     * </p>
+     * Se nessuno di questi comandi è inserito viene segnalato l'errore e il menu viene richiamato
+     *
+     * @param command   stringa che contiene il comando da eseguire
+     * @param set       oggetto che contiene le impostazioni di gioco
+     */
     private static void processCommandPreGame(final String command, final Settings set) {
         int number = 0;
         String regCommand = command;
@@ -225,28 +225,28 @@ final class GameMenu {
                 break;
         }
     }
-/**
- * Funzione che processa i comandi che vengono inseriti dopo che la partita è stata avviata.
- * <p>
- * I comandi accettati sono:
- * <ul>
- * <li>/help</li>
- * <li>(coordinata)</li>
- * <li>/mostratempo</li>
- * <li>/mostranavi</li>
- * <li>/svelagriglia</li>
- * <li>/mostragriglia</li>
- * <li>/mostratentativi</li>
- * <li>/abbandona</li>
- * <li>/esci</li>
- * </ul>
- * </p>
- * Se nessuno di questi comandi è inserito viene segnalato l'errore e il menu viene richiamato
- *
- * @param command   stringa che contiene il comando da eseguire
- * @param game      oggetto che contiene la partita in corso
- * @param set       oggetto che contiene le impostazioni di gioco
- */
+    /**
+     * Funzione che processa i comandi che vengono inseriti dopo che la partita è stata avviata.
+     * <p>
+     * I comandi accettati sono:
+     * <ul>
+     * <li>/help</li>
+     * <li>(coordinata)</li>
+     * <li>/mostratempo</li>
+     * <li>/mostranavi</li>
+     * <li>/svelagriglia</li>
+     * <li>/mostragriglia</li>
+     * <li>/mostratentativi</li>
+     * <li>/abbandona</li>
+     * <li>/esci</li>
+     * </ul>
+     * </p>
+     * Se nessuno di questi comandi è inserito viene segnalato l'errore e il menu viene richiamato
+     *
+     * @param command   stringa che contiene il comando da eseguire
+     * @param game      oggetto che contiene la partita in corso
+     * @param set       oggetto che contiene le impostazioni di gioco
+     */
     private static void processCommandInGame(final String command, final Game game, final Settings set) {
 
         Pattern pattern = Pattern.compile(regexIn);
@@ -327,9 +327,9 @@ final class GameMenu {
                 printMenuInGame(game, set);
         }
     }
-/**
- * Metodo che visualizza, per ogni tipo di nave, la dimensione in quadrati e il numero di esemplari da affondare.
- */
+    /**
+     * Metodo che visualizza, per ogni tipo di nave, la dimensione in quadrati e il numero di esemplari da affondare.
+     */
     public static void showShipsPreGame() {
         Ship caccia = new Cacciatorpediniere();
         System.out.println("[*] Il nome della prima nave è: " + caccia.getNameShip());
@@ -348,12 +348,12 @@ final class GameMenu {
         System.out.println("[*] Occupa " + portaerei.getSize() + " quadrati");
         System.out.println("[*] Ce ne sono " + getNrPortaerei() + " disponibili");
     }
-/**
- * Metodo visualizza, per ogni tipo di nave, la dimensione in quadrati, il numero di esemplari da affondare
- * e il numero di quante ne sono state posizionate all'inizio della partita.
- *
- * @param game      oggetto che contiene la partita in corso
- */
+    /**
+     * Metodo visualizza, per ogni tipo di nave, la dimensione in quadrati, il numero di esemplari da affondare
+     * e il numero di quante ne sono state posizionate all'inizio della partita.
+     *
+     * @param game      oggetto che contiene la partita in corso
+     */
     public static void showShips(final Game game) {
         System.out.println("\n[*] Il nome della prima nave è: " + game.getCacciatorpediniere(0).getNameShip());
         System.out.println("[*] Occupa " + game.getCacciatorpediniere(0).getSize() + " quadrati");
@@ -372,9 +372,9 @@ final class GameMenu {
         System.out.println("[*] Ce ne sono " + game.getNrAvailablePT() + " disponibili");
         System.out.println("[*] Ne sono posizionate " + getNrPortaerei() + " nella griglia\n");
     }
-/**
- * Funzione che stampa l'elenco dei comandi.
- */
+    /**
+     * Funzione che stampa l'elenco dei comandi.
+     */
     public static void displayHelp() {
         System.out.println("\n//Benvenuto nella battaglia navale programmata dal gruppo Kay anno accademico 2022/23,"
         + " \n l'obiettivo del gioco è quello di affondare le navi nemiche entro i tentativi disponibili.//");
@@ -398,16 +398,16 @@ final class GameMenu {
         System.out.println("[*] Colpisce la \"coordinata\" indicata [Es. 5-B] (solo in partita): coordinata");
         System.out.println("[*] Mostra il tempo di gioco trascorso e rimanente (solo in partita): /mostratempo");
         System.out.println("[*] Mostra la griglia di gioco con le caselle colpite [W per acqua, X per i colpi"
-        + " alle navi, S per le posizioni delle navi affondate.] (solo in partita): /mostragriglia");
+        + " alle navi, S per le posizioni delle navi affondate] (solo in partita): /mostragriglia");
         System.out.println("[*] Svela la griglia di gioco con le navi posizionate (solo in partita): /svelagriglia");
         System.out.println("[*] Esci dalla partita e torna al menù iniziale (solo in partita): /abbandona");
         System.out.println("[*] Esci dal gioco: /esci\n");
     }
-/**
- * Funzione che prende una stringa in input e ne restituisce una in cui è presente solo la parte numerica.
- *
- * @param str        stringa da cui effettuare l'estrazione
- */
+    /**
+     * Funzione che prende una stringa in input e ne restituisce una in cui è presente solo la parte numerica.
+     *
+     * @param str        stringa da cui effettuare l'estrazione
+     */
     static String findInt(final String str) {
         String check  = str;
         check = check.replaceAll("[^\\d]", " ");
@@ -418,11 +418,11 @@ final class GameMenu {
         }
         return check;
     }
-/**
- * Funzione che prende una stringa in input e ne restituisce una in cui è presente solo la parte testuale.
- *
- * @param str        stringa da cui effettuare l'estrazione
- */
+    /**
+     * Funzione che prende una stringa in input e ne restituisce una in cui è presente solo la parte testuale.
+     *
+     * @param str        stringa da cui effettuare l'estrazione
+     */
     static String findText(final String str) {
         String check  = str;
         check = check.replaceAll("[\\d]", " ");
@@ -433,11 +433,11 @@ final class GameMenu {
         }
         return check;
     }
-/**
- * Funzione che prende una stringa in input e restituisce soltanto il carattere dopo il -.
- *
- * @param str        stringa da cui effettuare l'estrazione
- */
+    /**
+     * Funzione che prende una stringa in input e restituisce soltanto il carattere dopo il -.
+     *
+     * @param str        stringa da cui effettuare l'estrazione
+     */
     static String extractColumn(final String str) {
         String check  = str;
         check = check.replaceAll("-", " ");
@@ -449,11 +449,11 @@ final class GameMenu {
         }
         return check;
     }
-/**
- * Funzione che stampa a video il tempo trascorso e quello rimanente.
- *
- * @param set       oggetto che contiene le impostazioni di gioco
- */
+    /**
+     * Funzione che stampa a video il tempo trascorso e quello rimanente.
+     *
+     * @param set       oggetto che contiene le impostazioni di gioco
+     */
     static void showTimer(final Settings set) {
         long elapsedTime = System.currentTimeMillis() - startingTime;
         long elapsedSeconds = elapsedTime / MILLISECINSEC;

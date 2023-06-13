@@ -398,7 +398,7 @@ final class GameMenu {
         System.out.println("[*] Colpisce la \"coordinata\" indicata [Es. 5-B] (solo in partita): coordinata");
         System.out.println("[*] Mostra il tempo di gioco trascorso e rimanente (solo in partita): /mostratempo");
         System.out.println("[*] Mostra la griglia di gioco con le caselle colpite [W per acqua, X per i colpi"
-        + " alle navi] (solo in partita): /mostragriglia");
+        + " alle navi, S per le posizioni delle navi affondate.] (solo in partita): /mostragriglia");
         System.out.println("[*] Svela la griglia di gioco con le navi posizionate (solo in partita): /svelagriglia");
         System.out.println("[*] Esci dalla partita e torna al menù iniziale (solo in partita): /abbandona");
         System.out.println("[*] Esci dal gioco: /esci\n");

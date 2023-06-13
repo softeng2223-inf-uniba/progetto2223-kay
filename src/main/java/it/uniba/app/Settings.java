@@ -1,5 +1,7 @@
 package it.uniba.app;
 /**
+ * &#60; Control &#62;
+ * <p>
  * Classe che contiene le impostazioni di gioco.
  */
 public class Settings {
@@ -13,30 +15,23 @@ public class Settings {
     private static final  int DIFFMEDIA = 30; // intervallo da 20 a 39
     private static final  int DIFFDIFFICILE = 10; // intervallo da 5 a 19
     private static final  int INITBOARD = 10;
-    private Player p;
+    private static final  int SECINMIN = 60;
+    private static final  int DIMBOARDSTANDARD = 10;
+    private static final  int DIMBOARDLARGE = 18;
+    private static final  int DIMBOARDSEXTRALARGE = 26;
     private int difficulty;
     private int timeMax; //in secondi
     private int failableShots;
     private int boardSize;
-
 /**
  * Costruttore della classe Settings, per inizializzare ad uno stato iniziale le impostazioni.
  */
 Settings() {
     this.boardSize = INITBOARD;
     this.difficulty = INITDIFF;
-    this.timeMax = INITTIME * 60;
+    this.timeMax = INITTIME * SECINMIN;
     this.failableShots = DIFFSEMPLICE;
-    this.p = new Player();
 }
-
-/**
- * Metodo che resituisce il Player.
- */
-public Player getPlayer() {
-    return this.p;
-}
-
 /**
  * Metodo che restituisce la variabile difficulty.
  */
@@ -45,6 +40,8 @@ public Player getPlayer() {
     }
 /**
  * Metodo che modifica la variabile difficulty.
+ *
+ * @param diff      variabile con cui cambiare il valore della difficoltà
  */
     public void modDifficulty(final int diff) {
         this.difficulty = diff;
@@ -63,7 +60,7 @@ public Player getPlayer() {
             case CASE4:
                 return "Custom";
             default:
-                return "Errore inaspettato, riavvia il gioco";
+                return "[!] Errore inaspettato, riavvia il gioco";
         }
     }
 /**
@@ -72,19 +69,18 @@ public Player getPlayer() {
     public int getTimeMax() {
         return timeMax;
     }
-
 /**
  * Metodo che modifica la variabile timeMax.
+ *
+ * @param time      variabile con cui cambiare il valore del tempo massimo
  */
     public void modTimeMax(final int time) {
-        if(time>0) {
-            this.timeMax = time * 60;
-        }
-        else {
-            System.out.println("Valore non valido");
+        if (time > 0) {
+            this.timeMax = time * SECINMIN;
+        } else {
+            System.out.println("[!] Valore non valido");
         }
     }
-
 /**
  * Metodo che stampa la variabile timeMax.
  */
@@ -92,16 +88,20 @@ public Player getPlayer() {
         return "Tempo massimo a disposizione: " + timeMax;
     }
 /**
-* Metodo che imposta il numero di colpi fallibile
-*/
-    public void setFailableShots(int falShots){
+ * Metodo che imposta il numero di colpi fallibile.
+ *
+ * @param falShots   variabile con cui cambiare il valore dei tentativi fallibili
+ */
+    public void setFailableShots(final int falShots) {
         this.failableShots = falShots;
     }
 /**
- * Metodo che imposta il numero di default dei colpi fallibili per la difficoltà /facile
+ * Metodo che imposta il numero di default dei colpi fallibili in base alla difficoltà.
+ *
+ * @param diff      variabile che indica la difficoltà che sta per essere impostata
  */
-    public void setFailableShotsDefault(int difficulty){
-        switch (difficulty){
+    public void setFailableShotsDefault(final int diff) {
+        switch (diff) {
             case CASE1:
                 this.failableShots = DIFFSEMPLICE;
                 break;
@@ -112,61 +112,59 @@ public Player getPlayer() {
                 this.failableShots = DIFFDIFFICILE;
                 break;
             default:
-                System.out.println("Errore inaspettato!");
+                System.out.println("[!] Errore inaspettato!");
                 break;
         }
     }
 /**
-* Metodo che restituisce la variabile failableShots.
-*/
+ * Metodo che restituisce la variabile failableShots.
+ */
     public int getFailableShots() {
         return this.failableShots;
     }
 /**
- * Metodo che decrementa failableShots.
+ * Metodo che modifica la dimensione della boardGame.
+ *
+ * @param dim       stringa indicante la dimensione che vogliamo impostare
  */
-public void DecrementFailableShots() {
-    failableShots--;
+    public void editDimension(final String dim) {
+        switch (dim) {
+        case "/standard":
+            if (this.boardSize == DIMBOARDSTANDARD) {
+                System.out.print("\nLa griglia è già impostata a Standard 10x10");
+            } else {
+                this.boardSize = DIMBOARDSTANDARD;
+            }
+            break;
+        case "/large":
+            if (this.boardSize == DIMBOARDLARGE) {
+                System.out.print("\nLa griglia è già impostata a Large 18x18");
+             } else {
+                 this.boardSize = DIMBOARDLARGE;
+             }
+             break;
+        case "/extralarge":
+            if (this.boardSize == DIMBOARDSEXTRALARGE) {
+                 System.out.print("\nLa griglia è già impostata a Extralarge 26x26");
+            } else {
+              this.boardSize = DIMBOARDSEXTRALARGE;
+            }
+            break;
+        default:
+            System.out.println("\n[!] Comando non valido\n");
+            break;
+    }
 }
 /**
- * Metodo che modifica la dimensione della boardGame.
+ * Metodo che stampa la dimensione della boardGame.
  */
-    public void editDimension(String dim){
-
-        switch(dim){
-        case "/standard": 
-            if (this.boardSize == 10){
-                System.out.println("La griglia è già impostata a Standard 10x10");
-            }
-            else{
-                this.boardSize=10;  
-            }         
-            break;     
-        case "/large":
-            if (this.boardSize == 18){
-                System.out.println("La griglia è già impostata a Large 18x18");
-             }
-             else{
-                 this.boardSize=18;  
-             }         
-             break; 
-        case "/extralarge":
-            if (this.boardSize == 26){
-                 System.out.println("La griglia è già impostata a Extralarge 26x26");
-            }
-            else{
-              this.boardSize=26;  
-            }         
-             break;
-    }
-
-}
-
-    public int printDimension(){
+    public int printDimension() {
         return boardSize;
     }
-
-    public int getBoardSize(){
-    return boardSize;
-}
+/**
+ * Metodo che restituisce la dimensione della boardGame.
+ */
+    public int getBoardSize() {
+        return boardSize;
+    }
 }

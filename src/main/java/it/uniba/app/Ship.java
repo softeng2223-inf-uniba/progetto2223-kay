@@ -1,6 +1,8 @@
 package it.uniba.app;
 import java.util.Arrays;
 /**
+ * &#60; Entity &#62;
+ * <p>
  * Classe astratta che rappresenta una nave.
  */
 public abstract class Ship {
@@ -8,7 +10,6 @@ public abstract class Ship {
     private int size;
     private String[] currentPosition; // contiene le coordinate della nave, esempio: [A1, A2, A3, A4, A5]
     private boolean[] hits;
-
 /**
  * Costruttore della classe Ship.
  */
@@ -54,8 +55,8 @@ public abstract class Ship {
  * Metodo che setta a true una posizione del vettore hits.
  */
 public void setTrueHits() {
-    for (int i = 0; i<hits.length; i++) {
-        if (hits[i] == false) {
+    for (int i = 0; i < hits.length; i++) {
+        if (!(hits[i])) {
             hits[i] = true;
             break;
         }
@@ -65,8 +66,8 @@ public void setTrueHits() {
  * Metodo che verifica se una nave è affondata.
  */
 public boolean isSunk() {
-    for (int i = 0; i<hits.length; i++) {
-        if (hits[i] == false) {
+    for (int i = 0; i < hits.length; i++) {
+        if (!(hits[i])) {
             return false;
         }
     }

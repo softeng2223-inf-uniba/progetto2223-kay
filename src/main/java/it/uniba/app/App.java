@@ -1,8 +1,6 @@
 package it.uniba.app;
 import static it.uniba.app.GameMenu.displayHelp;
 /**
- *  &#60; Boundary &#62;
- *  <p>
  *  Class that contains the main method.
  */
 public final class App {

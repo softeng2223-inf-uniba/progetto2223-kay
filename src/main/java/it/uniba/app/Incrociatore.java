@@ -6,6 +6,9 @@ package it.uniba.app;
  */
 public class Incrociatore extends Ship {
     private static final int SIZEINCROCIATORE = 3;
+    /**
+     * Costruttore della classe Incrociatore.
+     */
     Incrociatore() {
         super("Incrociatore", SIZEINCROCIATORE);
     }

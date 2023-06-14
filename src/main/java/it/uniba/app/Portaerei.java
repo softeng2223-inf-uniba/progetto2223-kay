@@ -6,6 +6,9 @@ package it.uniba.app;
  */
 public class Portaerei extends Ship {
     private static final int SIZEPORTAEREI = 5;
+    /**
+     * Costruttore della classe Portaerei.
+     */
     Portaerei() {
         super("Portaerei", SIZEPORTAEREI);
     }

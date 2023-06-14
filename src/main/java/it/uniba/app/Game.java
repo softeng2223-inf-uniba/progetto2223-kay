@@ -18,9 +18,9 @@ public class Game {
     private Ship[] corazzata;
     private Ship[] portaerei;
 
-/**
- * Costruttore della classe Game, per iniare una nuova partita da zero.
- */
+    /**
+     * Costruttore della classe Game, per iniare una nuova partita da zero.
+     */
     Game(final Board brd, final Settings set) {
         this.board = brd;
         this.difficulty = set.getDifficulty();
@@ -31,82 +31,82 @@ public class Game {
         this.corazzata = new Ship[NRCORAZZATA];
         this.portaerei = new Ship[NRPORTAEREI];
     }
-/**
- * Metodo che restituisce la board.
- */
+    /**
+     * Metodo che restituisce la board.
+     */
     public Board getBoard() {
         return this.board;
     }
-/**
- * Metodo che restituisce la variabile difficulty.
- */
+    /**
+     * Metodo che restituisce la variabile difficulty.
+     */
     public int getDifficulty() {
         return difficulty;
     }
-/**
- * Metodo che restituisce la variabile failableShots.
- */
+    /**
+     * Metodo che restituisce la variabile failableShots.
+     */
     public int getFailableShots() {
         return this.failblShots;
     }
-/**
- * Metodo che resituisce il Player.
- */
+    /**
+     * Metodo che resituisce il Player.
+     */
     public Player getPlayer() {
         return this.plyr;
     }
-/**
- * metodo che restituisce la corazzata.
- */
+    /**
+     * metodo che restituisce la corazzata.
+     */
     public Ship getCorazzata(final int index) {
         return this.cacciatorpediniere[index];
     }
-/**
- * metodo che restituisce l'incrociatore.
- */
+    /**
+     * metodo che restituisce l'incrociatore.
+     */
     public Ship getIncrociatore(final int index) {
         return this.incrociatore[index];
     }
-/**
- * metodo che restituisce la portaerei.
- */
+    /**
+     * metodo che restituisce la portaerei.
+     */
     public Ship getPortaerei(final int index) {
         return this.portaerei[index];
     }
-/**
- * metodo che restituisce il cacciatorpediniere.
- */
+    /**
+     * metodo che restituisce il cacciatorpediniere.
+     */
     public Ship getCacciatorpediniere(final int index) {
         return this.cacciatorpediniere[index];
     }
 
-/**
- * Metodo che restituisce il numero di navi corazzata.
- */
+    /**
+     * Metodo che restituisce il numero di navi corazzata.
+     */
     public static int getNrCorazzata() {
         return NRCORAZZATA;
     }
-/**
- * Metodo che restituisce il numero di navi incrociatore.
- */
+    /**
+     * Metodo che restituisce il numero di navi incrociatore.
+     */
     public static int getNrIncrociatore() {
         return NRINCROCIATORE;
     }
-/**
- * Metodo che restituisce il numero di navi portaerei.
- */
+    /**
+     * Metodo che restituisce il numero di navi portaerei.
+     */
     public static int getNrPortaerei() {
         return NRPORTAEREI;
     }
-/**
- * Metodo che restituisce il numero di navi cacciatorpediniere.
- */
+    /**
+     * Metodo che restituisce il numero di navi cacciatorpediniere.
+     */
     public static int getNrCacciatorpediniere() {
         return NRCACCIA;
     }
-/**
- * Metodo che setta il campo da gioco andando a caricare le navi, sulla board.
- */
+    /**
+     * Metodo che setta il campo da gioco andando a caricare le navi, sulla board.
+     */
     public void shipPlacement() {
         //Genera le navi sul campo di gioco
         for (int i = 0; i < NRCACCIA; i++) {
@@ -136,13 +136,13 @@ public class Game {
         }
         System.out.println("\n[!] Le navi sono state posizionate sul campo di gioco");
     }
-/**
- * Metodo che si occupa di attaccare la boardGame.
- *
- * @param row       variabile contenente la riga da attaccare
- * @param col       variabile contenente la colonna da attaccare
- * @param set       oggetto che contiene le impostazioni di gioco
- */
+    /**
+     * Metodo che si occupa di attaccare la boardGame.
+     *
+     * @param row       variabile contenente la riga da attaccare
+     * @param col       variabile contenente la colonna da attaccare
+     * @param set       oggetto che contiene le impostazioni di gioco
+     */
     public void attack(final int row, final String col, final Settings set) {
         int line = row - 1;
         int column = board.convertStringToInt(col);
@@ -181,12 +181,12 @@ public class Game {
             System.exit(0);
         }
     }
-/**
- * Metodo che scopre quale nava è posizionata in una determinata posizione x, y.
- *
- * @param row       variabile contenente la riga da controllare
- * @param col       variabile contenente la colonna da controllare
- */
+    /**
+     * Metodo che scopre quale nava è posizionata in una determinata posizione x, y.
+     *
+     * @param row       variabile contenente la riga da controllare
+     * @param col       variabile contenente la colonna da controllare
+     */
     public Ship guessShip(final int row, final  int col) {
         char column = board.convertIntToChar(col);
         String coordinate = String.valueOf(column).concat(String.valueOf(row));
@@ -225,9 +225,9 @@ public class Game {
         System.out.println("Errore inaspettato!");
         return null;
     }
-/**
- * Metodo che restituisce il numero di cacciatorpedinieri disponibili.
- */
+    /**
+     * Metodo che restituisce il numero di cacciatorpedinieri disponibili.
+     */
     public int getNrAvailableCT() {
         int count = 0;
         for (int i = 0; i < getNrCacciatorpediniere(); i++) {
@@ -237,9 +237,9 @@ public class Game {
         }
         return count;
     }
-/**
- * Metodo che restituisce il numero di incrociatori disponibili.
- */
+    /**
+     * Metodo che restituisce il numero di incrociatori disponibili.
+     */
     public int getNrAvailableIC() {
         int count = 0;
         for (int i = 0; i < getNrIncrociatore(); i++) {
@@ -249,9 +249,9 @@ public class Game {
         }
         return count;
     }
-/**
- * Metodo che restituisce il numero di corazzate disponibili.
- */
+    /**
+     * Metodo che restituisce il numero di corazzate disponibili.
+     */
     public int getNrAvailableCZ() {
         int count = 0;
         for (int i = 0; i < getNrCorazzata(); i++) {
@@ -261,9 +261,9 @@ public class Game {
         }
         return count;
     }
-/**
- * Metodo che restituisce il numero di portaerei disponibili.
- */
+    /**
+     * Metodo che restituisce il numero di portaerei disponibili.
+     */
     public int getNrAvailablePT() {
         int count = 0;
         for (int i = 0; i < getNrPortaerei(); i++) {

@@ -26,7 +26,6 @@ class GameTest {
         Game g = new Game(bFull, set);
         g.shipPlacement();
         assertNotEquals(bFull, bNotFull);
-
     }
     /**
      * In questo test vado a creare una board in cui inserisco tre navi (di tipo diverso), e un'altra board in cui

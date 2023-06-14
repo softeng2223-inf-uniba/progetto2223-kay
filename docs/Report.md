@@ -227,8 +227,11 @@ Questa sezione non è compilata perchè si tratta di un progetto di piccole-medi
 
 # 6. Riepilogo del test
   ![Screen dei Casi di test](./img/casiDiTestUno.png)
+
   Screen dei Casi di test in Visual Studio Code.
+  
   ![Screen dei Casi di test](./img/casiDiTestDue.png)
+  
   Screen dei Casi di test (Su Visual Studio Code, passati con il gradle build).
 # 7. Manuale utente
 ## Pre-Game

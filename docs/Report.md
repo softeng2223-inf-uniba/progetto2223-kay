@@ -185,7 +185,7 @@ container contenente l’applicazione è:
 > docker run --rm -it docker.pkg.github.com/softeng2122-inf-uniba/provaprogetto2223-prova/prova:latest
 
 # 4. System Design
-Questa sezione non è compilata perchè si tratta di un progetto di piccole-medie dimensioni per tanto il gruppo dopo un'analisi del problema ha opportunamente deciso che non avrebbe avuto senso esplicitare un design del sistema.
+Questa sezione non è compilata perchè si tratta di un progetto di piccole-medie dimensioni pertanto il gruppo dopo un'analisi del problema ha opportunamente deciso che non avrebbe avuto senso esplicitare un design del sistema.
 
 # 5. OO Design
 
@@ -226,7 +226,10 @@ Questa sezione non è compilata perchè si tratta di un progetto di piccole-medi
 
 
 # 6. Riepilogo del test
-
+  ![Screen dei Casi di test](./img/casiDiTestUno.png)
+  Screen dei Casi di test in Visual Studio Code.
+  ![Screen dei Casi di test](./img/casiDiTestDue.png)
+  Screen dei Casi di test (Su Visual Studio Code, passati con il gradle build).
 # 7. Manuale utente
 ## Pre-Game
 All’avvio il gioco si interfaccia con l’utente spiegando brevemente in cosa consiste; dopodiché è pronto a ricevere un nuovo comando, tra i seguenti:
@@ -277,7 +280,7 @@ Se il numero di tentativi arriva a 0 la partita terminerà con una sconfitta.
 Il gruppo Kay per la realizzazione di questo progetto si è organizzato seguendo il [codice di condotta](./CODE_OF_CONDUCT.md).
 
 Il gruppo si è coordinato utilizzando le piattaforme di comunicazione Whatsapp,  Discord e Microsoft Teams sui quali venivano condivisi file, immagini e documentazioni oltre che problemi incontrati durante lo sviluppo. Nello specifico su Whatsapp venivano decisi meeting da farsi periodicamente in aggiunta a quelli straordinari quando venivano sollevate questioni importanti, i meeting erano poi svolti sulla piattafroma Discord sul quale è stato creato un server privato di comunicazione contenente diversi canali per mantenere ordine e organizzazione al massimo. 
-Nello specifico i meeting periodici venivano svolti ogni giorno ed avevano la durata di 50/60 minuti, nei quali si aggiornavano i membri del gruppo dello stato di avanzamento dei propri issue e si lavorava collettivamente su issue iù complesse o su problemi tecnici di rilevanza MAJOR. 
+Nello specifico i meeting periodici venivano svolti ogni giorno ed avevano la durata di 50/60 minuti, nei quali si aggiornavano i membri del gruppo dello stato di avanzamento dei propri issue e si lavorava collettivamente su issue più complesse o su problemi tecnici di rilevanza MAJOR. 
 
 # 9. Analisi retrospettiva
 

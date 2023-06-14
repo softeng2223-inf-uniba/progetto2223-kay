@@ -20,7 +20,7 @@ public final class App {
     public static void helpManager(final String[] args) {
         int count = 0;
         for (int i = 0; i < args.length && count < 1; i++) {
-            if (args[i] == "--help" || args[i] == "-h") {
+            if (args[i].equals("--help") || args[i].equals("-h")) {
                 displayHelp();
                 count++;
             }

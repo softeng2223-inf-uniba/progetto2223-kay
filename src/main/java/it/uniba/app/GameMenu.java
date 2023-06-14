@@ -27,9 +27,8 @@ final class GameMenu {
     private static final  int MILLISECINSEC = 1000;
     private static final  int SECINMIN = 60;
     private static Scanner scanner = new Scanner(System.in, "UTF-8");
-    // Errori Checkstyle non risolti: pattern necessari per il funzionamento del menu
-    private static final String regexPre = ".*\\d";
-    private static final String regexIn = "[0-9][0-9]?-[A-Z]";
+    private static final String REGEXPRE = ".*\\d";
+    private static final String REGEXIN = "[0-9][0-9]?-[A-Z]";
     private static Timer timer;
     private static long startingTime;
     /**
@@ -87,7 +86,7 @@ final class GameMenu {
     private static void processCommandPreGame(final String command, final Settings set) {
         int number = 0;
         String regCommand = command;
-        Pattern pattern = Pattern.compile(regexPre);
+        Pattern pattern = Pattern.compile(REGEXPRE);
         Matcher matcher = pattern.matcher(command);
         if (matcher.matches()) {
             String numb = findInt(command);
@@ -249,7 +248,7 @@ final class GameMenu {
      */
     private static void processCommandInGame(final String command, final Game game, final Settings set) {
 
-        Pattern pattern = Pattern.compile(regexIn);
+        Pattern pattern = Pattern.compile(REGEXIN);
         Matcher matcher = pattern.matcher(command);
         String regCommand = command;
 

@@ -21,13 +21,10 @@ class GameTest {
         Board bNotFull = new Board(BOARDSIZESTD);
         Ship corazzata = new Corazzata();
         bNotFull.generateShipsOnBoard(corazzata);
-
         Board bFull = new Board(BOARDSIZESTD);
         Settings set = new Settings();
-
         Game g = new Game(bFull, set);
         g.shipPlacement();
-
         assertNotEquals(bFull, bNotFull);
 
     }
@@ -44,13 +41,10 @@ class GameTest {
         bNotFull.generateShipsOnBoard(corazzata);
         bNotFull.generateShipsOnBoard(incrociatore);
         bNotFull.generateShipsOnBoard(portaerei);
-
         Board bFull = new Board(BOARDSIZELRG);
         Settings set = new Settings();
-
         Game g = new Game(bFull, set);
         g.shipPlacement();
-
         assertNotEquals(bFull, bNotFull);
     }
     /**

@@ -17,7 +17,6 @@ public class Game {
     private Ship[] incrociatore;
     private Ship[] corazzata;
     private Ship[] portaerei;
-
     /**
      * Costruttore della classe Game, per iniare una nuova partita da zero.
      */
